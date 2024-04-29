@@ -7,7 +7,7 @@ namespace Cinema_Project.Models
     public class Actor
     {
         [Key]
-        [Column("actorid")]
+        [Column("actor_id")]
         public int ActorID { get; set; }
         [Column("lastname")]
         public string? LastName { get; set; }
@@ -15,5 +15,7 @@ namespace Cinema_Project.Models
         public string? FirstName { get; set; }
         [Column("birthdate")]
         public DateTime BirthDate { get; set; }
+
+        public ICollection<MovieActor>? MovieActors { get; set; }
     }
 }

@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migration\**" />
+    <Content Remove="Data\Migration\**" />
+    <EmbeddedResource Remove="Data\Migration\**" />
+    <None Remove="Data\Migration\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
       <PrivateAssets>all</PrivateAssets>
@@ -20,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Migration\" />
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>
