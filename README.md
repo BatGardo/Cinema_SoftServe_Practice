@@ -1,1 +1,0 @@
-# Cinema_SoftServe_Practice
