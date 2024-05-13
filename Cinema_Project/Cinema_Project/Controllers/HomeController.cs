@@ -1,9 +1,11 @@
-using Cinema_Project.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Cinema_Project.Models;
 using System.Diagnostics;
 
 namespace Cinema_Project.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
