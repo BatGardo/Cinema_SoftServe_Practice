@@ -13,5 +13,7 @@ namespace Cinema_Project.Models
         [Column("firstname")]
         public string? FirstName { get; set; }
 
+        public ICollection<Ticket>? Tickets { get; set; }
+
     }
 }
