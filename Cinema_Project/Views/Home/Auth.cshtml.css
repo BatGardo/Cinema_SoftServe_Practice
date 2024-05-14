@@ -7,7 +7,7 @@ main {
     display: flex;
     align-items: center;
     min-height: 100vh;
-    background: url("/img/auth-bg.png");
+/*    background: url("/img/auth-bg.png");*/
     background-size: cover;
     background-repeat: no-repeat;
 }

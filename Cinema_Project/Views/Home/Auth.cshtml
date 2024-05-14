@@ -2,26 +2,34 @@
 	ViewData["Title"] = "Authenticaton";
 }
 <div class="container">
-				<div class="row">
-					<div class="auth-reg-container col-lg-6">
-						<form class="auth-container active" id="block1">
-							<div class="auth-caption">LOG <span style="color:#DF0A0A">IN</span></div>
-							<input type="input" placeholder="Login" required>
-							<input type="password" placeholder="Password" required>
-							<input type="submit" value="GO!">
-							<div class="auth-bottom">Don't have an account? <span class="red-text" id="span1">Sign up!</span></div>
-						</form>
-						<form class="auth-container" id="block2">
-							<div class="auth-caption">SIGN <span style="color:#DF0A0A">UP</span></div>
-							<input type="input" placeholder="Login" required>
-							<input type="email" placeholder="Email" required>
-							<input type="password" placeholder="Password" id="password" required>
-							<input type="password" placeholder="Confirm password" id="confirm_password" required>
-							<input type="submit" value="SIGN UP!">
-							<div class="auth-bottom">Already have an account? <span class="red-text" id="span2">Log in!</span>
-							</div>
-						</form>
-					</div>
-					<div class="col-lg-6 guest-container auth-caption ">Stay as <a href="#"><span class="red-text-big">Guest</span></a></div>
+	<div class="row">
+		<div class="auth-reg-container col-lg-6">
+
+			<div class="auth-container active" id="block1">
+				<div class="auth-caption">LOG <span style="color:#DF0A0A">IN</span></div>
+				<input type="input" placeholder="Login" required>
+				<input type="password" placeholder="Password" required>
+				<input type="submit" value="GO!">
+				<div class="auth-bottom">Don't have an account? <span class="red-text" id="span1">Sign up!</span></div>
+			</div>
+
+
+			<div class="auth-container" id="block2">
+				<div class="auth-caption">SIGN <span style="color:#DF0A0A">UP</span></div>
+				<input type="input" placeholder="Login" required>
+				<input type="email" placeholder="Email" required>
+				<input type="password" placeholder="Password" id="password" required>
+				<input type="password" placeholder="Confirm password" id="confirm_password" required>
+				<input type="submit" value="SIGN UP!">
+				<div class="auth-bottom">Already have an account? <span class="red-text" id="span2">Log in!</span>
 				</div>
 			</div>
+
+		</div>
+
+		<div class="col-lg-6 guest-container auth-caption ">Stay as <a href="#"><span class="red-text-big">Guest</span></a></div>
+
+	</div>
+</div>
+
+<script src="/Views/Home/Auth.cshtml.js" asp-append-version="true"></script>
