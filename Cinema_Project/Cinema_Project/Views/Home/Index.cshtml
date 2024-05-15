@@ -1,8 +1,69 @@
-﻿@{
+﻿@model List<Cinema_Project.Models.Movie>
+@{
     ViewData["Title"] = "Home Page";
+    
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<div class="row mb-3">
+    <div class="col">
+        <form method="get" action="@Url.Action("Index", "Home")" id="searchForm">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search by title" name="search" id="searchInput">
+                <button type="submit" class="btn btn-primary" id="searchSubmit">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="moviesContainer">
+    @Html.Partial("_MoviesPartial", Model)
+</div>
+
+
+
+<script>
+    function showMovieDetails(movieId) {
+        $.ajax({
+            url: '@Url.Action("GetMovieDetails", "Home")',
+            type: 'GET',
+            data: { id: movieId },
+            success: function (data) {
+                $('#modalContent').html(data);
+                $('#exampleModal').modal('show');
+            }
+        });
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function () {
+            var searchText = searchInput.value;
+            $.ajax({
+                url: '@Url.Action("Index", "Home")',
+                type: 'GET',
+                data: { search: searchText },
+                success: function (data) {
+                    $('#moviesContainer').replaceWith(data); // Заменяем содержимое контейнера
+                }
+            });
+        });
+    });
+
+</script>
+
+<div class="modal" tabindex="-1" role="dialog" id="exampleModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="modalContent">
+            <!-- Місце для відображення інформації про фільм -->
+        </div>
+    </div>
+</div>
+
+
+

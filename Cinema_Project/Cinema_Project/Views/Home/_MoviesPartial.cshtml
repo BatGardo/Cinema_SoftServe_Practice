@@ -1,0 +1,16 @@
+﻿@model List<Cinema_Project.Models.Movie>
+
+@foreach (var movie in Model)
+{
+    <div class="movie">
+        <h2>@movie.Title</h2>
+        <p>@movie.Description</p>
+        <p>Release Date: @movie.ReleaseDate.ToShortDateString()</p>
+        <p>Duration: @movie.Duration</p>
+        <p>Rating: @movie.Rating</p>
+        <button type="button" class="btn btn-primary btn-sm float-end"
+                onclick="showMovieDetails(@movie.MovieId)">
+            More
+        </button>
+    </div>
+}
