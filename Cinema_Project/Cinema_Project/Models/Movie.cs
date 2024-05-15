@@ -16,7 +16,7 @@ namespace Cinema_Project.Models
         [Column("release_date")]
         public DateTime ReleaseDate { get; set; }
         [Column("duration")]
-        public DateTime Duration { get; set; }
+        public int Duration { get; set; }
         [Column("rating")]
         public float Rating { get; set; }
 
