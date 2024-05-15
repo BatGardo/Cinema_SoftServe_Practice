@@ -64,7 +64,7 @@ namespace Cinema_Project.Migrations
                     title = table.Column<string>(type: "text", nullable: true),
                     description = table.Column<string>(type: "text", nullable: true),
                     release_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    duration = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    duration = table.Column<int>(type: "integer", nullable: false),
                     rating = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>

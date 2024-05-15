@@ -177,8 +177,8 @@ namespace Cinema_Project.Migrations
                         .HasColumnType("text")
                         .HasColumnName("description");
 
-                    b.Property<DateTime>("Duration")
-                        .HasColumnType("timestamp with time zone")
+                    b.Property<int>("Duration")
+                        .HasColumnType("integer")
                         .HasColumnName("duration");
 
                     b.Property<float>("Rating")
