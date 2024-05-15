@@ -4,6 +4,8 @@ using Cinema_Project.Models;
 using System.Diagnostics;
 using Cinema_Project.Migrations;
 using Cinema_Project.Data;
+using Cinema_Project.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema_Project.Controllers
 {
@@ -23,9 +25,13 @@ namespace Cinema_Project.Controllers
 
         public IActionResult Index()
         {
-            var movies = _context.Movies.ToList();
-            return View(movies);
+            var genres = _context.Genres.ToList();
+            var movies = _context.Movies.Include(m => m.MovieGenres).ToList(); // Включаем связанные жанры
+            var viewModel = new MovieGenreViewModel { Movies = movies, Genres = genres };
+            return View(viewModel);
         }
+
+
 
         public IActionResult Privacy()
         {
@@ -47,7 +53,7 @@ namespace Cinema_Project.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(string search)
+        public IActionResult Search(string search)
         {
             List<Movie> movies;
 
@@ -57,11 +63,23 @@ namespace Cinema_Project.Controllers
             }
             else
             {
-                movies = _context.Movies.ToList();
+                movies = new List<Movie>();
             }
 
-            return View(movies);
+            return Json(movies);
         }
+
+        [HttpGet]
+        public IActionResult FilterMovies(List<int> genres)
+        {
+            var movies = _context.Movies
+                .Where(m => m.MovieGenres.Any(g => genres.Contains(g.GenreId)))
+                .Include(m => m.MovieGenres)
+                .ToList();
+
+            return Json(movies);
+        }
+
 
 
     }

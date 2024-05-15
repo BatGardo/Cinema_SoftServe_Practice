@@ -20,6 +20,8 @@ namespace Cinema_Project.Data
         public DbSet<Trailer> Trailers { get; set; }
         public DbSet<Hall> Halls { get; set; }
         public DbSet<Seat> Seats { get; set; }
+        public DbSet<MovieGenre> Movie_Genres { get; set; }
+        public DbSet<MovieActor> Movie_Actors{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
