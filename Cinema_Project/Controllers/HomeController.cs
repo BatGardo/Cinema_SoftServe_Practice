@@ -13,7 +13,7 @@ namespace Cinema_Project.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult index()
         {
             return View();
         }
