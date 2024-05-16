@@ -1,31 +1,53 @@
-﻿using Cinema_Project.Data;
-using Cinema_Project.Models;
-using Cinema_Project.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Cinema_Project.Models;
+using System.Diagnostics;
+using Cinema_Project.Migrations;
+using Cinema_Project.Data;
+using Cinema_Project.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema_Project.Controllers
 {
-    public class SearchController : Controller
+    [Authorize]
+    public class HomeController : Controller
     {
-
-        private readonly ILogger<SearchController> _logger;
+        private readonly ILogger<HomeController> _logger;
         private readonly AppDbContext _context;
 
-        public SearchController(ILogger<SearchController> logger, AppDbContext context)
+        public HomeController(ILogger<HomeController> logger, AppDbContext context)
         {
             _logger = logger;
             _context = context;
         }
 
 
-        public IActionResult MainLogic()
+        public IActionResult Index()
         {
             var genres = _context.Genres.ToList();
-            var movies = _context.Movies.Include(m => m.MovieGenres).ToList(); // Включаем связанные жанры
+            var movies = _context.Movies.Include(m => m.MovieGenres).ToList();
             var viewModel = new MovieGenreViewModel { Movies = movies, Genres = genres };
             return View(viewModel);
         }
+
+        
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
+
+
 
         [HttpGet]
         public IActionResult GetMovieDetails(int id)

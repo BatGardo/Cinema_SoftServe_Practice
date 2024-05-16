@@ -17,7 +17,7 @@ namespace Cinema_Project.Controllers
             this.userManager = userManager;
         }
 
-        public IActionResult Login()
+        public IActionResult Auth()
         {
             return View();
         }

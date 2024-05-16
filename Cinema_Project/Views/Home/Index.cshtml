@@ -1,0 +1,178 @@
+@model Cinema_Project.ViewModels.MovieGenreViewModel
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/css/swiffy-slider.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+
+    <link rel="stylesheet" href="~/css/index-style.css">
+
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+</head>
+
+<body>
+    <main>
+        <h1 class="slider-caption"><b>POPULAR <span style="color:red;">NOW</span></b></h1>
+        <div class="slider-container-2">
+            <div class="swiffy-slider slider-item-show2-sm slider-item-reveal slider-item-ratio
+             slider-item-nogap slider-item-nosnap-touch slider-nav-arrow slider-nav-visible
+             slider-nav-autohide slider-nav-page slider-indicators-round slider-indicators-outside slider-nav-animation slider-nav-animation-scale"
+                data-slider-nav-autoplay-interval="5000">
+                <ul class="slider-container">
+
+
+
+
+
+
+                    @* Треба фіксанути відображення останнього слайду і розмірність*@
+                    @foreach (var movie in Model.Movies)
+                    {
+                        <li class="slide-invisible slide-visible">
+
+                            <div class="single-slide" id="@movie.MovieId" style="background-image: url('@Url.Content("~/img/" + movie.Title + ".jpg")');">
+                                <div class="film-info-container">
+                                    <div class="film-rating">@movie.Rating</div>
+                                    <div class="film-name">@movie.Title</div>
+                                    <div class="film-elem"><b>Categories: </b>
+                                    @foreach (var genre in movie.MovieGenres)
+                                    {
+                                            <span>@genre.Genre.Title</span>
+                                    }
+                                    </div>
+                                    <div class="film-elem"><b>Year: </b>@movie.ReleaseDate.ToShortDateString()</div>
+                                    <div class="film-elem"><b>Duration:</b>@movie.Duration</div>
+                                    <div class="film-elem"><b>Stars:</b> Vicky Kaushal, Paresh Rawal, Mohit Raina</div>
+                                    <div class="film-elem"><b>Description:</b>@movie.Description</div>
+                                    <div class="film-buttons">
+                                        <input type="button" class="film-buy-tickets" value="Buy tickets">
+                                        <div class="film-trailer-button">
+                                            <p>Watch Trailer</p>
+                                        </div>
+                                    </div>
+                                </div>
+                        </li>
+                    }
+                    @* Треба фіксанути відображення останнього слайду і розмірність*@
+
+
+
+
+
+
+
+
+
+
+                </ul>
+                <button type="button" class="slider-nav left-button"></button>
+                <button type="button" class="slider-nav slider-nav-next right-button"></button>
+            </div>
+        </div>
+
+
+
+        <h1>Slider</h1>
+        <div class="slider-wrapper">
+            <ul class="slider-items">
+
+
+
+
+
+                <div id="moviesContainer">
+                    @foreach (var movie in Model.Movies)
+                    {
+                        <img class="reel-svg" src="./img/reel_start.svg" alt="SVG Icon">
+                        <li class="slider-item movie" id="slider-item" data-genres="@string.Join(",", movie.MovieGenres.Select(g => g.GenreId))"
+                            style="background-image: url('@("https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_.jpg")');">
+                        <div class="slider-film-name">@movie.Title</div>
+                        <div class="slider-film-slogan">
+                            @foreach (var genre in movie.MovieGenres)
+                            {
+                            <span>@genre.Genre.Title</span>
+                            }
+                        </div>
+                        <div class="slider-film-year">@movie.ReleaseDate.ToShortDateString()</div>
+                            <input type="button" class="slider-film-button" value="Трейлер">
+                        </li>
+
+@*                             <h2>@movie.Title</h2>
+                            <p>@movie.Description</p>
+                            <p>Release Date: </p>
+                            <p>Duration: @movie.Duration</p>
+                            <p>Rating: @movie.Rating</p>
+                            <p>
+                                Genres:
+                                @if (movie.MovieGenres != null)
+                                {
+                                    @foreach (var genre in movie.MovieGenres)
+                                    {
+                                        <span>@genre.Genre.Title</span>
+                                    }
+                                }
+                            </p>
+                            <button type="button" class="btn btn-primary btn-sm float-end"
+                                    onclick="showMovieDetails(@movie.MovieId)">
+                                More
+                            </button>*@
+                    }
+
+                    @* Зміни на закриваючий IMG *@
+                <img class="reel-svg" src="./img/reel_start.svg" alt="SVG Icon">
+
+                </div>
+
+
+
+        <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <video id="videoPlayer" width="100%" height="70%" controls volume="0">
+                <source src="~/img/trailer.mp4" type="video/mp4">
+            </video>
+            <div class="text-block">
+                <p>This is a sample text block that you can scroll if needed. You can add your own content here.</p>
+                <p>This is a sample text block that you can scroll if needed. You can add your own content here.</p>
+                <p>This is a sample text block that you can scroll if needed. You can add your own content here.</p>
+                <p>This is a sample text block that you can scroll if needed. You can add your own content here.</p>
+                <p>This is a sample text block that you can scroll if needed. You can add your own content here.</p>
+                <p>This is a sample text block that you can scroll if needed. You can add your own content here.</p>
+                <p>This is a sample text block that you can scroll if needed. You can add your own content here.</p>
+                <p>This is a sample text block that you can scroll if needed. You can add your own content here.</p>
+            </div>
+        </div>
+    </main>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="~/js/test.js"></script>
+    <script src="~/js/seach-button.js"></script>
+    <script src="~/js/slider.js"></script>
+    <script src="~/js/swiper.js"></script>
+    <script src="~/js/trailer-modal.js"></script>
+
+</body>
+
+</html>
