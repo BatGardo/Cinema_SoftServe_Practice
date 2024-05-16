@@ -18,7 +18,7 @@ namespace Cinema_Project.Controllers
 
 
 
-        public IActionResult Index()
+        public IActionResult index()
         {
             return View();
         }
@@ -26,6 +26,11 @@ namespace Cinema_Project.Controllers
 
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Auth()
         {
             return View();
         }
