@@ -1,6 +1,8 @@
 header {
   height: 80px;
   background-color: black;
+  z-index: 2;
+  position: relative;
 }
 
 .navbar-logo {
@@ -65,14 +67,13 @@ header {
   color: rgba(255, 255, 255, 0);
   /* RGBA колір з альфа-каналом (прозорістю) 0 */
   font-size: 20px;
-  text-transform: uppercase;
   transition: 0.8s;
 }
 
 .search-inclicked {
   width: 360px;
   border-radius: 0;
-  padding: 0 15px;
+  padding: 0 5px;
   padding-right: 40px;
   color: rgba(255, 255, 255, 1);
   /* RGBA колір з альфа-каналом (прозорістю) 0 */
@@ -156,4 +157,88 @@ header {
   align-items: center;
   justify-content: center;
   margin-left: 20px;
+}
+
+.user-info{
+  position: relative;
+  display: flex;
+  z-index: 2;
+}
+.user-info-container{
+  position: relative;
+  z-index: 2;
+}
+.user-info-container:hover > .user-buttons{
+  z-index: 1;
+  transition: transform 0.5s ease 0s;
+  transform: translateY(0px);
+}
+.user-buttons>*{
+  transition: opacity 0.25s ease 0s;
+  opacity: 0;
+}
+.user-info-container:hover > .user-buttons>*{
+  transition: opacity 0.25s ease 0.25s;
+  opacity: 1;
+}
+.user-buttons{
+  position: absolute;
+  top: 50px;
+  height: 140px;
+  width: 210px;
+  left: 30px;
+  background-color: black;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  font-family: "Archivo", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 22px;
+  color: #fff;
+  padding: 17px 35px;
+  text-wrap: nowrap;
+  z-index: -1;
+  transform: translateY(-140px);
+  transition: 0.5s;
+}
+.user-profile{
+  position: relative;
+  padding:  0px 0px 15px 25px;
+}
+.user-profile:before{
+  position: absolute;
+  content: '';
+  background-image: url("../img/user-frame.png");
+  width: 33px;
+  height: 33px;
+  background-repeat: no-repeat;
+  left:-5px;
+}
+.log-out{
+  position: relative;
+padding:  15px 0px 0px 25px;
+}
+.log-out:before{
+  position: absolute;
+  content: '';
+  background-image: url("../img/logout-frame.png");
+  width: 27px;
+  height: 27px;
+  background-repeat: no-repeat;
+  left:-5px;
+}
+.user-line{
+  height: 2px;
+  background-color: #FFFFFF;
+  width: 135px;
+}
+
+.user-profile-link > a{
+  text-decoration: none;
+  color: white !important;
+}
+
+.user-logout-link > a{
+  text-decoration: none;
+  color: #EB1E1E !important;
 }
