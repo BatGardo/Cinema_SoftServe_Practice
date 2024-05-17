@@ -17,6 +17,7 @@ header {
   height: 80px !important;
   align-items: center;
 }
+
 .navbar-element {
   position: relative;
   font-family: "Archivo", sans-serif;
@@ -49,7 +50,6 @@ header {
 }
 .search-box {
   position: relative;
-  margin-top: 15px;
   margin-left: 45px;
 }
 
