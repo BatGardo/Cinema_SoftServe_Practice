@@ -1,17 +1,18 @@
-﻿using Cinema_Project.Models;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Cinema_Project.Models;
 
 namespace Cinema_Project.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class AppDbContext : IdentityDbContext<AppUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
+
         }
 
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Genre> Genres { get; set; }
@@ -19,11 +20,13 @@ namespace Cinema_Project.Data
         public DbSet<Trailer> Trailers { get; set; }
         public DbSet<Hall> Halls { get; set; }
         public DbSet<Seat> Seats { get; set; }
+        public DbSet<MovieGenre> Movie_Genres { get; set; }
+        public DbSet<MovieActor> Movie_Actors{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<ApplicationUser>()
+            modelBuilder.Entity<AppUser>()
                 .HasMany(u => u.Tickets)
                 .WithOne()
                 .HasForeignKey(t => t.UserId);
@@ -66,11 +69,16 @@ namespace Cinema_Project.Data
                 .WithMany(g => g.MovieActors)
                 .HasForeignKey(ma => ma.ActorId);
 
-            
+
             modelBuilder.Entity<Hall>()
                 .HasMany(h => h.Tickets)
                 .WithOne()
                 .HasForeignKey(t => t.HallId);
+
+            modelBuilder.Entity<Seat>()
+                .HasMany(h => h.Tickets)
+                .WithOne()
+                .HasForeignKey(t => t.SeatId);
 
             modelBuilder.Entity<Hall>()
                 .HasMany(h => h.Seats)

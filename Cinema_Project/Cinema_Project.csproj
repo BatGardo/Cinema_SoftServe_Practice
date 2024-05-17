@@ -1,51 +1,57 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-Cinema_Project-aeaa4fda-bcdc-4f1a-90fc-0116de669480</UserSecretsId>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>aspnet-Cinema_Project-aeaa4fda-bcdc-4f1a-90fc-0116de669480</UserSecretsId>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\css\header-style.css" />
-    <None Include="wwwroot\css\index-style.css" />
-    <None Include="wwwroot\img\auth-bg.png" />
-    <None Include="wwwroot\img\bg_art.png" />
-    <None Include="wwwroot\img\cinema logo.svg" />
-    <None Include="wwwroot\img\cinema-logo.png" />
-    <None Include="wwwroot\img\landing-bg.png" />
-    <None Include="wwwroot\img\lower_reel.png" />
-    <None Include="wwwroot\img\play.svg" />
-    <None Include="wwwroot\img\popcorn.png" />
-    <None Include="wwwroot\img\poster1.jpg" />
-    <None Include="wwwroot\img\poster2.jpg" />
-    <None Include="wwwroot\img\projector-svgrepo-com.png" />
-    <None Include="wwwroot\img\reel_end.svg" />
-    <None Include="wwwroot\img\reel_start.svg" />
-    <None Include="wwwroot\img\shadow_vector.svg" />
-    <None Include="wwwroot\img\star.png" />
-    <None Include="wwwroot\img\trailer.mp4" />
-    <None Include="wwwroot\img\upper_reel.png" />
-    <None Include="wwwroot\img\user_profile_icon.svg" />
-    <None Include="wwwroot\js\reg-auth-swap.js" />
-    <None Include="wwwroot\js\seach-button.js" />
-    <None Include="wwwroot\js\slider.js" />
-    <None Include="wwwroot\js\swiper.js" />
-    <None Include="wwwroot\js\trailer-modal.js" />
+	<ItemGroup>
+	  <Compile Remove="index\**" />
+	  <Content Remove="index\**" />
+	  <EmbeddedResource Remove="index\**" />
+	  <None Remove="index\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="wwwroot\css\header-style.css" />
+		<None Include="wwwroot\css\index-style.css" />
+		<None Include="wwwroot\img\auth-bg.png" />
+		<None Include="wwwroot\img\bg_art.png" />
+		<None Include="wwwroot\img\cinema logo.svg" />
+		<None Include="wwwroot\img\cinema-logo.png" />
+		<None Include="wwwroot\img\landing-bg.png" />
+		<None Include="wwwroot\img\lower_reel.png" />
+		<None Include="wwwroot\img\play.svg" />
+		<None Include="wwwroot\img\popcorn.png" />
+		<None Include="wwwroot\img\poster1.jpg" />
+		<None Include="wwwroot\img\poster2.jpg" />
+		<None Include="wwwroot\img\projector-svgrepo-com.png" />
+		<None Include="wwwroot\img\reel_end.svg" />
+		<None Include="wwwroot\img\reel_start.svg" />
+		<None Include="wwwroot\img\shadow_vector.svg" />
+		<None Include="wwwroot\img\star.png" />
+		<None Include="wwwroot\img\trailer.mp4" />
+		<None Include="wwwroot\img\upper_reel.png" />
+		<None Include="wwwroot\img\user_profile_icon.svg" />
+		<None Include="wwwroot\js\reg-auth-swap.js" />
+		<None Include="wwwroot\js\seach-button.js" />
+		<None Include="wwwroot\js\slider.js" />
+		<None Include="wwwroot\js\swiper.js" />
+		<None Include="wwwroot\js\trailer-modal.js" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.4" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="index\script\" />
-    <Folder Include="index\style\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

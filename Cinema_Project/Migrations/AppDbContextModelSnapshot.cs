@@ -3,113 +3,106 @@ using System;
 using Cinema_Project.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Cinema_Project.Data.Migrations
+namespace Cinema_Project.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240506193044_Implemented database")]
-    partial class Implementeddatabase
+    [DbContext(typeof(AppDbContext))]
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.4")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Cinema_Project.Models.Actor", b =>
                 {
-                    b.Property<int>("ActorID")
+                    b.Property<int>("ActorId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("actor_id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ActorID"));
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("birthdate");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ActorId"));
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("text")
                         .HasColumnName("firstname");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("text")
                         .HasColumnName("lastname");
 
-                    b.HasKey("ActorID");
+                    b.HasKey("ActorId");
 
                     b.ToTable("actor");
                 });
 
-            modelBuilder.Entity("Cinema_Project.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Cinema_Project.Models.AppUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("text")
                         .HasColumnName("firstname");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("text")
                         .HasColumnName("lastname");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
@@ -118,8 +111,7 @@ namespace Cinema_Project.Data.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -128,13 +120,13 @@ namespace Cinema_Project.Data.Migrations
                 {
                     b.Property<int>("GenreId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("genre_id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenreId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("GenreId"));
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("text")
                         .HasColumnName("title");
 
                     b.HasKey("GenreId");
@@ -146,21 +138,21 @@ namespace Cinema_Project.Data.Migrations
                 {
                     b.Property<int>("HallId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("hall_id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HallId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("HallId"));
 
-                    b.Property<int>("HallNumber")
-                        .HasColumnType("int")
+                    b.Property<int?>("HallNumber")
+                        .HasColumnType("integer")
                         .HasColumnName("hall_number");
 
-                    b.Property<bool>("IsReserved")
-                        .HasColumnType("bit")
+                    b.Property<bool?>("IsReserved")
+                        .HasColumnType("boolean")
                         .HasColumnName("is_reserved");
 
-                    b.Property<int>("SeatCount")
-                        .HasColumnType("int")
+                    b.Property<int?>("SeatCount")
+                        .HasColumnType("integer")
                         .HasColumnName("seat_count");
 
                     b.HasKey("HallId");
@@ -172,29 +164,29 @@ namespace Cinema_Project.Data.Migrations
                 {
                     b.Property<int>("MovieId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("movie_id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MovieId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MovieId"));
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("text")
                         .HasColumnName("description");
 
-                    b.Property<DateTime>("Duration")
-                        .HasColumnType("datetime2")
+                    b.Property<int?>("Duration")
+                        .HasColumnType("integer")
                         .HasColumnName("duration");
 
-                    b.Property<float>("Rating")
+                    b.Property<float?>("Rating")
                         .HasColumnType("real")
                         .HasColumnName("rating");
 
                     b.Property<DateTime>("ReleaseDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("release_date");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("text")
                         .HasColumnName("title");
 
                     b.HasKey("MovieId");
@@ -205,16 +197,19 @@ namespace Cinema_Project.Data.Migrations
             modelBuilder.Entity("Cinema_Project.Models.MovieActor", b =>
                 {
                     b.Property<int>("MovieId")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("movie_id");
 
                     b.Property<int>("ActorId")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("actor_id");
 
                     b.Property<int>("MovieActorId")
-                        .HasColumnType("int")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("movie_actor_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MovieActorId"));
 
                     b.HasKey("MovieId", "ActorId");
 
@@ -226,16 +221,19 @@ namespace Cinema_Project.Data.Migrations
             modelBuilder.Entity("Cinema_Project.Models.MovieGenre", b =>
                 {
                     b.Property<int>("MovieId")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("movie_id");
 
                     b.Property<int>("GenreId")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("genre_id");
 
                     b.Property<int>("MovieGenreId")
-                        .HasColumnType("int")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("movie_genre_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MovieGenreId"));
 
                     b.HasKey("MovieId", "GenreId");
 
@@ -248,25 +246,25 @@ namespace Cinema_Project.Data.Migrations
                 {
                     b.Property<int>("SeatId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("seat_id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SeatId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("SeatId"));
 
                     b.Property<int>("HallId")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("hall_id");
 
-                    b.Property<bool>("IsReserved")
-                        .HasColumnType("bit")
+                    b.Property<bool?>("IsReserved")
+                        .HasColumnType("boolean")
                         .HasColumnName("is_reserved");
 
-                    b.Property<int>("RowNumber")
-                        .HasColumnType("int")
+                    b.Property<int?>("RowNumber")
+                        .HasColumnType("integer")
                         .HasColumnName("row_number");
 
-                    b.Property<int>("SeatNumber")
-                        .HasColumnType("int")
+                    b.Property<int?>("SeatNumber")
+                        .HasColumnType("integer")
                         .HasColumnName("seat_number");
 
                     b.HasKey("SeatId");
@@ -280,33 +278,33 @@ namespace Cinema_Project.Data.Migrations
                 {
                     b.Property<int>("TicketId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("ticket_id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TicketId"));
-
-                    b.Property<int>("Hall")
-                        .HasColumnType("int")
-                        .HasColumnName("hall");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TicketId"));
 
                     b.Property<int>("HallId")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("hall_id");
 
                     b.Property<int>("MovieId")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("movie_id");
 
-                    b.Property<string>("Price")
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<float?>("Price")
+                        .HasColumnType("real")
                         .HasColumnName("price");
 
+                    b.Property<int>("SeatId")
+                        .HasColumnType("integer")
+                        .HasColumnName("seat_id");
+
                     b.Property<DateTime>("Showtime")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("showtime");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)")
+                        .HasColumnType("text")
                         .HasColumnName("user_id");
 
                     b.HasKey("TicketId");
@@ -314,6 +312,8 @@ namespace Cinema_Project.Data.Migrations
                     b.HasIndex("HallId");
 
                     b.HasIndex("MovieId");
+
+                    b.HasIndex("SeatId");
 
                     b.HasIndex("UserId");
 
@@ -324,21 +324,21 @@ namespace Cinema_Project.Data.Migrations
                 {
                     b.Property<int>("TrailerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("trailer_id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TrailerId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TrailerId"));
 
                     b.Property<int>("MovieId")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("movie_id");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("text")
                         .HasColumnName("title");
 
                     b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("text")
                         .HasColumnName("url");
 
                     b.HasKey("TrailerId");
@@ -351,26 +351,25 @@ namespace Cinema_Project.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
                 });
@@ -379,19 +378,19 @@ namespace Cinema_Project.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -404,19 +403,19 @@ namespace Cinema_Project.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -428,19 +427,17 @@ namespace Cinema_Project.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -452,10 +449,10 @@ namespace Cinema_Project.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -467,18 +464,16 @@ namespace Cinema_Project.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -546,7 +541,13 @@ namespace Cinema_Project.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Cinema_Project.Models.ApplicationUser", "User")
+                    b.HasOne("Cinema_Project.Models.Seat", null)
+                        .WithMany("Tickets")
+                        .HasForeignKey("SeatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Cinema_Project.Models.AppUser", "User")
                         .WithMany("Tickets")
                         .HasForeignKey("UserId");
 
@@ -575,7 +576,7 @@ namespace Cinema_Project.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Cinema_Project.Models.ApplicationUser", null)
+                    b.HasOne("Cinema_Project.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -584,7 +585,7 @@ namespace Cinema_Project.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Cinema_Project.Models.ApplicationUser", null)
+                    b.HasOne("Cinema_Project.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -599,7 +600,7 @@ namespace Cinema_Project.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Cinema_Project.Models.ApplicationUser", null)
+                    b.HasOne("Cinema_Project.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -608,7 +609,7 @@ namespace Cinema_Project.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Cinema_Project.Models.ApplicationUser", null)
+                    b.HasOne("Cinema_Project.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -620,7 +621,7 @@ namespace Cinema_Project.Data.Migrations
                     b.Navigation("MovieActors");
                 });
 
-            modelBuilder.Entity("Cinema_Project.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Cinema_Project.Models.AppUser", b =>
                 {
                     b.Navigation("Tickets");
                 });
@@ -646,6 +647,11 @@ namespace Cinema_Project.Data.Migrations
                     b.Navigation("Tickets");
 
                     b.Navigation("Trailers");
+                });
+
+            modelBuilder.Entity("Cinema_Project.Models.Seat", b =>
+                {
+                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }

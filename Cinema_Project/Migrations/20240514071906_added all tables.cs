@@ -1,37 +1,26 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Cinema_Project.Data.Migrations
+namespace Cinema_Project.Migrations
 {
     /// <inheritdoc />
-    public partial class Implementeddatabase : Migration
+    public partial class addedalltables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "firstname",
-                table: "AspNetUsers",
-                type: "nvarchar(max)",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "lastname",
-                table: "AspNetUsers",
-                type: "nvarchar(max)",
-                nullable: true);
-
             migrationBuilder.CreateTable(
                 name: "actor",
                 columns: table => new
                 {
-                    actor_id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    firstname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    lastname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    birthdate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    actor_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    firstname = table.Column<string>(type: "text", nullable: true),
+                    lastname = table.Column<string>(type: "text", nullable: true),
+                    birthdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,9 +31,9 @@ namespace Cinema_Project.Data.Migrations
                 name: "genre",
                 columns: table => new
                 {
-                    genre_id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    title = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    genre_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    title = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -55,11 +44,11 @@ namespace Cinema_Project.Data.Migrations
                 name: "hall",
                 columns: table => new
                 {
-                    hall_id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    hall_number = table.Column<int>(type: "int", nullable: false),
-                    seat_count = table.Column<int>(type: "int", nullable: false),
-                    is_reserved = table.Column<bool>(type: "bit", nullable: false)
+                    hall_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    hall_number = table.Column<int>(type: "integer", nullable: false),
+                    seat_count = table.Column<int>(type: "integer", nullable: false),
+                    is_reserved = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,12 +59,12 @@ namespace Cinema_Project.Data.Migrations
                 name: "movie",
                 columns: table => new
                 {
-                    movie_id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    release_date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    duration = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    movie_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    title = table.Column<string>(type: "text", nullable: true),
+                    description = table.Column<string>(type: "text", nullable: true),
+                    release_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    duration = table.Column<int>(type: "integer", nullable: false),
                     rating = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
@@ -87,12 +76,12 @@ namespace Cinema_Project.Data.Migrations
                 name: "seat",
                 columns: table => new
                 {
-                    seat_id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    row_number = table.Column<int>(type: "int", nullable: false),
-                    seat_number = table.Column<int>(type: "int", nullable: false),
-                    is_reserved = table.Column<bool>(type: "bit", nullable: false),
-                    hall_id = table.Column<int>(type: "int", nullable: false)
+                    seat_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    row_number = table.Column<int>(type: "integer", nullable: false),
+                    seat_number = table.Column<int>(type: "integer", nullable: false),
+                    is_reserved = table.Column<bool>(type: "boolean", nullable: false),
+                    hall_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -109,9 +98,9 @@ namespace Cinema_Project.Data.Migrations
                 name: "movie_actor",
                 columns: table => new
                 {
-                    movie_id = table.Column<int>(type: "int", nullable: false),
-                    actor_id = table.Column<int>(type: "int", nullable: false),
-                    movie_actor_id = table.Column<int>(type: "int", nullable: false)
+                    movie_id = table.Column<int>(type: "integer", nullable: false),
+                    actor_id = table.Column<int>(type: "integer", nullable: false),
+                    movie_actor_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -134,9 +123,9 @@ namespace Cinema_Project.Data.Migrations
                 name: "movie_genre",
                 columns: table => new
                 {
-                    movie_id = table.Column<int>(type: "int", nullable: false),
-                    genre_id = table.Column<int>(type: "int", nullable: false),
-                    movie_genre_id = table.Column<int>(type: "int", nullable: false)
+                    movie_id = table.Column<int>(type: "integer", nullable: false),
+                    genre_id = table.Column<int>(type: "integer", nullable: false),
+                    movie_genre_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -159,14 +148,14 @@ namespace Cinema_Project.Data.Migrations
                 name: "ticket",
                 columns: table => new
                 {
-                    ticket_id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    price = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    showtime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    hall = table.Column<int>(type: "int", nullable: false),
-                    movie_id = table.Column<int>(type: "int", nullable: false),
-                    hall_id = table.Column<int>(type: "int", nullable: false),
-                    user_id = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ticket_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    price = table.Column<float>(type: "real", nullable: true),
+                    showtime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    hall = table.Column<int>(type: "integer", nullable: false),
+                    movie_id = table.Column<int>(type: "integer", nullable: false),
+                    hall_id = table.Column<int>(type: "integer", nullable: false),
+                    user_id = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -194,11 +183,11 @@ namespace Cinema_Project.Data.Migrations
                 name: "trailer",
                 columns: table => new
                 {
-                    trailer_id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    url = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    movie_id = table.Column<int>(type: "int", nullable: false)
+                    trailer_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    title = table.Column<string>(type: "text", nullable: true),
+                    url = table.Column<string>(type: "text", nullable: true),
+                    movie_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -276,14 +265,6 @@ namespace Cinema_Project.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "movie");
-
-            migrationBuilder.DropColumn(
-                name: "firstname",
-                table: "AspNetUsers");
-
-            migrationBuilder.DropColumn(
-                name: "lastname",
-                table: "AspNetUsers");
         }
     }
 }
