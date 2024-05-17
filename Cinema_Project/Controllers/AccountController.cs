@@ -19,45 +19,44 @@ namespace Cinema_Project.Controllers
 
         public IActionResult Auth()
         {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginVM model)
-        {
-            if (ModelState.IsValid) 
+            var model = new CombinedAuthorizationViewModel
             {
-                //login
-                var result = await signInManager.PasswordSignInAsync(model.Username!, model.Password!, model.RememberMe, false);
-                if (result.Succeeded) { 
-                return RedirectToAction("Index", "Home");
-                }
-                ModelState.AddModelError("", "Invalid login attempt");
-                return View(model);
-            }
+                LoginVM = new LoginVM(),
+                RegisterVM = new RegisterVM()
+            };
             return View(model);
         }
 
-        public IActionResult Register()
+        [HttpPost]
+        public async Task<IActionResult> Login(CombinedAuthorizationViewModel model)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var result = await signInManager.PasswordSignInAsync(model.LoginVM.Username!, model.LoginVM.Password!, model.LoginVM.RememberMe, false);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("", "Invalid login attempt");
+            }
+            return View("Auth", model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterVM model)
+        public async Task<IActionResult> Register(CombinedAuthorizationViewModel model)
         {
             if (ModelState.IsValid)
             {
                 AppUser user = new AppUser
                 {
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    Email = model.Email,
-                    UserName = model.UserName,
-                    PhoneNumber = model.PhoneNumber
+                    FirstName = model.RegisterVM.FirstName,
+                    LastName = model.RegisterVM.LastName,
+                    Email = model.RegisterVM.Email,
+                    UserName = model.RegisterVM.UserName,
+                    PhoneNumber = model.RegisterVM.PhoneNumber
                 };
 
-                var result = await userManager.CreateAsync(user, model.Password!);
+                var result = await userManager.CreateAsync(user, model.RegisterVM.Password!);
 
                 if (result.Succeeded)
                 {
@@ -70,8 +69,7 @@ namespace Cinema_Project.Controllers
                     ModelState.AddModelError("", error.Description);
                 }
             }
-
-            return View(model);
+            return View("Auth", model);
         }
 
         public async Task<IActionResult> Logout()
@@ -80,5 +78,4 @@ namespace Cinema_Project.Controllers
             return RedirectToAction("Index", "Home");
         }
     }
-
 }
