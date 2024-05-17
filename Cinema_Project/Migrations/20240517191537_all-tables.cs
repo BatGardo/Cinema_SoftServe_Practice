@@ -7,11 +7,25 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Cinema_Project.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class alltables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "actor",
+                columns: table => new
+                {
+                    actor_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    firstname = table.Column<string>(type: "text", nullable: true),
+                    lastname = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_actor", x => x.actor_id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -51,6 +65,36 @@ namespace Cinema_Project.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "genre",
+                columns: table => new
+                {
+                    genre_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    title = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_genre", x => x.genre_id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "movie",
+                columns: table => new
+                {
+                    movie_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    title = table.Column<string>(type: "text", nullable: true),
+                    description = table.Column<string>(type: "text", nullable: true),
+                    release_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    duration = table.Column<int>(type: "integer", nullable: true),
+                    rating = table.Column<float>(type: "real", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_movie", x => x.movie_id);
                 });
 
             migrationBuilder.CreateTable(
@@ -159,6 +203,109 @@ namespace Cinema_Project.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "movie_actor",
+                columns: table => new
+                {
+                    movie_id = table.Column<int>(type: "integer", nullable: false),
+                    actor_id = table.Column<int>(type: "integer", nullable: false),
+                    movie_actor_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_movie_actor", x => new { x.movie_id, x.actor_id });
+                    table.ForeignKey(
+                        name: "FK_movie_actor_actor_actor_id",
+                        column: x => x.actor_id,
+                        principalTable: "actor",
+                        principalColumn: "actor_id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_movie_actor_movie_movie_id",
+                        column: x => x.movie_id,
+                        principalTable: "movie",
+                        principalColumn: "movie_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "movie_genre",
+                columns: table => new
+                {
+                    movie_id = table.Column<int>(type: "integer", nullable: false),
+                    genre_id = table.Column<int>(type: "integer", nullable: false),
+                    movie_genre_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_movie_genre", x => new { x.movie_id, x.genre_id });
+                    table.ForeignKey(
+                        name: "FK_movie_genre_genre_genre_id",
+                        column: x => x.genre_id,
+                        principalTable: "genre",
+                        principalColumn: "genre_id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_movie_genre_movie_movie_id",
+                        column: x => x.movie_id,
+                        principalTable: "movie",
+                        principalColumn: "movie_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ticket",
+                columns: table => new
+                {
+                    ticket_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    price = table.Column<float>(type: "real", nullable: true),
+                    showtime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    hall_number = table.Column<int>(type: "integer", nullable: true),
+                    row_number = table.Column<int>(type: "integer", nullable: true),
+                    seat_number = table.Column<int>(type: "integer", nullable: true),
+                    movie_id = table.Column<int>(type: "integer", nullable: false),
+                    user_id = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ticket", x => x.ticket_id);
+                    table.ForeignKey(
+                        name: "FK_ticket_AspNetUsers_user_id",
+                        column: x => x.user_id,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ticket_movie_movie_id",
+                        column: x => x.movie_id,
+                        principalTable: "movie",
+                        principalColumn: "movie_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "trailer",
+                columns: table => new
+                {
+                    trailer_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    title = table.Column<string>(type: "text", nullable: true),
+                    url = table.Column<string>(type: "text", nullable: true),
+                    movie_id = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_trailer", x => x.trailer_id);
+                    table.ForeignKey(
+                        name: "FK_trailer_movie_movie_id",
+                        column: x => x.movie_id,
+                        principalTable: "movie",
+                        principalColumn: "movie_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -195,6 +342,31 @@ namespace Cinema_Project.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_movie_actor_actor_id",
+                table: "movie_actor",
+                column: "actor_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_movie_genre_genre_id",
+                table: "movie_genre",
+                column: "genre_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ticket_movie_id",
+                table: "ticket",
+                column: "movie_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ticket_user_id",
+                table: "ticket",
+                column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_trailer_movie_id",
+                table: "trailer",
+                column: "movie_id");
         }
 
         /// <inheritdoc />
@@ -216,10 +388,31 @@ namespace Cinema_Project.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "movie_actor");
+
+            migrationBuilder.DropTable(
+                name: "movie_genre");
+
+            migrationBuilder.DropTable(
+                name: "ticket");
+
+            migrationBuilder.DropTable(
+                name: "trailer");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "actor");
+
+            migrationBuilder.DropTable(
+                name: "genre");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "movie");
         }
     }
 }
