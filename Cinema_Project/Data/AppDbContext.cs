@@ -18,10 +18,8 @@ namespace Cinema_Project.Data
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Trailer> Trailers { get; set; }
-        public DbSet<Hall> Halls { get; set; }
-        public DbSet<Seat> Seats { get; set; }
         public DbSet<MovieGenre> Movie_Genres { get; set; }
-        public DbSet<MovieActor> Movie_Actors{ get; set; }
+        public DbSet<MovieActor> Movie_Actors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -68,22 +66,6 @@ namespace Cinema_Project.Data
                 .HasOne(ma => ma.Actor)
                 .WithMany(g => g.MovieActors)
                 .HasForeignKey(ma => ma.ActorId);
-
-
-            modelBuilder.Entity<Hall>()
-                .HasMany(h => h.Tickets)
-                .WithOne()
-                .HasForeignKey(t => t.HallId);
-
-            modelBuilder.Entity<Seat>()
-                .HasMany(h => h.Tickets)
-                .WithOne()
-                .HasForeignKey(t => t.SeatId);
-
-            modelBuilder.Entity<Hall>()
-                .HasMany(h => h.Seats)
-                .WithOne()
-                .HasForeignKey(t => t.HallId);
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Cinema_Project.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Cinema_Project.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240517191537_all-tables")]
+    partial class alltables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,32 +137,6 @@ namespace Cinema_Project.Migrations
                     b.ToTable("genre");
                 });
 
-            modelBuilder.Entity("Cinema_Project.Models.Hall", b =>
-                {
-                    b.Property<int>("HallId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("hall_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("HallId"));
-
-                    b.Property<int?>("HallNumber")
-                        .HasColumnType("integer")
-                        .HasColumnName("hall_number");
-
-                    b.Property<bool?>("IsReserved")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_reserved");
-
-                    b.Property<int?>("SeatCount")
-                        .HasColumnType("integer")
-                        .HasColumnName("seat_count");
-
-                    b.HasKey("HallId");
-
-                    b.ToTable("hall");
-                });
-
             modelBuilder.Entity("Cinema_Project.Models.Movie", b =>
                 {
                     b.Property<int>("MovieId")
@@ -242,38 +219,6 @@ namespace Cinema_Project.Migrations
                     b.ToTable("movie_genre");
                 });
 
-            modelBuilder.Entity("Cinema_Project.Models.Seat", b =>
-                {
-                    b.Property<int>("SeatId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("seat_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("SeatId"));
-
-                    b.Property<int>("HallId")
-                        .HasColumnType("integer")
-                        .HasColumnName("hall_id");
-
-                    b.Property<bool?>("IsReserved")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_reserved");
-
-                    b.Property<int?>("RowNumber")
-                        .HasColumnType("integer")
-                        .HasColumnName("row_number");
-
-                    b.Property<int?>("SeatNumber")
-                        .HasColumnType("integer")
-                        .HasColumnName("seat_number");
-
-                    b.HasKey("SeatId");
-
-                    b.HasIndex("HallId");
-
-                    b.ToTable("seat");
-                });
-
             modelBuilder.Entity("Cinema_Project.Models.Ticket", b =>
                 {
                     b.Property<int>("TicketId")
@@ -283,9 +228,9 @@ namespace Cinema_Project.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TicketId"));
 
-                    b.Property<int>("HallId")
+                    b.Property<int?>("HallNumber")
                         .HasColumnType("integer")
-                        .HasColumnName("hall_id");
+                        .HasColumnName("hall_number");
 
                     b.Property<int>("MovieId")
                         .HasColumnType("integer")
@@ -295,9 +240,13 @@ namespace Cinema_Project.Migrations
                         .HasColumnType("real")
                         .HasColumnName("price");
 
-                    b.Property<int>("SeatId")
+                    b.Property<int?>("RowNumber")
                         .HasColumnType("integer")
-                        .HasColumnName("seat_id");
+                        .HasColumnName("row_number");
+
+                    b.Property<int?>("SeatNumber")
+                        .HasColumnType("integer")
+                        .HasColumnName("seat_number");
 
                     b.Property<DateTime>("Showtime")
                         .HasColumnType("timestamp with time zone")
@@ -309,11 +258,7 @@ namespace Cinema_Project.Migrations
 
                     b.HasKey("TicketId");
 
-                    b.HasIndex("HallId");
-
                     b.HasIndex("MovieId");
-
-                    b.HasIndex("SeatId");
 
                     b.HasIndex("UserId");
 
@@ -518,32 +463,11 @@ namespace Cinema_Project.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("Cinema_Project.Models.Seat", b =>
-                {
-                    b.HasOne("Cinema_Project.Models.Hall", null)
-                        .WithMany("Seats")
-                        .HasForeignKey("HallId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Cinema_Project.Models.Ticket", b =>
                 {
-                    b.HasOne("Cinema_Project.Models.Hall", null)
-                        .WithMany("Tickets")
-                        .HasForeignKey("HallId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Cinema_Project.Models.Movie", null)
                         .WithMany("Tickets")
                         .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Cinema_Project.Models.Seat", null)
-                        .WithMany("Tickets")
-                        .HasForeignKey("SeatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -631,13 +555,6 @@ namespace Cinema_Project.Migrations
                     b.Navigation("MovieGenres");
                 });
 
-            modelBuilder.Entity("Cinema_Project.Models.Hall", b =>
-                {
-                    b.Navigation("Seats");
-
-                    b.Navigation("Tickets");
-                });
-
             modelBuilder.Entity("Cinema_Project.Models.Movie", b =>
                 {
                     b.Navigation("MovieActors");
@@ -647,11 +564,6 @@ namespace Cinema_Project.Migrations
                     b.Navigation("Tickets");
 
                     b.Navigation("Trailers");
-                });
-
-            modelBuilder.Entity("Cinema_Project.Models.Seat", b =>
-                {
-                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }

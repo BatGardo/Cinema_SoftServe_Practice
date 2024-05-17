@@ -13,16 +13,15 @@ namespace Cinema_Project.Models
         public float? Price { get; set; }
         [Column("showtime")]
         public DateTime Showtime { get; set; }
-
-        [Column("seat_id")]
-        public int SeatId { get; set; }
-
+        [Column("hall_number")]
+        public int? HallNumber { get; set; }
+        [Column("row_number")]
+        public int? RowNumber { get; set; }
+        [Column("seat_number")]
+        public int? SeatNumber { get; set; }
+        
         [Column("movie_id")]
         public int MovieId { get; set; }
-
-        [Column("hall_id")]
-        public int HallId { get; set; }
-
         [Column("user_id")]
         public string? UserId { get; set; }
         public virtual AppUser? User { get; set; }
