@@ -56,11 +56,11 @@
                                     <div class="film-elem"><b>Year: </b>@movie.ReleaseDate.ToLocalTime().ToString("yyyy-MM-dd")</div>
                                     <div class="film-elem"><b>Duration:</b>@($"{movie.Duration / 60}:{(movie.Duration % 60):D2}")</div>
                                     <div class="film-elem"><b>Stars:</b>
-@*                                         @foreach (var actor in movie.MovieActors)
+                                        @foreach (var actor in movie.MovieActors)
                                         {
                                             <span>@actor.Actor.FirstName</span>
                                             <span>@actor.Actor.LastName</span>
-                                        } *@
+                                        }
                                     </div>
                                     <div class="film-elem"><b>Description:</b>@movie.Description</div>
                                     <div class="film-buttons">
