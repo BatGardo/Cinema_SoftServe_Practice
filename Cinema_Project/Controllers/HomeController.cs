@@ -26,7 +26,8 @@ namespace Cinema_Project.Controllers
         {
             var genres = _context.Genres.ToList();
             var movies = _context.Movies.Include(m => m.MovieGenres).ToList();
-            var viewModel = new MovieGenreViewModel { Movies = movies, Genres = genres };
+            var actors = _context.Actors.Include(m => m.MovieActors).ToList();
+            var viewModel = new CombinedMovieViewModel { Movies = movies, Genres = genres, Actors = actors };
             return View(viewModel);
         }
 
