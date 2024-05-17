@@ -23,7 +23,7 @@
                     <a class="navbar-element" asp-area="" asp-controller="Home" asp-action="Index">Головна</a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-element" asp-area="" asp-controller="Home" asp-action="Privacy">Upcumming</a>
+                    <a class="navbar-element" asp-area="" asp-controller="Home" asp-action="Privacy">Upcomming</a>
                 </li>
                 <li class="nav-item">
                     <a class="navbar-brand" asp-area="" asp-controller="Account" asp-action="Auth">Авторизація</a>
@@ -49,7 +49,7 @@
                         <div class="user-name">PhonkMonk</div>
                     </div>
                     <div class="user-buttons">
-                        <div class="user-profile"><span class="user-profile-link"><a href="@Url.Action("Profile", "Home")">User profile</a></span></div>
+                        <div class="user-profile"><span class="user-profile-link"><a asp-area="" asp-controller="Profile" asp-action="ProfileView">User profile</a></span></div>
                         <div class="user-line"></div>
                         <div class="log-out"><span class="user-logout-link" style="color:#EB1E1E"><a href="#">Log Out</a></span></div>
                     </div>
