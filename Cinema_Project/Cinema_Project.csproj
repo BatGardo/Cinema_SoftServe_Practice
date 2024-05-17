@@ -8,6 +8,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="index\**" />
+	  <Content Remove="index\**" />
+	  <EmbeddedResource Remove="index\**" />
+	  <None Remove="index\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Include="wwwroot\css\header-style.css" />
 		<None Include="wwwroot\css\index-style.css" />
 		<None Include="wwwroot\img\auth-bg.png" />
@@ -45,8 +52,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-	  <Folder Include="index\script\" />
-	  <Folder Include="index\style\" />
   </ItemGroup>
 
 </Project>

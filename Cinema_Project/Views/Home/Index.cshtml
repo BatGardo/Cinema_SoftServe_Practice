@@ -1,4 +1,5 @@
-@model Cinema_Project.ViewModels.MovieGenreViewModel
+@model Cinema_Project.ViewModels.CombinedMovieViewModel
+
 
 
 <html lang="en">
@@ -52,9 +53,15 @@
                                             <span>@genre.Genre.Title</span>
                                     }
                                     </div>
-                                    <div class="film-elem"><b>Year: </b>@movie.ReleaseDate.ToShortDateString()</div>
-                                    <div class="film-elem"><b>Duration:</b>@movie.Duration</div>
-                                    <div class="film-elem"><b>Stars:</b> Vicky Kaushal, Paresh Rawal, Mohit Raina</div>
+                                    <div class="film-elem"><b>Year: </b>@movie.ReleaseDate.ToLocalTime().ToString("yyyy-MM-dd")</div>
+                                    <div class="film-elem"><b>Duration:</b>@($"{movie.Duration / 60}:{(movie.Duration % 60):D2}")</div>
+                                    <div class="film-elem"><b>Stars:</b>
+                                        @foreach (var actor in movie.MovieActors)
+                                        {
+                                            <span>@actor.Actor.FirstName</span>
+                                            <span>@actor.Actor.LastName</span>
+                                        }
+                                    </div>
                                     <div class="film-elem"><b>Description:</b>@movie.Description</div>
                                     <div class="film-buttons">
                                         <input type="button" class="film-buy-tickets" value="Buy tickets">
@@ -84,7 +91,7 @@
 
 
 
-        <h1>Slider</h1>
+        <h1>Slider near session</h1>
         <div class="slider-wrapper">
             <ul class="slider-items">
 
@@ -93,10 +100,10 @@
 
 
                 <div id="moviesContainer">
-                    @foreach (var movie in Model.Movies)
+                    @foreach (var movie in Model.Movies.Take(2))
                     {
                         <img class="reel-svg" src="./img/reel_start.svg" alt="SVG Icon">
-                        <li class="slider-item movie" id="slider-item" data-genres="@string.Join(",", movie.MovieGenres.Select(g => g.GenreId))"
+                        <li class="slider-item movie" id="slider-item"
                             style="background-image: url('@("https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_.jpg")');">
                         <div class="slider-film-name">@movie.Title</div>
                         <div class="slider-film-slogan">
@@ -105,9 +112,10 @@
                             <span>@genre.Genre.Title</span>
                             }
                         </div>
-                        <div class="slider-film-year">@movie.ReleaseDate.ToShortDateString()</div>
+                        <div class="slider-film-year">@movie.ReleaseDate.ToLocalTime().ToString("yyyy-MM-dd")</div>
                             <input type="button" class="slider-film-button" value="Трейлер">
                         </li>
+                        
 
 @*                             <h2>@movie.Title</h2>
                             <p>@movie.Description</p>
@@ -135,6 +143,58 @@
 
                 </div>
 
+
+        <h1>Slider high rating</h1>
+        <div class="slider-wrapper">
+            <ul class="slider-items">
+
+
+
+
+
+                <div id="moviesContainer">
+                    @foreach (var movie in Model.Movies)
+                    {
+                        <img class="reel-svg" src="./img/reel_start.svg" alt="SVG Icon">
+                        <li class="slider-item movie" id="slider-item"
+                            style="background-image: url('@("https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_.jpg")');">
+                        <div class="slider-film-name">@movie.Title</div>
+                        <div class="slider-film-slogan">
+                            @foreach (var genre in movie.MovieGenres)
+                            {
+                            <span>@genre.Genre.Title</span>
+                            }
+                        </div>
+                        <div class="slider-film-year">@movie.ReleaseDate.ToLocalTime().ToString("yyyy-MM-dd")</div>
+                            <input type="button" class="slider-film-button" value="Трейлер">
+                        </li>
+
+
+                        @*                             <h2>@movie.Title</h2>
+                        <p>@movie.Description</p>
+                        <p>Release Date: </p>
+                        <p>Duration: @movie.Duration</p>
+                        <p>Rating: @movie.Rating</p>
+                        <p>
+                        Genres:
+                        @if (movie.MovieGenres != null)
+                        {
+                        @foreach (var genre in movie.MovieGenres)
+                        {
+                        <span>@genre.Genre.Title</span>
+                        }
+                        }
+                        </p>
+                        <button type="button" class="btn btn-primary btn-sm float-end"
+                        onclick="showMovieDetails(@movie.MovieId)">
+                        More
+                        </button>*@
+                    }
+
+                    @* Зміни на закриваючий IMG *@
+                <img class="reel-svg" src="./img/reel_start.svg" alt="SVG Icon">
+
+        </div>
 
 
         <div id="myModal" class="modal">

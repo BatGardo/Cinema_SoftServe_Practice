@@ -21,12 +21,16 @@ namespace Cinema_Project.Controllers
             _context = context;
         }
 
-
+        [AllowAnonymous]
         public IActionResult Index()
         {
+            var movies = _context.Movies
+                .Include(m => m.MovieGenres)
+                .Include(m => m.MovieActors)
+                .ToList();
             var genres = _context.Genres.ToList();
-            var movies = _context.Movies.Include(m => m.MovieGenres).ToList();
-            var viewModel = new MovieGenreViewModel { Movies = movies, Genres = genres };
+            var actors = _context.Actors.ToList();
+            var viewModel = new CombinedMovieViewModel { Movies = movies, Genres = genres, Actors = actors };
             return View(viewModel);
         }
 
@@ -79,6 +83,7 @@ namespace Cinema_Project.Controllers
             var movies = _context.Movies
                 .Where(m => m.MovieGenres.Any(g => genres.Contains(g.GenreId)))
                 .Include(m => m.MovieGenres)
+                .Include(m => m.MovieActors)
                 .ToList();
 
             return Json(movies);
