@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Cinema_Project</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Cinema_Project.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" />
+    <link rel="stylesheet" href="~/css/header-style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+</head>
+<body>
+    <header class="d-flex">
+        <div class="d-inline-flex justify-content-center container">
+            <nav class="row navbar">
+                <a asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/cinema-logo.png" class="navbar-logo"></a>
+                <li class="nav-item">
+                    <a class="navbar-element" asp-area="" asp-controller="Home" asp-action="Index">Головна</a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-element" asp-area="" asp-controller="Home" asp-action="Privacy">Upcumming</a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" asp-area="" asp-controller="Account" asp-action="Auth">Авторизація</a>
+                </li>
+                <div class="navbar-search">
+                    <form class="search-box">
+                        <input type="text" class="search-input" id="searchInput" name="">
+                        <button type="button" class="search-btn" name="search-button"></button>
+                    </form>
+                </div>
+
+                @*Випадаючий список*@
+                <div class="dropdown" id="searchDropdown">
+                    <div class="dropdown-menu" aria-labelledby="searchInput">
+                        <!-- Dropdown items will be populated dynamically -->
+                    </div>
+                </div>
+                @*Випадаючий список*@
+
+                <div class="d-flex">
+                    <div class="user-icon"><img src="~/img/user_profile_icon.svg" draggable="false"></div>
+                    <div class="user-name">PhonkMonk</div>
+                </div>
+
+
+            </nav>
+        </div>
+    </header>
+
+    
+
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+
+@*Скріпт треба перемістити до папки js*@
+        <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var searchInput = document.getElementById('searchInput');
+        var searchDropdown = document.getElementById('searchDropdown');
+
+        searchInput.addEventListener('input', function () {
+            var searchText = searchInput.value;
+            $.ajax({
+                url: '@Url.Action("Search", "Home")',
+                type: 'GET',
+                data: { search: searchText },
+                success: function (data) {
+                    searchDropdown.innerHTML = '';
+
+                    data.forEach(function (data) {
+                        var link = document.createElement('a');
+                        link.setAttribute('class', 'dropdown-item');
+                        link.setAttribute('href', '#');
+                        link.textContent = 'IMG ' + data.title + ' - Rating: ' + data.rating;
+
+
+                        searchDropdown.appendChild(link);
+                    });
+
+                    searchDropdown.style.display = 'block';
+                }
+            });
+        });
+    });
+        </script>
+@*Скріпт треба перемістити до папки js*@
