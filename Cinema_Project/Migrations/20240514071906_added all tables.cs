@@ -150,7 +150,7 @@ namespace Cinema_Project.Migrations
                 {
                     ticket_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    price = table.Column<string>(type: "text", nullable: true),
+                    price = table.Column<float>(type: "real", nullable: true),
                     showtime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     hall = table.Column<int>(type: "integer", nullable: false),
                     movie_id = table.Column<int>(type: "integer", nullable: false),

@@ -75,6 +75,11 @@ namespace Cinema_Project.Data
                 .WithOne()
                 .HasForeignKey(t => t.HallId);
 
+            modelBuilder.Entity<Seat>()
+                .HasMany(h => h.Tickets)
+                .WithOne()
+                .HasForeignKey(t => t.SeatId);
+
             modelBuilder.Entity<Hall>()
                 .HasMany(h => h.Seats)
                 .WithOne()
