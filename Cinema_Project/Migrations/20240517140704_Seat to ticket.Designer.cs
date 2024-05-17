@@ -3,6 +3,7 @@ using System;
 using Cinema_Project.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Cinema_Project.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240517140704_Seat to ticket")]
+    partial class Seattoticket
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,12 +27,16 @@ namespace Cinema_Project.Migrations
 
             modelBuilder.Entity("Cinema_Project.Models.Actor", b =>
                 {
-                    b.Property<int>("ActorId")
+                    b.Property<int>("ActorID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("actor_id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ActorId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ActorID"));
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("birthdate");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("text")
@@ -39,7 +46,7 @@ namespace Cinema_Project.Migrations
                         .HasColumnType("text")
                         .HasColumnName("lastname");
 
-                    b.HasKey("ActorId");
+                    b.HasKey("ActorID");
 
                     b.ToTable("actor");
                 });
@@ -143,15 +150,15 @@ namespace Cinema_Project.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("HallId"));
 
-                    b.Property<int?>("HallNumber")
+                    b.Property<int>("HallNumber")
                         .HasColumnType("integer")
                         .HasColumnName("hall_number");
 
-                    b.Property<bool?>("IsReserved")
+                    b.Property<bool>("IsReserved")
                         .HasColumnType("boolean")
                         .HasColumnName("is_reserved");
 
-                    b.Property<int?>("SeatCount")
+                    b.Property<int>("SeatCount")
                         .HasColumnType("integer")
                         .HasColumnName("seat_count");
 
@@ -173,11 +180,11 @@ namespace Cinema_Project.Migrations
                         .HasColumnType("text")
                         .HasColumnName("description");
 
-                    b.Property<int?>("Duration")
+                    b.Property<int>("Duration")
                         .HasColumnType("integer")
                         .HasColumnName("duration");
 
-                    b.Property<float?>("Rating")
+                    b.Property<float>("Rating")
                         .HasColumnType("real")
                         .HasColumnName("rating");
 
@@ -205,11 +212,8 @@ namespace Cinema_Project.Migrations
                         .HasColumnName("actor_id");
 
                     b.Property<int>("MovieActorId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("movie_actor_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MovieActorId"));
 
                     b.HasKey("MovieId", "ActorId");
 
@@ -229,11 +233,8 @@ namespace Cinema_Project.Migrations
                         .HasColumnName("genre_id");
 
                     b.Property<int>("MovieGenreId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("movie_genre_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MovieGenreId"));
 
                     b.HasKey("MovieId", "GenreId");
 
@@ -255,15 +256,15 @@ namespace Cinema_Project.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("hall_id");
 
-                    b.Property<bool?>("IsReserved")
+                    b.Property<bool>("IsReserved")
                         .HasColumnType("boolean")
                         .HasColumnName("is_reserved");
 
-                    b.Property<int?>("RowNumber")
+                    b.Property<int>("RowNumber")
                         .HasColumnType("integer")
                         .HasColumnName("row_number");
 
-                    b.Property<int?>("SeatNumber")
+                    b.Property<int>("SeatNumber")
                         .HasColumnType("integer")
                         .HasColumnName("seat_number");
 
@@ -291,8 +292,8 @@ namespace Cinema_Project.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("movie_id");
 
-                    b.Property<float?>("Price")
-                        .HasColumnType("real")
+                    b.Property<string>("Price")
+                        .HasColumnType("text")
                         .HasColumnName("price");
 
                     b.Property<int>("SeatId")

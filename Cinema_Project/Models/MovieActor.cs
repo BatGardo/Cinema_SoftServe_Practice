@@ -7,6 +7,7 @@ namespace Cinema_Project.Models
     public class MovieActor
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("movie_actor_id")]
         public int MovieActorId { get; set; }
         [Column("movie_id")]
