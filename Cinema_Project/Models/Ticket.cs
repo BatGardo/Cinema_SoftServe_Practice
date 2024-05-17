@@ -10,11 +10,12 @@ namespace Cinema_Project.Models
         [Column("ticket_id")]
         public int TicketId { get; set; }
         [Column("price")]
-        public string? Price { get; set; }
+        public float? Price { get; set; }
         [Column("showtime")]
         public DateTime Showtime { get; set; }
-        [Column("hall")]
-        public int Hall { get; set; }
+
+        [Column("seat_id")]
+        public int SeatId { get; set; }
 
         [Column("movie_id")]
         public int MovieId { get; set; }

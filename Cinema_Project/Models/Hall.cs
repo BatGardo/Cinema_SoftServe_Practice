@@ -10,11 +10,11 @@ namespace Cinema_Project.Models
         [Column("hall_id")]
         public int HallId { get; set; }
         [Column("hall_number")]
-        public int HallNumber { get; set; }
+        public int? HallNumber { get; set; }
         [Column("seat_count")]
-        public int SeatCount { get; set; }
+        public int? SeatCount { get; set; }
         [Column("is_reserved")]
-        public bool IsReserved { get; set; }
+        public bool? IsReserved { get; set; }
 
         public ICollection<Ticket>? Tickets { get; set; }
         public ICollection<Seat>? Seats { get; set; }
