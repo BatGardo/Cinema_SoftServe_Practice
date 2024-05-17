@@ -2,7 +2,7 @@
 
 body {
   overflow-x: hidden;
-  background: url("/img/bg_art.png");
+  background: url("../img/bg_art.png");
   background-size: cover;
 }
 
@@ -121,7 +121,7 @@ li {
   transition: 0.7s;
 }
 
-.slider-slider-film-slogan {
+.slider-film-slogan {
   margin-top: 35px;
   font-style: italic;
   font-size: 14px;
@@ -218,8 +218,8 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 75%;
-  max-height: 75%;
+  max-width: 75vw;
+  max-height: 75vh;
   margin-left: 30%;
   overflow: hidden;
 }
@@ -254,7 +254,7 @@ li {
   background-position: right;
   background-color: rgba(0, 0, 0, 0.808);
   background-repeat: no-repeat;
-  transform: translateX(500px) skewX(-15deg);
+  transform: translateX(65%) skewX(-15deg);
   backdrop-filter: blur(10px); /* Ефект розмиття */
 }
 
@@ -300,6 +300,8 @@ li {
   flex-direction: column;
   justify-content: space-between;
   align-items: left;
+  opacity: 0;
+  transition: 4s;
 }
 
 .film-rating{
@@ -386,6 +388,7 @@ li {
   color: white;
   border: solid #BE0F0F 4px;
   transition: 0.5s;
+  cursor: pointer;
 }
 
 .film-buy-tickets:hover{
@@ -396,7 +399,6 @@ li {
 
 .film-buttons{
   margin-top: 5%;
-  padding: 10%;
   margin-left: -20px;
   width: 410px;
   display: flex;
@@ -412,70 +414,74 @@ li {
 }
 
 
-
-
+.your-custom-class{
+  opacity: 1;
+  transition: 2s;
+  transition-delay: 1s;
+}
 
 
 
 
 
 .modal {
-  display: none;
+  border-radius: 25px;
+  display: block;
   position: fixed;
-  z-index: 3;
-  top: 10%;
-  left: 25%;
-  height: fit-content;
+  z-index: -1;
+  top: 50%; 
+  left: 50%;
+  height: 95%;
+  opacity: 0;
   width: 1080px;
   background-color: rgb(0, 0, 0);
-  overflow:auto; /* Дозволяє прокрутку вмісту вікна, якщо він перевищує його розмір */
+  overflow:auto;
+  transition: 0.7s;
+  transition-property: opacity;
+  transform: translate(-50%, -50%); 
 }
 
 .modal::-webkit-scrollbar {
   display: none; /* Приховує скролбар вебкітовського движка */
 }
 .text-block {
-  padding: 10px;
+  padding: 78px;
   color: white;
 }
 
-.modal::after {
-  position: absolute;
-  content: '';
-  width: 500px;
-  height: 500px;
-  bottom: -350px;
-  left: -500px;
-  background: url("/img/projector-svgrepo-com.png");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  transform: rotate(-35deg);
+.modal-appear{
+  transform: translateY(0px);
 }
 
-.modal::before {
-  position: absolute;
-  content: '';
-  width: 329px;
-  height: 400px;
-  bottom: -350px;
-  right: -400px;
-  background: url("/img/popcorn.png");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
 
 .close {
-  color: #aaa;
+  color: #ebebeb;
   float: right;
   font-size: 28px;
   font-weight: bold;
+  margin-right: 10px;
+  margin-bottom: 3px;
+  transition: 0.5s;
 }
 
 .close:hover,
 .close:focus {
-  color: rgb(255, 255, 255);
+  transition: 0.5s;
+  color: rgb(241, 12, 12);
   text-decoration: none;
   cursor: pointer;
+}
+
+.modal-film-side{
+  display: flex;
+  flex-direction: column;
+  gap:  2rem;
+}
+
+.modal-film-info{
+  flex-grow: 2;
+}
+
+.side-elem{
+  max-width: 90%;
 }

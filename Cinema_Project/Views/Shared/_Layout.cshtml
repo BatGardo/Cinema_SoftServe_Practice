@@ -17,20 +17,25 @@
     <header class="d-flex">
         <div class="d-inline-flex justify-content-center container">
             <nav class="row navbar">
-                <img src="~/img/cinema-logo.png" class="navbar-logo">
+                <img src="./img/cinema-logo.png" class="navbar-logo">
                 <div class="navbar-element"><a href="#">Головна</a></div>
                 <div class="navbar-element"><a href="#">Upcumming</a></div>
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Auth">Cinema_Project</a>
-
                 <div class="navbar-search">
                     <form class="search-box">
                         <input type="text" class="search-input" name="">
                         <button type="button" class="search-btn" name="search-button"></button>
                     </form>
                 </div>
-                <div class="d-flex">
-                    <div class="user-icon"><img src="~/img/user_profile_icon.svg" draggable="false"></div>
-                    <div class="user-name">PhonkMonk</div>
+                <div class="user-info-container" id="user-info">
+                    <div class="user-info">
+                        <div class="user-icon"><img src="./img/user_profile_icon.svg" draggable="false"></div>
+                        <div class="user-name">PhonkMonk</div>
+                    </div>
+                    <div class="user-buttons">
+                        <div class="user-profile"><span class="user-profile-link"><a href="#">User profile</a></span></div>
+                        <div class="user-line"></div>
+                        <div class="log-out"><span class="user-logout-link" style="color:#EB1E1E"><a href="#">Log Out</a></span></div>
+                    </div>
                 </div>
             </nav>
         </div>
