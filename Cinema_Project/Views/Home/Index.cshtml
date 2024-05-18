@@ -64,7 +64,9 @@
                                     </div>
                                     <div class="film-elem"><b>Description:</b>@movie.Description</div>
                                     <div class="film-buttons">
-                                        <input type="button" class="film-buy-tickets" value="Buy tickets">
+                                        <a asp-area="" asp-controller="Booking" asp-action="BookingView">
+                                            <input type="button" class="film-buy-tickets" value="Buy tickets">
+                                        </a>
                                         <div class="film-trailer-button">
                                             <p>Watch Trailer</p>
                                         </div>

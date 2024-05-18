@@ -1,0 +1,446 @@
+body {
+    overflow-x: hidden;
+    background: url("../img/bg_art.png");
+    background-size: cover;
+  }
+.film-trailer-button{
+    width: 172px;
+    height: 44px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Archivo", sans-serif;
+    font-weight: 400;
+    background-color: transparent;
+    color: white;
+    border-radius: 25px;
+    border: solid white 2px;
+    align-self: center;
+    cursor: pointer;
+  }
+  
+  .film-trailer-button:hover >p{
+    transform: translate(15px);
+    transition: 0.5s;
+  }
+  
+  .film-trailer-button:hover >p::before{
+    opacity: 1;
+    transition: 0.5s;
+  }
+  .film-trailer-button >p{
+    margin-top: 17px;
+    position: relative;
+    transition: 0.5s ;
+  }
+  .film-trailer-button >p::before{
+    transition: 0.5s;
+    opacity: 0;
+    position: absolute;
+    content: '';
+    top: -3px;
+    left:-35px;
+    width: 29px;
+    height: 29px;
+    background: url("../img/play.svg");
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: contain;
+    border: solid rgba(255, 255, 255, 0) 3px;
+    outline: solid rgb(255, 255, 255) 2px;
+    border-radius: 25px;
+  }
+
+  .booking-container{
+    display: flex;
+    justify-content: center;
+    background-color: rgba(211,211,211, 0.35);
+    backdrop-filter: blur(10px);
+    padding: 43px 50px;
+    border-radius: 25px;
+    margin-top: 40px;
+    gap: 34px;
+    max-width: 1280px;
+  }
+
+  .screen-container{
+    width: 780px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .screen-caption{
+    font-family: "Archivo", sans-serif;
+    font-weight: 400;
+    font-size: 36px;
+  }
+
+  .seat-container{
+    margin-top: 100px;
+  }
+
+  .seat-row{
+    display: flex;
+    margin-bottom: 8px;
+    gap:8px;
+  }
+
+  .seat{
+    width: 35px;
+    height: 38px;
+    border: solid #757575 2px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .seat-active{
+    background-color: #DF0A0A;
+  }
+
+  .seat-blocked{
+    position: relative;
+    background-color: #5F5F5F;
+  }
+
+  .seat-blocked::before{
+    content: 'X';
+    position: absolute;
+    color: white;
+    display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+  }
+
+  .seat-row{
+    position: relative;
+  }
+
+  .seat-row::before {
+    content: attr(data-row-number); /* Встановлюємо вміст псевдоелемента */
+    position: absolute; /* Забезпечуємо абсолютне позиціонування відносно батьківського елемента */
+    left: -30px; /* Розміщуємо номер ліворуч від ряду */
+    font-weight: bold; /* Задаємо жирний шрифт для номера */
+    top:5px;
+    font-family: "Archivo", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color:#898989;
+}
+
+.film-book-container{
+    padding: 23px 32px;
+    width: 403px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 25px;
+}
+
+.film-info-container{
+    display: flex;
+    gap: 18px;
+}
+
+.film-info-name{
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    color: white;
+    font-size: 24px;
+}
+
+.film-data{
+    font-family: "Archivo", sans-serif;
+    font-weight: 400;
+    color: white;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.film-info-rating{
+    position: relative;
+}
+
+.film-info-rating::before{
+    content: '';
+    position: absolute;
+    background-image: url("../img/star.png");
+    height: 18px;
+    width: 18px;
+    left: 25px;
+    top: -2px;
+  }
+
+.film-info-container > img{
+    border-radius: 10px;
+    height: 150px;
+    width: 100px;
+}
+
+.line{
+    height: 2px;
+    background-color: white;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    width: 200px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.film-params-container{
+    background-color: rgba(39,39,39,0.78);
+    border-radius: 25px;
+    padding: 23px 21px;
+}
+
+.params-row{
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.row-name{
+    width: 40px;
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    color: white;
+    font-size: 16px;
+    margin-right: 20px;
+}
+
+.row-buttons{
+    display: flex;
+    flex-wrap: wrap;
+    gap:10px;
+}
+
+
+.row-button{
+    border: solid white 1px;
+    height: 28px;
+    border-radius: 25px;
+    margin-top: -2px;
+    width: 59px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    font-family: "Archivo", sans-serif;
+    font-weight: 400;
+    color: white;
+    font-size: 15px;
+    line-height: 1.8;
+    transition: 0.5s;
+}
+
+.date-active, .date:hover{
+    background-color: white;
+    color: #AC1B1B;
+}
+
+.time-active, .time:hover{
+    background-color: #AC1B1B;
+}
+
+.hall-red-active, .hall-red:hover{
+    background-color: #AC1B1B;
+}
+
+.hall-green-active, .hall-green:hover{
+    background-color: green;
+}
+
+.hall-blue-active, .hall-blue:hover{
+    background-color: blue;
+}
+
+.seat-info{
+    display: flex;
+    width: 100%;
+    height: 44px;
+    background-color: rgba(167, 0, 0, 0.78);
+    color: white;
+    border-radius: 25px;
+    font-family: "Archivo", sans-serif;
+    font-weight: 400;
+    padding: 8px 7px;
+    justify-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.seat-coords{
+    margin-left: 10px;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.seat-price{
+    text-align: center;
+    line-height: 1.8;
+    font-size: 15px;
+    width: 69px;
+    height: 27px;
+    background-color: rgba(255, 50, 50, 0.34);
+    border-radius: 25px;
+}
+
+.single-seat-price{
+  font-family: "Archivo", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.total-price{
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    margin-top: 24px;
+    margin-bottom: 39px;
+}
+
+.buy-button{
+    width: 100%;
+    background-color: #D92626;
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    color: white;
+    font-size: 24px;
+    border-radius: 25px;
+    border: solid #AF3737 4px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.buy-button:hover{
+    border: solid #ffffff 4px;
+}
+
+.modal {
+  border-radius: 25px;
+  display: block;
+  position: fixed;
+  z-index: -1;
+  top: 50%; 
+  left: 50%;
+  height: 95%;
+  opacity: 0;
+  width: 1080px;
+  background-color: rgb(0, 0, 0);
+  overflow:auto;
+  transition: 0.7s;
+  transition-property: opacity;
+  transform: translate(-50%, -50%); 
+}
+
+.modal::-webkit-scrollbar {
+  display: none; /* Приховує скролбар вебкітовського движка */
+}
+.text-block {
+  padding: 78px;
+  color: white;
+}
+
+.modal-appear{
+  transform: translateY(0px);
+}
+
+
+.close {
+  color: #ebebeb;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin-right: 10px;
+  margin-bottom: 3px;
+  transition: 0.5s;
+}
+
+.close:hover,
+.close:focus {
+  transition: 0.5s;
+  color: rgb(241, 12, 12);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-film-side{
+  display: flex;
+  flex-direction: column;
+  gap:  2rem;
+}
+
+.modal-film-info{
+  flex-grow: 2;
+}
+
+.side-elem{
+  max-width: 90%;
+}
+
+.film-buy-tickets{
+  font-family: "Archivo", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  width: 210px;
+  height: 50px;
+  background-color: #DF0A0A;
+  border-radius: 25px;
+  align-self: center;
+  z-index: 3;
+  color: white;
+  border: solid #BE0F0F 4px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.film-buy-tickets:hover{
+  transition: 0.5s;
+  border: solid #ffffff 4px;
+  background-color: #BE0F0F;
+}
+
+.film-name{
+  margin-top: 25px;
+  max-width: 380px;
+  font-family: "Archivo Black", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 35px;
+  color:white;
+}
+
+.film-elem{
+  margin-top: 5%;
+  max-width: 380px;
+  font-family: "Archivo", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color:white;
+}
+
+.film-rating{
+  display: flex;
+  position: relative;
+  margin-top: 5%;
+  max-width: 380px;
+  font-family: "Archivo", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color:white;
+  align-self: end;
+}
+
+.film-rating::before{
+  content: '';
+  position: absolute;
+  background-image: url("../img/star.png");
+  height: 18px;
+  width: 18px;
+  left: 30px;
+  top: 3px;
+}
