@@ -27,6 +27,11 @@ namespace Cinema_Project.Controllers
             return View(model);
         }
 
+        public IActionResult Register()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(CombinedAuthorizationViewModel model)
         {

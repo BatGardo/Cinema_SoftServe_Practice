@@ -39,7 +39,7 @@
 
 
                     @* Треба фіксанути відображення останнього слайду і розмірність*@
-                    @foreach (var movie in Model.Movies)
+                    @foreach (var movie in Model.Movies.Take(10))
                     {
                         <li class="slide-invisible slide-visible">
 
