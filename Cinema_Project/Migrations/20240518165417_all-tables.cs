@@ -256,6 +256,27 @@ namespace Cinema_Project.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "screening",
+                columns: table => new
+                {
+                    screening_id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    screening_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    hall_number = table.Column<int>(type: "integer", nullable: true),
+                    movie_id = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_screening", x => x.screening_id);
+                    table.ForeignKey(
+                        name: "FK_screening_movie_movie_id",
+                        column: x => x.movie_id,
+                        principalTable: "movie",
+                        principalColumn: "movie_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ticket",
                 columns: table => new
                 {
@@ -354,6 +375,11 @@ namespace Cinema_Project.Migrations
                 column: "genre_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_screening_movie_id",
+                table: "screening",
+                column: "movie_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ticket_movie_id",
                 table: "ticket",
                 column: "movie_id");
@@ -392,6 +418,9 @@ namespace Cinema_Project.Migrations
 
             migrationBuilder.DropTable(
                 name: "movie_genre");
+
+            migrationBuilder.DropTable(
+                name: "screening");
 
             migrationBuilder.DropTable(
                 name: "ticket");

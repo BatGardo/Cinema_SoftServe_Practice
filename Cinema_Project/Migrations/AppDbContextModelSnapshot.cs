@@ -3,7 +3,6 @@ using System;
 using Cinema_Project.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,11 +11,9 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Cinema_Project.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240517191537_all-tables")]
-    partial class alltables
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -217,6 +214,34 @@ namespace Cinema_Project.Migrations
                     b.HasIndex("GenreId");
 
                     b.ToTable("movie_genre");
+                });
+
+            modelBuilder.Entity("Cinema_Project.Models.Screening", b =>
+                {
+                    b.Property<int>("ScreeningId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("screening_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ScreeningId"));
+
+                    b.Property<int?>("HallNumber")
+                        .HasColumnType("integer")
+                        .HasColumnName("hall_number");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("integer")
+                        .HasColumnName("movie_id");
+
+                    b.Property<DateTime>("ScreeningDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("screening_date");
+
+                    b.HasKey("ScreeningId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("screening");
                 });
 
             modelBuilder.Entity("Cinema_Project.Models.Ticket", b =>
@@ -463,6 +488,17 @@ namespace Cinema_Project.Migrations
                     b.Navigation("Movie");
                 });
 
+            modelBuilder.Entity("Cinema_Project.Models.Screening", b =>
+                {
+                    b.HasOne("Cinema_Project.Models.Movie", "Movie")
+                        .WithMany("Screenings")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+                });
+
             modelBuilder.Entity("Cinema_Project.Models.Ticket", b =>
                 {
                     b.HasOne("Cinema_Project.Models.Movie", null)
@@ -560,6 +596,8 @@ namespace Cinema_Project.Migrations
                     b.Navigation("MovieActors");
 
                     b.Navigation("MovieGenres");
+
+                    b.Navigation("Screenings");
 
                     b.Navigation("Tickets");
 
