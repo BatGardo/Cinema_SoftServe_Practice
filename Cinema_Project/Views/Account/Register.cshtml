@@ -25,16 +25,14 @@
 <div class="container">
     <div class="row">
         <div class="auth-reg-container col-lg-6">
-            <form asp-action="Register" method="post" class="auth-container" id="block2">
+            <form asp-action="Register" method="post" class="auth-container">
                 <div class="auth-caption">SIGN <span style="color:#DF0A0A">UP</span></div>
-                    <input asp-for="FirstName" required />
-                    <input asp-for="LastName" required />
-                    <input asp-for="Email" required />
-                    <input asp-for="Password" required />
-                    <input asp-for="ConfirmPassword" required />
-                    <input asp-for="PhoneNumber" required />
-                    <input asp-for="UserName" required />
-                <a asp-action="Login" class="text-decoration-none float-start mt-2"> Have account?</a>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="Email" placeholder="Email" required />
+                <input asp-for="Password" placeholder="Password" required />
+                <input asp-for="ConfirmPassword" placeholder="ConfirmPassword" required />
+                <input asp-for="UserName" placeholder="UserName" required />
+                <a asp-action="Login" class="text-decoration-none float-start mt-2" style="color:#DF0A0A"> Have account?</a>
                 <input type="submit" value="Register" class="btn btn-primary btn-sm float-end" />
             </form>
         </div>

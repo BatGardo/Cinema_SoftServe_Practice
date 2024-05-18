@@ -32,6 +32,11 @@ header {
   text-decoration: none;
   color: white !important;
 }
+
+    .navbar-element a:hover {
+        color: white !important;
+    }
+
 .navbar-element::before{
   position: absolute;
   content: '';

@@ -18,7 +18,9 @@
     <header class="d-flex">
         <div class="d-inline-flex justify-content-center container">
             <nav class="row navbar">
-                <a asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/cinema-logo.png" class="navbar-logo"></a>
+                
+                <ul style="display: flex; justify-content: space-between; align-items: center; list-style: none; margin: 0; ">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/cinema-logo.png" class="navbar-logo"></a></li>
                 <li class="nav-item">
                     <a class="navbar-element" asp-area="" asp-controller="Home" asp-action="Index">Головна</a>
                 </li>
@@ -26,10 +28,10 @@
                     <a class="navbar-element" asp-area="" asp-controller="Home" asp-action="Privacy">Upcoming</a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" asp-area="" asp-controller="Account" asp-action="Register">Реєстрація</a>
+                    <a class="navbar-element"  asp-area="" asp-controller="Account" asp-action="Register">Реєстрація</a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" asp-area="" asp-controller="Account" asp-action="Login">Авторизація</a>
+                    <a class="navbar-element" asp-area="" asp-controller="Account" asp-action="Login">Авторизація</a>
                 </li>
                 <div class="navbar-search">
                     <form class="search-box">
@@ -57,6 +59,7 @@
                         <div class="log-out"><span class="user-logout-link" style="color:#EB1E1E"><a asp-area="" asp-controller="Account" asp-action="Logout">Log Out</a></span></div>
                     </div>
                 </div>
+                </ul>
             </nav>
         </div>
     </header>
