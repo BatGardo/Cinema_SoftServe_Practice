@@ -8,13 +8,14 @@ namespace Cinema_Project.Controllers
     {
         public IActionResult BookingView()
         {
-            /*int ticketId = 1;
+            int ticketId = 1;
             float price = 9.99f;
             DateTime showtime = new DateTime(2024, 5, 20, 19, 30, 0); // 20 мая 2024 года, 19:30
             int seatId = 45;
             int movieId = 12;
             int hallId = 3;
-            string userId = "cd2f6fdb-8562-4579-b82e-f9afb6070049";*/
+            string userId = "40759e95-6602-4de6-bc50-e04b468d1328";
+            ticket_booking(ticketId, price, showtime, seatId, movieId, hallId, userId);
 
             return View();
         }

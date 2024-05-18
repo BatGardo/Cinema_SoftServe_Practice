@@ -17,10 +17,6 @@ namespace Cinema_Project.Controllers
             this.userManager = userManager;
         }
 
-        public IActionResult Auth()
-        {
-            return View();
-        }
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM model)
@@ -39,6 +35,11 @@ namespace Cinema_Project.Controllers
         }
 
         public IActionResult Register()
+        {
+            return View();
+        }
+
+        public IActionResult Login()
         {
             return View();
         }
