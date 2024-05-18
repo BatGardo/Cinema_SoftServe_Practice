@@ -22,26 +22,25 @@
 </head>
 
 
-    <main>
-    <div class="container">
-            <div class="row">
-                <div class="auth-reg-container col-lg-6">
-                    <form asp-action="Register" method="post" class="auth-container" id="block2">
-                        <div class="auth-caption">SIGN <span style="color:#DF0A0A">UP</span></div>
-                            <input asp-for="FirstName" required />
-                            <input asp-for="LastName" required />
-                            <input asp-for="Email" required />
-                            <input asp-for="Password" required />
-                            <input asp-for="ConfirmPassword" required />
-                            <input asp-for="PhoneNumber" required />
-                            <input asp-for="UserName" required />
-                        <a asp-action="Login" class="text-decoration-none float-start mt-2"> Have account?</a>
-                        <input type="submit" value="Register" class="btn btn-primary btn-sm float-end" />
-                    </form>
-                </div>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="auth-reg-container col-lg-6">
+            <form asp-action="Register" method="post" class="auth-container" id="block2">
+                <div class="auth-caption">SIGN <span style="color:#DF0A0A">UP</span></div>
+                    <input asp-for="FirstName" required />
+                    <input asp-for="LastName" required />
+                    <input asp-for="Email" required />
+                    <input asp-for="Password" required />
+                    <input asp-for="ConfirmPassword" required />
+                    <input asp-for="PhoneNumber" required />
+                    <input asp-for="UserName" required />
+                <a asp-action="Login" class="text-decoration-none float-start mt-2"> Have account?</a>
+                <input type="submit" value="Register" class="btn btn-primary btn-sm float-end" />
+            </form>
         </div>
-    </main>
+        <div class="col-lg-6 guest-container auth-caption ">Stay as <a href="#"><span class="red-text-big">Guest</span></a></div>
+    </div>
+</div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
