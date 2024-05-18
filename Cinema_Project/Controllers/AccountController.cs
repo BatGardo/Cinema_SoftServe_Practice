@@ -17,18 +17,6 @@ namespace Cinema_Project.Controllers
             this.userManager = userManager;
         }
 
-
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginVM model)
-        {
-            if (ModelState.IsValid) 
-            {
-                LoginVM = new LoginVM(),
-                RegisterVM = new RegisterVM()
-            };
-            return View(model);
-        }
-
         public IActionResult Register()
         {
             return View();
