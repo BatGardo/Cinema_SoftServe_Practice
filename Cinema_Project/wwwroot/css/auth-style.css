@@ -1,43 +1,45 @@
-a{
+a {
     text-decoration: none !important;
 }
-main{
-     background-color: bisque;
-     display: flex;
-     align-items: center;
-     min-height: 100vh;
-     background: url("/img/auth-bg.png");
-     background-size: cover;
-     background-repeat: no-repeat;
+
+main {
+    background-color: bisque;
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    background: url("/img/auth-bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
-.auth-reg-container{
+
+.auth-reg-container {
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
 }
 
-.auth-container{
+.auth-container {
     position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transform: translateX(-50vw);
-    opacity: 0;
     transition: 1.5s;
 }
-.auth-caption{
+
+.auth-caption {
     font-family: "Archivo Black", sans-serif;
     font-weight: 400;
     font-style: normal;
-    color: #FFFFFF;
+    color: #ffffff;
     font-size: 80px;
     margin-bottom: 34px;
 }
-.auth-container > input{
+
+.auth-container > input {
     margin-top: 31px;
-    width:430px;
+    width: 430px;
     height: 68px;
     border-radius: 25px;
     outline: none;
@@ -48,64 +50,113 @@ main{
     font-style: normal;
     font-size: 20px;
 }
-.auth-container > input::placeholder{
-    font-family: "Archivo", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-    font-size: 20px;
-    transition: 0.5s;
+
+    .auth-container > input::placeholder {
+        font-family: "Archivo", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-size: 20px;
+        transition: 0.5s;
+    }
+
+    .auth-container > input:focus::placeholder {
+        transform: translateY(-15px);
+        font-size: 14px;
+        transition: 0.5s;
+    }
+
+    .auth-container > input::content {
+        padding-left: 27px;
+    }
+
+    .auth-container > input[type="submit"] {
+        background-color: #df0a0a;
+        font-family: "Archivo Black", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 30px;
+        color: #ffffff;
+        transition: 0.5s;
+        cursor: pointer;
+    }
+
+        .auth-container > input[type="submit"]:hover {
+            background-color: #a10e0e;
+            color: #ffffff;
+            transition: 0.5s;
+        }
+
+.remember-check > input[type="checkbox"] {
+    display: none;
 }
-.auth-container > input:focus::placeholder{
-    transform: translateY(-15px);
-    font-size: 14px;
-    transition: 0.5s;
+
+    .remember-check > input[type="checkbox"] + label {
+        transform: translateX(21px);
+        position: relative;
+        font-family: "Archivo", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 20px;
+        color: white;
+        cursor: pointer;
+        user-select: none;
+        margin-bottom: -15px;
+        margin-top: 15px;
+    }
+
+        .remember-check > input[type="checkbox"] + label span {
+            margin-top: 5px;
+            position: absolute;
+            top: 0;
+            left: -25px;
+            width: 21px;
+            height: 21px;
+            border-radius: 7px;
+            border: 2px solid #ff0000;
+        }
+
+    .remember-check > input[type="checkbox"]:checked + label span::before {
+        position: absolute;
+        content: "\2714";
+        top: 30%;
+        left: 40%;
+        transform: translate(-50%, -50%);
+        transform: scale(3.5);
+        font-size: 10px;
+        line-height: 1;
+        color: #ff0000;
+    }
+
+.auth-bottom {
+    color: #ffffff;
 }
-.auth-container > input::content{
-    padding-left: 27px;
-}
-.auth-container >input[type='submit']{
-    background-color: #DF0A0A;
-    font-family: "Archivo Black", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 30px;
-    color: #FFFFFF;
-    transition: 0.5s;
-    cursor: pointer;
-}
-.auth-container >input[type='submit']:hover{
-    background-color: #a10e0e;
-    color: #FFFFFF;
-    transition: 0.5s;
-}
-.auth-bottom{
-    color: #FFFFFF;
-}
-.red-text{
+
+.red-text {
     position: relative;
-    color:#DF0A0A;
+    color: #df0a0a;
     cursor: pointer;
 }
-.red-text::before{
-    position: absolute;
-    content: '';
-    background-color: #DF0A0A;
-    height: 1px;
-    bottom:-1px;
-    width: 100%;
-    transition: 0.5s;
-    transform: scaleX(0);
-    transform-origin:left;
-    transition: transform 0.3s ease-out;
-}
 
-.red-text:hover::before{
-    transform: scaleX(1); 
-    transform-origin:right;
-    transition: 0.5s;
-}
+    .red-text::before {
+        position: absolute;
+        content: "";
+        background-color: #df0a0a;
+        height: 1px;
+        bottom: -1px;
+        width: 100%;
+        transition: 0.5s;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease-out;
+    }
 
-.guest-container{
+    .red-text:hover::before {
+        transform: scaleX(1);
+        transform-origin: right;
+        transition: 0.5s;
+    }
+
+.guest-container {
     height: 706px;
     display: flex;
     flex-direction: column;
@@ -114,46 +165,50 @@ main{
     font-family: "Archivo Black", sans-serif;
     font-weight: 400;
     font-style: normal;
-    color: #FFFFFF;
+    color: #ffffff;
     font-size: 80px;
-    border-left: solid #FFFFFF 2px;
+    border-left: solid #ffffff 2px;
 }
-@media (max-width:991px) {
-    .guest-container{
+
+@media (max-width: 991px) {
+    .guest-container {
         margin-top: 350px;
         border-left: none;
-        border-top: solid #FFFFFF 2px;
+        border-top: solid #ffffff 2px;
         justify-content: right;
     }
-    .auth-reg-container{
+
+    .auth-reg-container {
         margin-top: 550px;
     }
 }
 
-.red-text-big{
+.red-text-big {
     position: relative;
-    color:#DF0A0A;
+    color: #df0a0a;
     cursor: pointer;
 }
-.red-text-big::before{
-    position: absolute;
-    content: '';
-    background-color: #DF0A0A;
-    height: 4px;
-    bottom:0px;
-    width: 100%;
-    transition: 0.5s;
-    transform: scaleX(0);
-    transform-origin:left;
-    transition: transform 0.3s ease-out;
-}
-.red-text-big:hover::before{
-    transform: scaleX(1); 
-    transform-origin:right;
-    transition: 0.5s;
-}
 
-.active{
+    .red-text-big::before {
+        position: absolute;
+        content: "";
+        background-color: #df0a0a;
+        height: 4px;
+        bottom: 0px;
+        width: 100%;
+        transition: 0.5s;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease-out;
+    }
+
+    .red-text-big:hover::before {
+        transform: scaleX(1);
+        transform-origin: right;
+        transition: 0.5s;
+    }
+
+.active {
     transform: translateX(-0vw);
     transition: 0.7s;
     opacity: 1;

@@ -17,10 +17,6 @@ namespace Cinema_Project.Controllers
             this.userManager = userManager;
         }
 
-        public IActionResult Auth()
-        {
-            return View();
-        }
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM model)
@@ -43,6 +39,11 @@ namespace Cinema_Project.Controllers
             return View();
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterVM model)
         {
@@ -50,11 +51,9 @@ namespace Cinema_Project.Controllers
             {
                 AppUser user = new AppUser
                 {
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
                     Email = model.Email,
                     UserName = model.UserName,
-                    PhoneNumber = model.PhoneNumber
+     
                 };
 
                 var result = await userManager.CreateAsync(user, model.Password!);
