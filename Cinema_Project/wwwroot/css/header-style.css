@@ -33,9 +33,9 @@ header {
   color: white !important;
 }
 
-    .navbar-element a:hover {
-        color: white !important;
-    }
+ul > li > a:hover {
+    color: white !important;
+}
 
 .navbar-element::before{
   position: absolute;

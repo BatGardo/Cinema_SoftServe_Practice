@@ -24,9 +24,8 @@
                 <div class="auth-bottom">Don't have an account?  <a asp-controller="Account" asp-action="Register" class="text-decoration-none float-start mt-2" style="color: #DF0A0A">Sign up!</a></div>
             </form>
         </div>
-        <div class="col-lg-6 guest-container auth-caption ">Stay as <a href="#"><span class="red-text-big">Guest</span></a></div>
+        <div class="col-lg-6 guest-container auth-caption ">Stay as <a asp-controller="Home" asp-action="Index"><span class="red-text-big">Guest</span></a></div>
     </div>
-    @* <a asp-action="Login" class="text-decoration-none float-start mt-2"> *@
 </div>
 
 @section Scripts{
