@@ -49,6 +49,7 @@ main {
     font-optical-sizing: auto;
     font-style: normal;
     font-size: 20px;
+    background: black;
 }
 
     .auth-container > input::placeholder {
