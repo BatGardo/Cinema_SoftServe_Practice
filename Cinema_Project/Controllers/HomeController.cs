@@ -41,9 +41,7 @@ namespace Cinema_Project.Controllers
             return View();
         }
 
-
-
-        public IActionResult profile()
+        public IActionResult booking()
         {
             return View();
         }

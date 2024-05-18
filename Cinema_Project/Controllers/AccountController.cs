@@ -17,9 +17,11 @@ namespace Cinema_Project.Controllers
             this.userManager = userManager;
         }
 
-        public IActionResult Auth()
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginVM model)
         {
-            var model = new CombinedAuthorizationViewModel
+            if (ModelState.IsValid) 
             {
                 LoginVM = new LoginVM(),
                 RegisterVM = new RegisterVM()
@@ -28,6 +30,11 @@ namespace Cinema_Project.Controllers
         }
 
         public IActionResult Register()
+        {
+            return View();
+        }
+
+        public IActionResult Login()
         {
             return View();
         }
