@@ -9,7 +9,6 @@
         currentUser = await UserManager.GetUserAsync(User);
     }
 }
-﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,48 +32,55 @@
             <div class="d-inline-flex justify-content-center container">
                 <nav class="row navbar">
 
-                <ul style="display: flex; justify-content: space-between; align-items: center; list-style: none; margin: 0; ">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/cinema-logo.png" class="navbar-logo"></a></li>
-                    <li class="nav-item">
-                        <a class="navbar-element" asp-area="" asp-controller="Home" asp-action="Index">Головна</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="navbar-element" asp-area="" asp-controller="Home" asp-action="Privacy">Скоро в кіно</a>
-                    </li>
-
-                @*Випадаючий список*@
-                <div class="dropdown" id="searchDropdown">
-                    <div class="dropdown-menu" aria-labelledby="searchInput">
-                        <!-- Dropdown items will be populated dynamically -->
-                    </div>
-                </div>
-                @*Випадаючий список*@
-
-                    @if (@ViewBag.UserName != "Guest")
-                    {
-                        <div class="user-info-container" id="user-info">
-                            <div class="user-info">
-                                <div class="user-icon"><img src="~/img/user_profile_icon.svg" draggable="false"></div>
-                                <div class="user-name">@ViewBag.UserName</div>
-                            </div>
-                            <div class="user-buttons">
-                                <div class="user-profile"><span class="user-profile-link"><a asp-area="" asp-controller="Profile" asp-action="ProfileView">Профіль</a></span></div>
-                                <div class="user-line"></div>
-                                <div class="log-out"><span class="user-logout-link" style="color:#EB1E1E"><a asp-area="" asp-controller="Account" asp-action="Logout">Вихід</a></span></div>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
+                    <ul style="display: flex; justify-content: space-between; align-items: center; list-style: none; margin: 0; ">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/cinema-logo.png" class="navbar-logo"></a></li>
                         <li class="nav-item">
                             <a class="navbar-element" asp-area="" asp-controller="Home" asp-action="Index">Головна</a>
                         </li>
-                    }
+                        <li class="nav-item">
+                            <a class="navbar-element" asp-area="" asp-controller="Home" asp-action="Privacy">Скоро в кіно</a>
+                        </li>
 
-                </ul>
-            </nav>
-        </div>
-    </header>
+                        @*Випадаючий список*@
+                        <div class="dropdown" id="searchDropdown">
+                            <div class="dropdown-menu" aria-labelledby="searchInput">
+                                <!-- Dropdown items will be populated dynamically -->
+                            </div>
+                        </div>
+                        @*Випадаючий список*@
+                        <div class="navbar-search">
+                            <form class="search-box">
+                                <input type="text" class="search-input" id="searchInput" name="">
+                                <button type="button" class="search-btn" name="search-button"></button>
+                            </form>
+                        </div>
+
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="user-info-container" id="user-info">
+                                <div class="user-info">
+                                    <div class="user-icon"><img src="~/img/user_profile_icon.svg" draggable="false"></div>
+                                    <div class="user-name">@currentUser?.UserName</div>
+                                </div>
+                                <div class="user-buttons">
+                                    <div class="user-profile"><span class="user-profile-link"><a asp-area="" asp-controller="Profile" asp-action="ProfileView">Профіль</a></span></div>
+                                    <div class="user-line"></div>
+                                    <div class="log-out"><span class="user-logout-link" style="color:#EB1E1E"><a asp-area="" asp-controller="Account" asp-action="Logout">Вихід</a></span></div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="navbar-element" asp-area="" asp-controller="Account" asp-action="Login">Особистий кабінет</a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+        </header>
+    }
 
 
 
