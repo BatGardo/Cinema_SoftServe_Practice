@@ -23,6 +23,7 @@
         <ul class="slider-container">
             @foreach (var movie in Model.Movies.Take(10))
             {
+                var trailerUrl = movie.Trailers.FirstOrDefault()?.Url ?? "";
                 int genreCount = movie.MovieGenres.Count;
                 int currentGenreIndex = 0;
                 int actorCount = movie.MovieActors.Count;
@@ -35,6 +36,7 @@
                             <div class="film-name">@movie.Title</div>
                             <div class="film-elem">
                                 <b>Жанр: </b>
+                                @trailerUrl
                                 @foreach (var genre in movie.MovieGenres)
                                 {
                                     currentGenreIndex++;
