@@ -23,6 +23,7 @@
         <ul class="slider-container">
             @foreach (var movie in Model.Movies.Take(10))
             {
+                var trailerUrl = movie.Trailers.FirstOrDefault()?.Url ?? "";
                 int genreCount = movie.MovieGenres.Count;
                 int currentGenreIndex = 0;
                 int actorCount = movie.MovieActors.Count;
@@ -35,6 +36,7 @@
                             <div class="film-name">@movie.Title</div>
                             <div class="film-elem">
                                 <b>Жанр: </b>
+                                @trailerUrl
                                 @foreach (var genre in movie.MovieGenres)
                                 {
                                     currentGenreIndex++;
@@ -84,7 +86,8 @@
                                      data-year="@movie.ReleaseDate.Year"
                                      data-duration="@($"{movie.Duration / 60}:{(movie.Duration % 60):D2}")"
                                      data-stars="@string.Join(", ", movie.MovieActors.Select(a => a.Actor.FirstName + ' ' + a.Actor.LastName))"
-                                     data-description="@movie.Description">
+                                     data-description="@movie.Description"
+                                     data-youtubelink="@trailerUrl">
                                     <p>Трейлер</p>
                                 </div>
                             </div>
@@ -210,9 +213,9 @@
 
 <div id="myModal" class="modal">
     <span id="btn_watch_close" class="close">&times;</span>
-    <video id="videoPlayer" width="100%" height="65%" controls>
-        <source src="~/img/trailer.mp4" type="video/mp4">
-    </video>
+    <div id="videoContainer" class="video-container">
+        <iframe id="videoPlayer" width="100%" height="100%" src="https://www.youtube.com/watch?v=6CBp4qylX6I" frameborder="0" allowfullscreen></iframe>
+    </div>
     <div class="text-block container">
         <div class="modal-info-container d-flex">
             <div class="modal-film-info">
@@ -227,15 +230,25 @@
             </div>
             <div class="modal-film-side">
                 <div class="film-rating"><span id="modalRating"></span></div>
-                <img src="~/img/poster-sm.png">
+                <div class="film-elem" id="modalImage">
+                    <img id="modalImageTag" src="" alt="Alternate Text" />
+                </div>                
                 
                 <div class="btn-border">
-                    <input type="button" class="film-buy-tickets film-buy-tickets-modal" value="Buy tickets">
+                    <button class="film-buy-tickets"><a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Придбати квиток</a></button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+
+</style>
+
+<script>
+    
+</script>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

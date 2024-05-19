@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const duration = this.getAttribute('data-duration');
             const stars = this.getAttribute('data-stars');
             const description = this.getAttribute('data-description');
-
+            
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalRating').textContent = rating;
             document.getElementById('modalCategories').textContent = categories;
@@ -51,6 +51,14 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('modalDuration').textContent = duration;
             document.getElementById('modalStars').textContent = stars;
             document.getElementById('modalDescription').textContent = description;
+
+            /*const youtubelink = this.getAttribute('data-youtubelink');
+            const youtubelink1 = `${youtubelink}`;
+            alert(youtubelink1);
+            document.getElementById('videoPlayer').src = youtubelink1;*/
+
+            const imagePath = `/img_posters/${title}/${title}_SP.jpg`;
+            document.getElementById('modalImageTag').src = imagePath;
 
             modal.style.display = 'block';
         });

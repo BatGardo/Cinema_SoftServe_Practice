@@ -2,9 +2,9 @@
 
 namespace Cinema_Project.Controllers
 {
-    public class AdminController : Controller
+    public class PadminController : Controller
     {
-        public IActionResult Index()
+        public IActionResult AdminView()
         {
             return View();
         }
