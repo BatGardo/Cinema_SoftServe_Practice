@@ -20,7 +20,7 @@ header {
 
 .navbar-element {
   position: relative;
-  font-family: "Archivo", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
   color: white;
@@ -154,7 +154,7 @@ ul > li > a:hover {
   border-radius: 25px;
 }
 .user-name{
-  font-family: "Archivo", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
   font-size: 22px;
@@ -196,7 +196,7 @@ ul > li > a:hover {
   background-color: black;
   border-bottom-right-radius: 25px;
   border-bottom-left-radius: 25px;
-  font-family: "Archivo", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
   font-size: 22px;

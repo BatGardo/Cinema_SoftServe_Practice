@@ -188,7 +188,7 @@ li {
     text-align: center;
     margin-top: 40px;
     font-size: 45px;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
 }
 
@@ -279,7 +279,7 @@ li {
 
 .film-name {
     margin-top: 25px;
-    font-family: "Archivo Black", sans-serif;
+    font-family: "Arimo Black", sans-serif;
     font-weight: 400;
     font-style: normal;
     font-size: 35px;
@@ -289,7 +289,7 @@ li {
 
 .film-elem {
     margin-top: 5%;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-size: 15px;
     color: white;
@@ -299,7 +299,7 @@ li {
 
 .film-elem-1 {
     margin-top: 5%;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-size: 15px;
     color: white;
@@ -324,7 +324,7 @@ li {
     position: relative;
     margin-top: 5%;
     width: clamp(0rem, 0.5vw, 1vw);
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-size: 18px;
     color: white;
@@ -351,7 +351,7 @@ li {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     background-color: transparent;
     color: white;
@@ -402,7 +402,7 @@ li {
         }
 
 .film-buy-tickets {
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-size: clamp(0rem, 1vw, 2vw);
     width: clamp(0rem, 60vw, 100vw);

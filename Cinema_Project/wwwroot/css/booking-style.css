@@ -10,7 +10,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     background-color: transparent;
     color: white;
@@ -72,7 +72,7 @@ body {
   }
 
   .screen-caption{
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-size: 36px;
   }
@@ -125,7 +125,7 @@ body {
     left: -30px; /* Розміщуємо номер ліворуч від ряду */
     font-weight: bold; /* Задаємо жирний шрифт для номера */
     top:5px;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-size: 20px;
     color:#898989;
@@ -144,14 +144,14 @@ body {
 }
 
 .film-info-name{
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 600;
     color: white;
     font-size: 24px;
 }
 
 .film-data{
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     color: white;
     font-size: 15px;
@@ -201,7 +201,7 @@ body {
 
 .row-name{
     width: 40px;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 600;
     color: white;
     font-size: 16px;
@@ -224,7 +224,7 @@ body {
     color: white;
     text-align: center;
     cursor: pointer;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     color: white;
     font-size: 15px;
@@ -260,7 +260,7 @@ body {
     background-color: rgba(167, 0, 0, 0.78);
     color: white;
     border-radius: 25px;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     padding: 8px 7px;
     justify-items: center;
@@ -285,7 +285,7 @@ body {
 }
 
 .single-seat-price{
-  font-family: "Archivo", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 600;
   font-size: 20px;
   color: white;
@@ -294,7 +294,7 @@ body {
 }
 
 .total-price{
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 600;
     font-size: 20px;
     color: white;
@@ -306,7 +306,7 @@ body {
 .buy-button{
     width: 100%;
     background-color: #D92626;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 700;
     color: white;
     font-size: 24px;
@@ -383,7 +383,7 @@ body {
 }
 
 .film-buy-tickets{
-  font-family: "Archivo", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-size: 20px;
   width: 210px;
@@ -407,7 +407,7 @@ body {
 .film-name{
   margin-top: 25px;
   max-width: 380px;
-  font-family: "Archivo Black", sans-serif;
+  font-family: "Arimo Black", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 35px;
@@ -417,7 +417,7 @@ body {
 .film-elem{
   margin-top: 5%;
   max-width: 380px;
-  font-family: "Archivo", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-size: 15px;
   color:white;
@@ -428,7 +428,7 @@ body {
   position: relative;
   margin-top: 5%;
   max-width: 380px;
-  font-family: "Archivo", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-size: 18px;
   color:white;

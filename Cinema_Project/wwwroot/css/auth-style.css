@@ -29,7 +29,7 @@ main {
 }
 
 .auth-caption {
-    font-family: "Roboto Slab", serif;
+    font-family: "Arimo", serif;
     font-weight: 600;
     font-style: normal;
     color: #ffffff;
@@ -72,7 +72,7 @@ main {
 
     .auth-container > input[type="submit"] {
         background-color: #df0a0a;
-        font-family: "Roboto Slab", serif;
+        font-family: "Arimo", serif;
         font-weight: 600;
         font-style: normal;
         font-size: 30px;
@@ -94,7 +94,7 @@ main {
     .remember-check > input[type="checkbox"] + label {
         transform: translateX(21px);
         position: relative;
-        font-family: "Roboto Slab", serif;
+        font-family: "Arimo", serif;
         font-weight: 600;
         font-style: normal;
         font-size: 20px;
@@ -163,7 +163,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: "Roboto Slab", serif;
+    font-family: "Arimo", serif;
     font-weight: 600;
     font-style: normal;
     color: #ffffff;
