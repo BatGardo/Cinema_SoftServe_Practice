@@ -86,7 +86,8 @@
                                      data-year="@movie.ReleaseDate.Year"
                                      data-duration="@($"{movie.Duration / 60}:{(movie.Duration % 60):D2}")"
                                      data-stars="@string.Join(", ", movie.MovieActors.Select(a => a.Actor.FirstName + ' ' + a.Actor.LastName))"
-                                     data-description="@movie.Description">
+                                     data-description="@movie.Description"
+                                     data-youtubelink="@trailerUrl">
                                     <p>Трейлер</p>
                                 </div>
                             </div>
@@ -212,9 +213,9 @@
 
 <div id="myModal" class="modal">
     <span id="btn_watch_close" class="close">&times;</span>
-    <video id="videoPlayer" width="100%" height="65%" controls>
-        <source src="~/img/trailer.mp4" type="video/mp4">
-    </video>
+    <div id="videoContainer" class="video-container">
+        <iframe id="videoPlayer" width="100%" height="100%" src="https://www.youtube.com/watch?v=6CBp4qylX6I" frameborder="0" allowfullscreen></iframe>
+    </div>
     <div class="text-block container">
         <div class="modal-info-container d-flex">
             <div class="modal-film-info">
@@ -241,9 +242,14 @@
     </div>
 </div>
 
+<style>
+
+</style>
+
 <script>
     
 </script>
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

@@ -566,3 +566,8 @@ video{
 .slider-container-2 {
     margin-top: 50px;
 }
+
+.video-container{
+    width:100%;
+    height:500px
+}
