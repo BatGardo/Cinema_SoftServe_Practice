@@ -1,6 +1,7 @@
 @model Cinema_Project.ViewModels.CombinedMovieViewModel
 
 
+<!DOCTYPE html>
 
 <html lang="en">
 
@@ -147,7 +148,19 @@
             <ul class="slider-items">
 
 
-
+                <div class="dropdown" id="myDropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">
+                        Dropdown button
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                @foreach (var genre in Model.Genres)
+                                {
+                            <label>
+                                <input type="checkbox" id="@genre.GenreId" onchange="filterMovies()"> @genre.Title
+                            </label>
+                                }
+                    </div>
+                </div>
 
 
                 <div id="moviesContainer">
@@ -245,6 +258,73 @@
     <script src="~/js/slider.js"></script>
     <script src="~/js/trailer-modal.js"></script>
     <script src="~/js/swiper-mutation.js"></script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var dropdown = document.getElementById('myDropdown');
+            var dropdownMenu = dropdown.querySelector('.dropdown-menu');
+
+            dropdown.addEventListener('click', function (event) {
+                var target = event.target;
+                if (target.getAttribute('aria-haspopup')) {
+                    if (dropdownMenu.classList.contains('show')) {
+                        dropdownMenu.classList.remove('show');
+                    } else {
+                        dropdownMenu.classList.add('show');
+                    }
+                }
+            });
+
+            // Закрыть выпадающее меню при клике вне его области
+            document.addEventListener('click', function (event) {
+                if (!dropdown.contains(event.target)) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+
+            // Функция для фильтрации фильмов
+            function filterMovies() {
+                var selectedGenres = [];
+                var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                checkboxes.forEach(function (checkbox) {
+                    selectedGenres.push(parseInt(checkbox.id));
+                });
+
+                var movies = document.querySelectorAll('.movie');
+                movies.forEach(function (movie) {
+                    var movieGenresAttr = movie.getAttribute('data-genres');
+                    if (movieGenresAttr) {
+                        var movieGenres = movieGenresAttr.split(',').map(Number);
+                        var shouldDisplay = selectedGenres.length === 0 || movieGenres.some(genre => selectedGenres.includes(genre));
+                        movie.style.display = shouldDisplay ? 'block' : 'none';
+                    } else {
+                        movie.style.display = 'none'; // Скрыть фильм, если у него нет атрибута data-genres
+                    }
+                });
+            }
+
+            // Добавить обработчик события для чекбоксов
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(function (checkbox) {
+                checkbox.addEventListener('change', filterMovies);
+            });
+        });
+
+    </script>
+
+
+
+
+
+
 </body>
 
+
+
+
 </html>
+
+
+
+
