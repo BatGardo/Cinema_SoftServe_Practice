@@ -2,6 +2,7 @@ using Cinema_Project.Data;
 using Microsoft.EntityFrameworkCore;
 using Cinema_Project.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Cinema_Project
 {
@@ -29,6 +30,16 @@ namespace Cinema_Project
             })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+
+            // Add session services.
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); // Встановлюємо час бездіяльності сесії
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true; // Важливо для GDPR: ця опція робить куки обов'язковими
+            });
+
 
             var app = builder.Build();
 
@@ -82,7 +93,14 @@ namespace Cinema_Project
                     await userManager.AddToRoleAsync(user, "Admin");
                 }
             }
+
+
+
+
+            app.UseSession();
             app.Run();
+
+
         }
     }
 }
