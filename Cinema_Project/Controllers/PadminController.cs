@@ -39,5 +39,10 @@ namespace Cinema_Project.Controllers
             }
             return RedirectToAction(nameof(AdminView));
         }
+
+        public IActionResult AddMovie()
+        {
+            return View();
+        }
     }
 }

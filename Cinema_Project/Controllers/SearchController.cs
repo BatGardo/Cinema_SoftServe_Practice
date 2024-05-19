@@ -17,12 +17,15 @@ namespace Cinema_Project.Controllers
         {
             var movies = _context.Movies
                 .Include(m => m.MovieGenres)
-            .Include(m => m.MovieActors)
+                .Include(m => m.MovieActors)
+                .Include(m => m.Trailers)
                 .ToList();
             var genres = _context.Genres.ToList();
             var actors = _context.Actors.ToList();
-            var viewModel = new CombinedMovieViewModel { Movies = movies, Genres = genres, Actors = actors };
+            var trailers = _context.Trailers.ToList();
+            var viewModel = new CombinedMovieViewModel { Movies = movies, Genres = genres, Actors = actors, Trailers = trailers };
             return View(viewModel);
         }
+
     }
 }
