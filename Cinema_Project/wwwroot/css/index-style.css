@@ -362,10 +362,16 @@ li {
     margin-left: 5vw;
 }
 
-    .film-trailer-button:hover > p {
-        transform: translate(15px);
-        transition: 0.5s;
-    }
+.film-trailer-button-search {
+    display:flex;
+    justify-content:center;
+    width: clamp(0rem, 10vw, 10vw);
+}
+
+.film-trailer-button:hover > p {
+    transform: translate(15px);
+    transition: 0.5s;
+}
 
         .film-trailer-button:hover > p::before {
             opacity: 1;
