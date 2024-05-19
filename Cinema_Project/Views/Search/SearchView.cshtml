@@ -20,9 +20,10 @@
                 <div class="property-svg ticket-svg"><img src="~/img/droplist-ico.svg"></div>
             </div>
             <div class="properties-droplist ticket-droplist">
-                <div class="properties-droplist-elem elem-active">Title</div> <!-- Сортування за назвою фільму -->
-                <div class="line"></div>
-                <div class="properties-droplist-elem">Popularity</div> <!-- Сортування за рейтингом фільму -->
+            <div class="properties-droplist-elem elem-active" data-sort="title">Title</div> <!-- Сортировка по названию фильма -->
+            <div class="line"></div>
+            <div class="properties-droplist-elem" data-sort="popularity">Popularity</div> <!-- Сортировка по рейтингу фильма -->
+
             </div>
         </div>
         <div class="line-v"></div>
@@ -52,100 +53,72 @@
             <div class="properties-droplist ticket-droplist">
                 <div class="properties-check-container">
                     <!-- Список жанрів-->
-                    <div class="properties-droplist-check">
-                        <input type="checkbox" id="drama">
-                        <label for="drama"><span></span>Drama</label>
-                    </div>
-                    <div class="properties-droplist-check">
-                        <input type="checkbox" id="history">
-                        <label for="history"><span></span>History</label>
-                    </div>
-                    <div class="properties-droplist-check">
-                        <input type="checkbox" id="horror">
-                        <label for="horror"><span></span>Horror</label>
-                    </div>
-                    <div class="properties-droplist-check">
-                        <input type="checkbox" id="criminal">
-                        <label for="criminal"><span></span>Criminal</label>
-                    </div>
-                    <div class="properties-droplist-check">
-                        <input type="checkbox" id="classic">
-                        <label for="classic"><span></span>Classic</label>
-                    </div>
-                    <div class="properties-droplist-check">
-                        <input type="checkbox">
-                        <label for=""><span></span>Drama</label>
-                    </div>
-                    <div class="properties-droplist-check">
-                        <input type="checkbox">
-                        <label for=""><span></span>Drama</label>
-                    </div>
-                    <div class="properties-droplist-check">
-                        <input type="checkbox">
-                        <label for=""><span></span>Drama</label>
-                    </div>
-                    <div class="properties-droplist-check">
-                        <input type="checkbox">
-                        <label for=""><span></span>Drama</label>
-                    </div>
-                    <div class="properties-droplist-check">
-                        <input type="checkbox">
-                        <label for=""><span></span>Drama</label>
-                    </div>
-                    <div class="properties-droplist-check">
-                        <input type="checkbox">
-                        <label for=""><span></span>Drama</label>
-                    </div>
+                    @foreach (var genre in Model.Genres)
+                    {
+                        <div class="properties-droplist-check">
+                            <input type="checkbox" id="@genre.Title">
+                            <label for="@genre.Title"><span></span>@genre.Title</label>
+                        </div>
+                    }
                     <!-- Список жанрів-->
                 </div>
             </div>
         </div>
     </div>
-    @for (int i = 0; i < movies.Count; i++)
-{
-    if (i % 3 == 0)
-    {
-        if (i != 0)
+    <div class="FilmContainer">
+        @for (int i = 0; i < Model.Movies.Count; i++)
         {
-            @:</div> <!-- Закрытие предыдущего контейнера строки -->
+        if (i % 3 == 0)
+        {
+            if (i != 0)
+            {
+                @:</div> <!-- Закрытие предыдущего контейнера строки -->
+            }
+            @:<div class="films-row row"> <!-- Открытие нового контейнера строки -->
         }
-        @:<div class="films-row row"> <!-- Открытие нового контейнера строки -->
-    }
+        
+            var movie = Model.Movies[i];
+            var genres = string.Join(",", movie.MovieGenres.Select(mg => mg.Genre.Title));
+            <div class="film-search-elem col-lg-3" data-genres="@genres" data-rating="@movie.Rating" style="background-image: url('@Url.Content("~/img_posters/" + movie.Title + "/" + movie.Title + "_SP.jpg")');">
+                <!-- Постер фильма-->
+                <div class="search-info-container">
+                    <div class="film-elem-name">@movie.Title</div> <!-- Название фильма-->
+                    <li class="film-elem-rating">@movie.Rating</li>
+                    <div class="film-elem-description">
+                        @{
+                            var description = movie.Description;
+                            var maxLength = 150;
 
-    var movie = movies[i];
-    <div class="film-search-elem col-lg-3" style="background-image: url('@Url.Content("~/img_posters/" + movie.Title + "/" + movie.Title + "_SP.jpg")');">
-    @* <div class="film-search-elem col-lg-3" style="background-image: url('@Url.Content("~/img/poster-sm.png")')"> *@
-        <!-- Постер фільму-->
-        <div class="search-info-container">
-            <div class="film-elem-name">@movie.Title</div> <!-- Назва фільму-->
-            <div class="film-elem-description">
-                @{
-                    var description = movie.Description;
-                    var maxLength = 150;
-
-                    if (description.Length > maxLength)
-                    {
-                        var lastSpaceIndex = description.LastIndexOf(" ", maxLength);
-                        if (lastSpaceIndex != -1)
-                        {
-                            description = description.Substring(0, lastSpaceIndex) + "...";
+                            if (description.Length > maxLength)
+                            {
+                                var lastSpaceIndex = description.LastIndexOf(" ", maxLength);
+                                if (lastSpaceIndex != -1)
+                                {
+                                    description = description.Substring(0, lastSpaceIndex) + "...";
+                                }
+                                else
+                                {
+                                    description = description.Substring(0, maxLength) + "...";
+                                }
+                            }
                         }
-                        else
-                        {
-                            description = description.Substring(0, maxLength) + "...";
-                        }
-                    }
-                }
-                @description
-            </div> <!-- Опис фільму-->
-            <div class="film-trailer-button film-trailer-button-search activate-modal">
-                <p>Трейлер</p>
+                        @description
+                    </div> <!-- Описание фильма-->
+                    <div class="film-trailer-button film-trailer-button-search activate-modal">
+                        <p>Трейлер</p>
+                    </div>
+                    <button class="film-buy-tickets film-buy-tickets-search">
+                        <a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Купить билет</a>
+                    </button>
+                </div>
             </div>
-        <button class="film-buy-tickets film-buy-tickets-search"><a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Придбати квиток</a></button>
-        </div>
+        }
+            </div>
     </div>
-}
-</div>
+
+
+
+
 
 
 <div id="myModal" class="modal">
