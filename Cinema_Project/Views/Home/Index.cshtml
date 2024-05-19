@@ -1,5 +1,7 @@
 @model Cinema_Project.ViewModels.CombinedMovieViewModel
-
+@{
+    ViewData["Title"] = "Головна";
+}
 <link href="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/css/swiffy-slider.min.css" rel="stylesheet"
       crossorigin="anonymous">
 <link rel="stylesheet" href="~/css/header-style.css">
@@ -37,11 +39,7 @@
                                 @foreach (var genre in movie.MovieGenres)
                                 {
                                     currentGenreIndex++;
-                                    <span>@genre.Genre.Title</span>
-                                    @if (currentGenreIndex < genreCount)
-                                    {
-                                        <span>,</span>
-                                    }
+                                    <span>@genre.Genre.Title</span>@if (currentGenreIndex < genreCount){<span>,</span>}
                                 }
                             </div>
                             <div class="film-elem"><b>Дата виходу: </b>@movie.ReleaseDate.ToLocalTime().ToString("dd.MM.yyyy")</div>
@@ -52,11 +50,7 @@
                                 {
                                     currentActorIndex++;
                                     <span>@actor.Actor.FirstName</span>
-                                    <span>@actor.Actor.LastName</span>
-                                    @if (currentActorIndex < actorCount)
-                                    {
-                                        <span>,</span>
-                                    }
+                                    <span>@actor.Actor.LastName</span>@if (currentActorIndex < actorCount){<span>,</span>}
                                 }
 
                             </div>
