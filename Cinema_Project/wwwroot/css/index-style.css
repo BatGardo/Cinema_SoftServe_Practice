@@ -363,8 +363,7 @@ li {
 }
 
 .film-trailer-button-search {
-    display:flex;
-    justify-content:center;
+    margin-left: 0vw;
     width: clamp(0rem, 10vw, 10vw);
 }
 
@@ -535,6 +534,11 @@ video{
 
 .film-buy-tickets-modal {
     max-width: 50%;
+}
+
+.film-buy-tickets-search {
+    margin-top: 30px;
+    width: clamp(0rem, 12vw, 15vw) !important;
 }
 
 .btn-border{
