@@ -53,9 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('modalDescription').textContent = description;
 
             const youtubelink = this.getAttribute('data-youtubelink');
-            const youtubelink1 = `${youtubelink}`;
-            alert(youtubelink1);
-            document.getElementById('videoPlayer').src = youtubelink1;
+            document.getElementById('videoPlayer').src = youtubelink;
 
             const imagePath = `/img_posters/${title}/${title}_SP.jpg`;
             document.getElementById('modalImageTag').src = imagePath;
