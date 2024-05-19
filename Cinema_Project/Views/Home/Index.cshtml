@@ -227,16 +227,21 @@
             </div>
             <div class="modal-film-side">
                 <div class="film-rating"><span id="modalRating"></span></div>
-                <img src="~/img/poster-sm.png">
+                <div class="film-elem" id="modalImage">
+                    <img id="modalImageTag" src="" alt="Alternate Text" />
+                </div>                
                 
                 <div class="btn-border">
-                    <input type="button" class="film-buy-tickets film-buy-tickets-modal" value="Buy tickets">
+                    <button class="film-buy-tickets"><a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Придбати квиток</a></button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    
+</script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
