@@ -1,112 +1,62 @@
+@model List<Cinema_Project.ViewModels.ScreeningViewModel>
+
 <link rel="stylesheet" href="~/css/header-style.css">
 <link rel="stylesheet" href="~/css/admin-style.css">
 <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
-        <div class="admin-list-container container">
-            <div class="list-caption"><u>Сеанси</u></div>
-            <div class="list-flex">
-                <div class="list-container">
-                    <div class="list-element">
-                        <div class="text-list">
-                            <div class="text-elem">Шрек 2</div>
-                            <div class="text-elem">Зелена зала</div>
-                            <div class="text-elem">17:00</div>
-                            <div class="text-elem">12.08.2024</div>
-                        </div>
-                        <div class="buttons-container">
-                            <div class="edit-button"><img src="~/img/edit-button.svg"></div>
-                            <div class="detele-button"><img src="~/img/delete-button.svg"></div>
-                        </div>
+
+<div class="admin-list-container container">
+    <div class="list-caption"><u>Сеанси</u></div>
+    <div class="list-flex">
+        <div class="list-container">
+            @foreach (var screening in Model)
+            {
+                <div class="list-element">
+                    <div class="text-list">
+                        <div class="text-elem">@screening.MovieTitle</div>
+                        <div class="text-elem">@screening.HallName</div>
+                        <div class="text-elem">@screening.ScreeningDate.ToString("HH:mm")</div>
+                        <div class="text-elem">@screening.ScreeningDate.ToString("dd.MM.yyyy")</div>
                     </div>
-                    <div class="list-element">
-                        <div class="text-list">
-                            <div class="text-elem">Шрек 2</div>
-                            <div class="text-elem">Зелена зала</div>
-                            <div class="text-elem">17:00</div>
-                            <div class="text-elem">12.08.2024</div>
-                        </div>
-                        <div class="buttons-container">
-                            <div class="edit-button"><img src="~/img/edit-button.svg"></div>
-                            <div class="detele-button"><img src="~/img/delete-button.svg"></div>
-                        </div>
-                    </div>
-                    <div class="list-element">
-                        <div class="text-list">
-                            <div class="text-elem">Шрек 2</div>
-                            <div class="text-elem">Зелена зала</div>
-                            <div class="text-elem">17:00</div>
-                            <div class="text-elem">12.08.2024</div>
-                        </div>
-                        <div class="buttons-container">
-                            <div class="edit-button"><img src="~/img/edit-button.svg"></div>
-                            <div class="detele-button"><img src="~/img/delete-button.svg"></div>
-                        </div>
+                    <div class="buttons-container">
+                        <form method="post" action="@Url.Action("DeleteScreening", "Padmin")">
+                            <input type="hidden" name="id" value="@screening.Id" />
+                            <button type="submit" class="delete-button"><img src="~/img/delete-button.svg"></button>
+                        </form>
                     </div>
                 </div>
-                <div class="add-watchtimes">
-                    <div class="add-text-img watchtime"><img src="~/img/add-button.svg"></div>
-                </div>
-            </div>
+            }
         </div>
-        <div class="admin-list-container container">
-            <div class="list-caption"><u>Фільми</u></div>
-            <div class="list-flex">
-                <div class="list-container">
-                    <div class="list-element">
-                        <div class="text-list">
-                            <div class="text-elem">Шрек 2</div>
-                            <div class="text-elem">2004</div>
-                            <div class="text-elem">1г 45хв</div>
-                            <div class="text-elem">Анімація, комедія</div>
-                        </div>
-                        <div class="buttons-container">
-                            <div class="edit-button"><img src="~/img/edit-button.svg"></div>
-                            <div class="detele-button"><img src="~/img/delete-button.svg"></div>
-                        </div>
-                    </div>
-                    <div class="list-element">
-                        <div class="text-list">
-                            <div class="text-elem">Шрек 2</div>
-                            <div class="text-elem">2004</div>
-                            <div class="text-elem">1г 45хв</div>
-                            <div class="text-elem">Анімація, комедія</div>
-                        </div>
-                        <div class="buttons-container">
-                            <div class="edit-button"><img src="~/img/edit-button.svg"></div>
-                            <div class="detele-button"><img src="~/img/delete-button.svg"></div>
-                        </div>
-                    </div>
-                    <div class="list-element">
-                        <div class="text-list">
-                            <div class="text-elem">Шрек 2</div>
-                            <div class="text-elem">2004</div>
-                            <div class="text-elem">1г 45хв</div>
-                            <div class="text-elem">Анімація, комедія</div>
-                        </div>
-                        <div class="buttons-container">
-                            <div class="edit-button"><img src="~/img/edit-button.svg"></div>
-                            <div class="detele-button"><img src="~/img/delete-button.svg"></div>
-                        </div>
-                    </div>                 
-                </div>
-                <div class="add-watchtimes">
-                    <div class="add-text-img film"><img src="~/img/add-button.svg"></div>
-                </div>
-            </div>
+        <div class="add-watchtimes">
+            <div class="add-text-img watchtime"><img src="~/img/add-button.svg"></div>
         </div>
+    </div>
+</div>
 
+<div class="admin-list-container container">
+    <div class="list-caption"><u>Фільми</u></div>
+    <div class="list-flex">
+        <div class="list-container">
+            <!-- Add movie listing logic here -->
+        </div>
+        <div class="add-watchtimes">
+            <a asp-area="" asp-controller="Padmin" asp-action="AddMovie">
+            <div class="add-text-img film"><img src="~/img/add-button.svg"></div>
+            </a>
+        </div>
+    </div>
+</div>
 
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
         integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
-    <script src="~/js/seach-button.js"></script>
-    <script src="~/js/trailer-modal.js"></script>
+<script src="~/js/seach-button.js"></script>
+<script src="~/js/trailer-modal.js"></script>
