@@ -23,10 +23,9 @@ namespace Cinema_Project.Controllers
         {
             if (ModelState.IsValid) 
             {
-                //login
                 var result = await signInManager.PasswordSignInAsync(model.Username!, model.Password!, model.RememberMe, false);
                 if (result.Succeeded) { 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("ProfileView", "Profile");
                 }
                 ModelState.AddModelError("", "Invalid login attempt");
                 return View(model);
