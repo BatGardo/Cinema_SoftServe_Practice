@@ -42,5 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             totalPriceElement.textContent = `Total: ${totalPrice}₴`;
         }
-    });
+    }); 
 });
+
+
+
+
+
+
