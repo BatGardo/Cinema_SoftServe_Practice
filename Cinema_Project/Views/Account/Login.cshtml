@@ -17,16 +17,18 @@
                 <input asp-for="Username" type="input" placeholder="Логін" required>
                 <input asp-for="Password" type="password" placeholder="Пароль" required>
                 <div class="remember-check">
-                    <input asp-for="RememberMe" type="checkbox" class="form-check-input" value="GO!" id="remember" /> @Html.DisplayNameFor(a => a.RememberMe)
+                    <input asp-for="RememberMe" type="checkbox" class="form-check-input" id="remember" /> @Html.DisplayNameFor(a => a.RememberMe)
                     <label for="remember"><span></span>Не виходити з кабінету</label>
                 </div>
                 <input type="submit" value="Увійти" class="btn btn-primary btn-sm float-end" />
                 <div class="auth-bottom">Немає облікового запису?  <a asp-controller="Account" asp-action="Register" class="text-decoration-none float-start mt-2" style="color: #DF0A0A">Реєстрація!</a></div>
             </form>
+
         </div>
         <div class="col-lg-6 guest-container auth-caption ">Залишитися як <a asp-controller="Home" asp-action="Index"><span class="red-text-big">Гість</span></a></div>
     </div>
 </div>
+
 
 @section Scripts{
     @{

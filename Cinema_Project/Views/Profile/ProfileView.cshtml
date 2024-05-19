@@ -1,5 +1,7 @@
-
-
+@model Cinema_Project.ViewModels.UserProfileViewModel
+@{
+    var localDateTime = DateTime.Now; // Получаем текущую локальную дату и время
+}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,14 +25,14 @@
             <div class="profile-info-caption">Акаунт</div>
             <div class="profile-name-email">
                 <div class="profile-container">
-                    <div class="profile-container-caption">Логін</div>
-                    <input type="text" value="PhonkMonk">
-                    <input class="profile-button" type="button" value="Змінити логін">
+                    <div class="profile-container-caption">Login</div>
+            <input type="text" value="@ViewBag.UserName">
+                    <input class="profile-button" type="button" value="Change login">
                 </div>
                 <div class="profile-container">
                     <div class="profile-container-caption">Email</div>
-                    <input type="email" value="PhonkMonk">
-                    <input class="profile-button" type="button" value="Змінити email">
+                    <input type="email" value="@ViewBag.Email">
+                    <input class="profile-button" type="button" value="Change email">
                 </div>
             </div>
             <div class="profile-container">
@@ -132,98 +134,79 @@
                         </div>
                     </div>
                 </div>
+                <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+                    <button type="submit" class="btn btn-primary btn-sm float-end profile-logout">Log out</button>
+                </form>
             </div>
+
+
+
+                <div class="active-tickets container">
+                    <div class="tickets-caption">Active Tickets</div>
+                    <div class="ticket-list">
+                    @foreach (var ticket in Model.Tickets)
+                        {
+                            // Сравниваем дату и время билета с текущей локальной датой и временем
+                            if (ticket.Showtime > localDateTime)
+                            {
+                                <div class="ticket-element">
+                                    <div class="ticket-top">
+                                        <div class="ticket-info">
+                                            <div class="ticket-name">@ticket.Movie.Title</div>
+                                            <div class="ticket-date">@ticket.Showtime.ToString("dd.MM.yyyy")</div>
+                                        </div>
+                                        <div class="ticket-svg"></div>
+                                    </div>
+                                    <div class="ticket-droplist">
+                                        <div class="single-ticket">
+                                            <div class="ticket-elem">Row @ticket.RowNumber, seat @ticket.SeatNumber</div>
+                                            <div class="ticket-elem">Hall @ticket.HallNumber</div>
+                                            <div class="ticket-elem">@ticket.Showtime.ToString("HH:mm")</div>
+                                            <div class="ticket-elem">@ticket.Showtime.ToString("dd.MM.yyyy")</div>
+                                            <div class="ticket-elem">@ticket.Price</div>
+                                            <div class="ticket-elem download">
+                                            <a asp-controller="Profile" asp-action="GeneratePDF" asp-route-movieTitle="@ticket.Movie.Title" asp-route-showtime="@ticket.Showtime" asp-route-rowNumber="@ticket.RowNumber" asp-route-seatNumber="@ticket.SeatNumber" asp-route-hallNumber="@ticket.HallNumber" asp-route-price="@ticket.Price">Download</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
         </div>
         <div class="active-tickets container">
-            <div class="tickets-caption">Активні квитки</div>
+            <div class="tickets-caption">History Tickets</div>
             <div class="ticket-list">
-                <div class="ticket-element">
-                    <div class="ticket-top">
-                        <div class="ticket-info">
-                            <div class="ticket-name">Харрі Поттер і філософський камінь (2 квитки)</div>
-                            <div class="ticket-date">12.08.2023</div>
+                @foreach (var ticket in Model.Tickets)
+                {
+                    // Сравниваем дату и время билета с текущей локальной датой и временем
+                    if (ticket.Showtime < localDateTime)
+                    {
+                        <div class="ticket-element">
+                            <div class="ticket-top">
+                                <div class="ticket-info">
+                                    <div class="ticket-name">@ticket.Movie.Title</div>
+                                    <div class="ticket-date">@ticket.Showtime.ToString("dd.MM.yyyy")</div>
+                                </div>
+                                <div class="ticket-svg"></div>
+                            </div>
+                            <div class="ticket-droplist">
+                                <div class="single-ticket">
+                                    <div class="ticket-elem">Row @ticket.RowNumber, seat @ticket.SeatNumber</div>
+                                    <div class="ticket-elem">Hall @ticket.HallNumber</div>
+                                    <div class="ticket-elem">@ticket.Showtime.ToString("HH:mm")</div>
+                                    <div class="ticket-elem">@ticket.Showtime.ToString("dd.MM.yyyy")</div>
+                                    <div class="ticket-elem">@ticket.Price</div>
+                                    <div class="ticket-elem download"><a href="#">Download</a></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="ticket-svg"></div>
-                    </div>
-                    <div class="ticket-droplist">
-                        <div class="single-ticket">
-                            <div class="ticket-elem">1. Ряд 3, місце 12</div>
-                            <div class="ticket-elem">Зелена зала</div>
-                            <div class="ticket-elem">17:00</div>
-                            <div class="ticket-elem">12.08.2024</div>
-                            <div class="ticket-elem">275₴</div>
-                            <div class="ticket-elem download"><img src="~/img/download.svg"></div>
-                        </div>
-                        <div class="single-ticket">
-                            <div class="ticket-elem">1. Ряд 3, місце 12</div>
-                            <div class="ticket-elem">Зелена зала</div>
-                            <div class="ticket-elem">17:00</div>
-                            <div class="ticket-elem">12.08.2024</div>
-                            <div class="ticket-elem">275₴</div>
-                            <div class="ticket-elem download"><img src="~/img/download.svg"></div>
-                        </div>
-                        <div class="single-ticket">
-                            <div class="ticket-elem">1. Ряд 3, місце 12</div>
-                            <div class="ticket-elem">Зелена зала</div>
-                            <div class="ticket-elem">17:00</div>
-                            <div class="ticket-elem">12.08.2024</div>
-                            <div class="ticket-elem">275₴</div>
-                            <div class="ticket-elem download"><img src="~/img/download.svg"></div>
-                        </div>
-                        <div class="single-ticket">
-                            <div class="ticket-elem">1. Ряд 3, місце 12</div>
-                            <div class="ticket-elem">Зелена зала</div>
-                            <div class="ticket-elem">17:00</div>
-                            <div class="ticket-elem">12.08.2024</div>
-                            <div class="ticket-elem">275₴</div>
-                            <div class="ticket-elem download"><img src="~/img/download.svg"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ticket-element">
-                    <div class="ticket-top">
-                        <div class="ticket-info">
-                            <div class="ticket-name">Амелі (2 квитки)</div>
-                            <div class="ticket-date">12.08.2023</div>
-                        </div>
-                        <div class="ticket-svg"></div>
-                    </div>
-                    <div class="ticket-droplist">
-                        <div class="single-ticket">
-                            <div class="ticket-elem">1. Ряд 3, місце 12</div>
-                            <div class="ticket-elem">Зелена зала</div>
-                            <div class="ticket-elem">17:00</div>
-                            <div class="ticket-elem">12.08.2024</div>
-                            <div class="ticket-elem">275₴</div>
-                            <div class="ticket-elem download"><img src="~/img/download.svg"></div>
-                        </div>
-                        <div class="single-ticket">
-                            <div class="ticket-elem">1. Ряд 3, місце 12</div>
-                            <div class="ticket-elem">Зелена зала</div>
-                            <div class="ticket-elem">17:00</div>
-                            <div class="ticket-elem">12.08.2024</div>
-                            <div class="ticket-elem">275₴</div>
-                            <div class="ticket-elem download"><img src="~/img/download.svg"></div>
-                        </div>
-                        <div class="single-ticket">
-                            <div class="ticket-elem">1. Ряд 3, місце 12</div>
-                            <div class="ticket-elem">Зелена зала</div>
-                            <div class="ticket-elem">17:00</div>
-                            <div class="ticket-elem">12.08.2024</div>
-                            <div class="ticket-elem">275₴</div>
-                            <div class="ticket-elem download"><img src="~/img/download.svg"></div>
-                        </div>
-                        <div class="single-ticket">
-                            <div class="ticket-elem">1. Ряд 3, місце 12</div>
-                            <div class="ticket-elem">Зелена зала</div>
-                            <div class="ticket-elem">17:00</div>
-                            <div class="ticket-elem">12.08.2024</div>
-                            <div class="ticket-elem">275₴</div>
-                            <div class="ticket-elem download"><img src="~/img/download.svg"></div>
-                        </div>
-                    </div>
-                </div>
+                    }
+                }
             </div>
+               
         </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

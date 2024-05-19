@@ -2,6 +2,7 @@ using Cinema_Project.Data;
 using Microsoft.EntityFrameworkCore;
 using Cinema_Project.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Cinema_Project
 {
@@ -19,7 +20,7 @@ namespace Cinema_Project
             builder.Services.AddDbContext<AppDbContext>(
                 options => options.UseNpgsql(connectionString)
             );
-            // Вимоги до паролю
+
             builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
             {
                 options.Password.RequiredUniqueChars = 0;
@@ -29,7 +30,18 @@ namespace Cinema_Project
                 options.Password.RequireLowercase = false;
             })
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+
+            // Add session services.
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); // Встановлюємо час бездіяльності сесії
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true; // Важливо для GDPR: ця опція робить куки обов'язковими
+            });
+
 
             var app = builder.Build();
 
@@ -45,11 +57,15 @@ namespace Cinema_Project
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            // Map attribute-routed controllers
+            app.MapControllers();
 
             using (var scope = app.Services.CreateScope())
             {
@@ -83,7 +99,14 @@ namespace Cinema_Project
                     await userManager.AddToRoleAsync(user, "Admin");
                 }
             }
+
+
+
+
+            app.UseSession();
             app.Run();
+
+
         }
     }
 }
