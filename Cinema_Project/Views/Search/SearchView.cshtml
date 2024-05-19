@@ -20,30 +20,30 @@
                 <div class="property-svg ticket-svg"><img src="~/img/droplist-ico.svg"></div>
             </div>
             <div class="properties-droplist ticket-droplist">
-            <div class="properties-droplist-elem elem-active" data-sort="title">Title</div> <!-- Сортировка по названию фильма -->
-            <div class="line"></div>
-            <div class="properties-droplist-elem" data-sort="popularity">Popularity</div> <!-- Сортировка по рейтингу фильма -->
+                <div class="properties-droplist-elem elem-active" data-sort="title">Title</div> <!-- Сортировка по названию фильма -->
+                <div class="line"></div>
+                <div class="properties-droplist-elem" data-sort="popularity">Popularity</div> <!-- Сортировка по рейтингу фильма -->
 
             </div>
         </div>
         <div class="line-v"></div>
         @* <div class="properties-elem ticket-element">
-            <div class="properties-top side-border ticket-top">
-                <div class="property-img"><img src="~/img/order-sort.svg"></div>
-                <div class="property-text">Order: <u>Descending</u></div>
-                <div class="property-svg ticket-svg"><img src="~/img/droplist-ico.svg"></div>
-            </div>
-            <div class="properties-droplist ticket-droplist">
-                <div class="properties-droplist-elem d-flex">
-                    <img src="~/img/order-sort.svg" style="transform: rotate(180deg);">
-                    Ascending <!-- Сортування за зростанням-->
-                </div>
-                <div class="line"></div>
-                <div class="properties-droplist-elem d-flex elem-active">
-                    <img src="~/img/order-sort.svg">
-                    Descending <!-- Сортування за спаданням-->
-                </div>
-            </div>
+        <div class="properties-top side-border ticket-top">
+        <div class="property-img"><img src="~/img/order-sort.svg"></div>
+        <div class="property-text">Order: <u>Descending</u></div>
+        <div class="property-svg ticket-svg"><img src="~/img/droplist-ico.svg"></div>
+        </div>
+        <div class="properties-droplist ticket-droplist">
+        <div class="properties-droplist-elem d-flex">
+        <img src="~/img/order-sort.svg" style="transform: rotate(180deg);">
+        Ascending <!-- Сортування за зростанням-->
+        </div>
+        <div class="line"></div>
+        <div class="properties-droplist-elem d-flex elem-active">
+        <img src="~/img/order-sort.svg">
+        Descending <!-- Сортування за спаданням-->
+        </div>
+        </div>
         </div> *@
         <div class="properties-elem flex-grow-1 ticket-element">
             <div class="properties-top right ticket-top">
@@ -66,55 +66,66 @@
         </div>
     </div>
     <div class="FilmContainer">
-        @for (int i = 0; i < Model.Movies.Count; i++)
-        {
-        if (i % 3 == 0)
-        {
-            if (i != 0)
+        <div class="films-row">
+            @for (int i = 0; i < Model.Movies.Count; i++)
             {
-                @:</div> <!-- Закрытие предыдущего контейнера строки -->
-            }
-            @:<div class="films-row row"> <!-- Открытие нового контейнера строки -->
-        }
-        
-            var movie = Model.Movies[i];
-            var genres = string.Join(",", movie.MovieGenres.Select(mg => mg.Genre.Title));
-            <div class="film-search-elem col-lg-3" data-genres="@genres" data-rating="@movie.Rating" style="background-image: url('@Url.Content("~/img_posters/" + movie.Title + "/" + movie.Title + "_SP.jpg")');">
-                <!-- Постер фильма-->
-                <div class="search-info-container">
-                    <div class="film-elem-name">@movie.Title</div> <!-- Название фильма-->
-                    <li class="film-elem-rating">@movie.Rating</li>
-                    <div class="film-elem-description">
-                        @{
-                            var description = movie.Description;
-                            var maxLength = 150;
+                var movie = Model.Movies[i];
+                var genres = string.Join(",", movie.MovieGenres.Select(mg => mg.Genre.Title));
+                <div class="film-search-elem" data-genres="@genres" data-rating="@movie.Rating" style="background-image: url('@Url.Content("~/img_posters/" + movie.Title + "/" + movie.Title + "_SP.jpg")');">
+                    <!-- Постер фильма-->
+                    <div class="search-info-container">
+                        <div class="film-elem-name">
+                            @{
+                                var title = Model.Movies[i].Title;
+                                var maxTitleLength = 20;
 
-                            if (description.Length > maxLength)
-                            {
-                                var lastSpaceIndex = description.LastIndexOf(" ", maxLength);
-                                if (lastSpaceIndex != -1)
+                                if (title.Length > maxTitleLength)
                                 {
-                                    description = description.Substring(0, lastSpaceIndex) + "...";
-                                }
-                                else
-                                {
-                                    description = description.Substring(0, maxLength) + "...";
+                                    var lastSpaceIndex = title.LastIndexOf(" ", maxTitleLength);
+                                    if (lastSpaceIndex != -1)
+                                    {
+                                        title = title.Substring(0, lastSpaceIndex) + "...";
+                                    }
+                                    else
+                                    {
+                                        title = title.Substring(0, maxTitleLength) + "...";
+                                    }
                                 }
                             }
-                        }
-                        @description
-                    </div> <!-- Описание фильма-->
-                    <div class="film-trailer-button film-trailer-button-search activate-modal">
-                        <p>Трейлер</p>
+                            @title
+                        </div> <!-- Название фильма-->
+                        <div class="film-elem-description">
+                            @{
+                                var description = movie.Description;
+                                var maxLength = 150;
+
+                                if (description.Length > maxLength)
+                                {
+                                    var lastSpaceIndex = description.LastIndexOf(" ", maxLength);
+                                    if (lastSpaceIndex != -1)
+                                    {
+                                        description = description.Substring(0, lastSpaceIndex) + "...";
+                                    }
+                                    else
+                                    {
+                                        description = description.Substring(0, maxLength) + "...";
+                                    }
+                                }
+                            }
+                            @description
+                        </div> <!-- Описание фильма-->
+                        <div class="film-trailer-button film-trailer-button-search activate-modal">
+                            <p>Трейлер</p>
+                        </div>
+                        <button class="film-buy-tickets film-buy-tickets-search">
+                            <a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Купить билет</a>
+                        </button>
                     </div>
-                    <button class="film-buy-tickets film-buy-tickets-search">
-                        <a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Купить билет</a>
-                    </button>
                 </div>
-            </div>
-        }
-            </div>
+            }
+        </div>
     </div>
+</div>
 
 
 

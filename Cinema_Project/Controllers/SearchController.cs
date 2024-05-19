@@ -17,7 +17,7 @@ namespace Cinema_Project.Controllers
         {
             var movies = _context.Movies
                 .Include(m => m.MovieGenres)
-            .Include(m => m.MovieActors)
+                .Include(m => m.MovieActors)
                 .ToList();
             var genres = _context.Genres.ToList();
             var actors = _context.Actors.ToList();
