@@ -2,9 +2,11 @@
 using Cinema_Project.ViewModels;
 using Cinema_Project.Data;
 using Microsoft.EntityFrameworkCore;
-using Cinema_Project.Models;
-using System.Linq;
 using Microsoft.AspNetCore.Authentication;
+using PdfSharp.Pdf;
+using PdfSharp.Drawing;
+using System.Text;
+using System.IO;
 
 namespace Cinema_Project.Controllers
 {
@@ -47,5 +49,41 @@ namespace Cinema_Project.Controllers
 
             return RedirectToAction("Login", "Account");
         }
+        public IActionResult GeneratePDF(string movieTitle, DateTime showtime, int rowNumber, int seatNumber, int hallNumber, decimal price)
+        {
+            // Создание нового PDF-документа
+            PdfDocument document = new PdfDocument();
+            PdfPage page = document.AddPage();
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+
+            // Остальной код для создания содержимого документа
+            // Например, добавление информации о билете
+            //XFont font = new XFont("Arial", 12);
+            string ticketInfo = $"Movie: {movieTitle}\nShowtime: {showtime}\nRow Number: {rowNumber}\nSeat Number: {seatNumber}\nHall Number: {hallNumber}\nPrice: {price}";
+            //gfx.DrawString(ticketInfo, font, XBrushes.Black, new XPoint(40, 40));
+
+            // Путь для сохранения PDF-документа
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "pdf", "ticket.pdf");
+
+            using (FileStream stream = new FileStream(filePath, FileMode.Create))
+            {
+                // Устанавливаем кодировку для сохранения
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                Encoding encoding = Encoding.GetEncoding("windows-1251"); // Или другую подходящую кодировку
+
+                // Сохраняем PDF-документ с указанной кодировкой
+                document.Save(stream, closeStream: false);
+            }
+
+
+
+            // Освобождение ресурсов
+            document.Close();
+
+            // Возвращаем результат как файл для скачивания
+            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            return File(fileBytes, "application/pdf", "ticket.pdf");
+        }
+
     }
 }
