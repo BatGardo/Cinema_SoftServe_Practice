@@ -8,5 +8,10 @@ namespace Cinema_Project.Controllers
         {
             return View();
         }
+
+        public IActionResult AddMovie()
+        {
+            return View();
+        }
     }
 }
