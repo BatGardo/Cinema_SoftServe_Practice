@@ -19,11 +19,11 @@ namespace Cinema_Project.Models
         public int? RowNumber { get; set; }
         [Column("seat_number")]
         public int? SeatNumber { get; set; }
-        
         [Column("movie_id")]
         public int MovieId { get; set; }
         [Column("user_id")]
         public string? UserId { get; set; }
         public virtual AppUser? User { get; set; }
+        public virtual Movie? Movie { get; set; }
     }
 }

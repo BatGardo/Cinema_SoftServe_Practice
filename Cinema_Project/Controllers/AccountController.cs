@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Cinema_Project.Models;
 using Cinema_Project.ViewModels;
+using System.Numerics;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Cinema_Project.Controllers
 {
@@ -21,16 +23,24 @@ namespace Cinema_Project.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await signInManager.PasswordSignInAsync(model.Username!, model.Password!, model.RememberMe, false);
-                if (result.Succeeded)
+                var user = await userManager.FindByNameAsync(model.Username);
+                if (user != null)
                 {
-                    return RedirectToAction("ProfileView", "Profile");
+                    var result = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+                    if (result.Succeeded)
+                    {
+                        // Сохраняем только необходимые данные о пользователе в сессию
+                        HttpContext.Session.SetString("UserId", user.Id);
+                        HttpContext.Session.SetString("UserName", user.UserName);
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 ModelState.AddModelError("", "Invalid login attempt");
-                return View(model);
             }
             return View(model);
         }
+
+
 
         public IActionResult Register()
         {
@@ -73,6 +83,8 @@ namespace Cinema_Project.Controllers
 
         public async Task<IActionResult> Logout()
         {
+            HttpContext.Session.Clear();
+            HttpContext.SignOutAsync();
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }

@@ -24,6 +24,7 @@ namespace Cinema_Project.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+            ProfileViewLayout();
             var movies = _context.Movies
                 .Include(m => m.MovieGenres)
                 .Include(m => m.MovieActors)
@@ -34,7 +35,19 @@ namespace Cinema_Project.Controllers
             return View(viewModel);
         }
 
-        
+        public string ProfileViewLayout()
+        {
+            string userName = HttpContext.Session.GetString("UserName"); // Получите имя пользователя из вашей системы аутентификации
+            if (string.IsNullOrEmpty(userName))
+            {
+                userName = "Guest";
+            }
+            ViewBag.UserName = userName;
+            return userName;
+        }
+
+
+
 
         public IActionResult Privacy()
         {
