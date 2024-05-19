@@ -18,70 +18,149 @@
              slider-nav-autohide slider-nav-page slider-indicators-round slider-indicators-outside slider-nav-animation slider-nav-animation-scale"
          data-slider-nav-autoplay-interval="5000">
         <ul class="slider-container">
-
-
-
-
-
-
-            @* Треба фіксанути відображення останнього слайду і розмірність*@
             @foreach (var movie in Model.Movies.Take(10))
             {
+                int genreCount = movie.MovieGenres.Count;
+                int currentGenreIndex = 0;
+                int actorCount = movie.MovieActors.Count;
+                int currentActorIndex = 0;
                 <li class="slide-invisible slide-visible">
 
-                    <div class="single-slide" id="@movie.MovieId" style="background-image: url('@Url.Content("~/img/" + movie.Title + ".jpg")');">
-                        @*                     <div class="single-slide" id="@movie.MovieId" style="background-image: url('https://lh3.googleusercontent.com/proxy/mXDKyHfl4D7SEtn8DwfIgW37HrFeHq99rsr_EoY4QHKj5zxT1qPryEaEUKlHCNTT78J9ucV_DDjHa1mk3Pp6kURnTpYSDxjnF_N_gUKJVAWA27E');">
-                    *@                                <div class="film-info-container">
+                    @* <div class="single-slide" id="@movie.MovieId" style="background-image: url('@Url.Content("~/img/" + movie.Title + ".jpg")');"> *@
+                    <div class="single-slide" id="@movie.MovieId" style="background-image: url('https://lh3.googleusercontent.com/proxy/mXDKyHfl4D7SEtn8DwfIgW37HrFeHq99rsr_EoY4QHKj5zxT1qPryEaEUKlHCNTT78J9ucV_DDjHa1mk3Pp6kURnTpYSDxjnF_N_gUKJVAWA27E');">
+                        <div class="film-info-container">
                             <div class="film-rating">@movie.Rating</div>
                             <div class="film-name">@movie.Title</div>
                             <div class="film-elem">
-                                <b>Categories: </b>
+                                <b>Жанр: </b>
                                 @foreach (var genre in movie.MovieGenres)
                                 {
+                                    currentGenreIndex++;
                                     <span>@genre.Genre.Title</span>
+                                    @if (currentGenreIndex < genreCount)
+                                    {
+                                        <span>,</span>
+                                    }
                                 }
                             </div>
-                            <div class="film-elem"><b>Year: </b>@movie.ReleaseDate.ToLocalTime().ToString("yyyy-MM-dd")</div>
-                            <div class="film-elem"><b>Duration:</b>@($"{movie.Duration / 60}:{(movie.Duration % 60):D2}")</div>
+                            <div class="film-elem"><b>Дата виходу: </b>@movie.ReleaseDate.ToLocalTime().ToString("dd.MM.yyyy")</div>
+                            <div class="film-elem"><b>Тривалість: </b>@($"{movie.Duration / 60}:{(movie.Duration % 60):D2}")</div>
                             <div class="film-elem">
-                                <b>Stars:</b>
+                                <b>У головних ролях:</b>
                                 @foreach (var actor in movie.MovieActors)
                                 {
+                                    currentActorIndex++;
                                     <span>@actor.Actor.FirstName</span>
                                     <span>@actor.Actor.LastName</span>
+                                    @if (currentActorIndex < actorCount)
+                                    {
+                                        <span>,</span>
+                                    }
                                 }
+
                             </div>
-                            <div class="film-elem"><b>Description:</b>@movie.Description</div>
+                            <div class="film-elem">
+                                <b>Опис: </b>
+                                @{
+                                    var description = @movie.Description;
+                                    var maxLength = 250;
+
+                                    if (description.Length > maxLength)
+                                    {
+                                        var lastSpaceIndex = description.LastIndexOf(" ", maxLength);
+                                        if (lastSpaceIndex != -1)
+                                        {
+                                            description = description.Substring(0, lastSpaceIndex) + "...";
+                                        }
+                                        else
+                                        {
+                                            description = description.Substring(0, maxLength) + "...";
+                                        }
+                                    }
+                                }
+                                @description
+                            </div>
                             <div class="film-buttons">
                                 <button class="film-buy-tickets"><a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Придбати квиток</a></button>
-                                <div id="film-trailer-button" class="film-trailer-button activate-modal">
+                                <div id="film-trailer-button" class="film-trailer-button activate-modal"
+                                     data-movie-id="@movie.MovieId"
+                                     data-title="@movie.Title"
+                                     data-rating="@movie.Rating"
+                                     data-categories="@string.Join(", ", movie.MovieGenres.Select(g => g.Genre.Title))"
+                                     data-year="@movie.ReleaseDate.Year"
+                                     data-duration="@($"{movie.Duration / 60}:{(movie.Duration % 60):D2}")"
+                                     data-stars="@string.Join(", ", movie.MovieActors.Select(a => a.Actor.FirstName + ' ' + a.Actor.LastName))"
+                                     data-description="@movie.Description">
                                     <p>Трейлер</p>
                                 </div>
                             </div>
                         </div>
                 </li>
             }
-            @* Треба фіксанути відображення останнього слайду і розмірність*@
-
-
-
-
-
-
-
-
-
-
         </ul>
         <button type="button" class="slider-nav left-button"></button>
         <button type="button" class="slider-nav slider-nav-next right-button"></button>
     </div>
 </div>
-<h1 class="slider-caption" style="margin-bottom: 70px;">
-    <b>
-        НА ОСНОВІ<span style="color:red; filter: drop-shadow(0px 0px 10px red);"> ВАШОЇ </span>ІСТОРІЇ ПЕРЕГЛЯДУ
-    </b>
-</h1>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h1 class="slider-caption" style="margin-bottom: 70px;">
+        <b>
+            НА ОСНОВІ<span style="color:red; filter: drop-shadow(0px 0px 10px red);"> ВАШОЇ </span>ІСТОРІЇ ПЕРЕГЛЯДУ
+        </b>
+    </h1>
+    <div class="slider-wrapper">
+        <ul class="slider-items">
+            <div id="moviesContainer">
+                @foreach (var movie in Model.Movies.Take(2))
+                {
+                    <img class="reel-svg" src="~/img/reel_start.svg" alt="SVG Icon">
+                <li class="slider-item movie" id="slider-item"
+                    style="background-image: url('@("https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_.jpg")');">
+                    <div class="slider-film-name">@movie.Title</div>
+                    <div class="slider-film-slogan">
+                            @foreach (var genre in movie.MovieGenres)
+                            {
+                            <span>@genre.Genre.Title</span>
+                            }
+                    </div>
+                    <div class="slider-film-year">@movie.ReleaseDate.ToLocalTime().ToString("yyyy-MM-dd")</div>
+                    <input type="button" class="slider-film-button" value="Трейлер">
+                </li>
+
+
+
+                    @*                             <h2>@movie.Title</h2>
+        <p>@movie.Description</p>
+        <p>Release Date: </p>
+        <p>Duration: @movie.Duration</p>
+        <p>Rating: @movie.Rating</p>
+        <p>
+        Genres:
+        @if (movie.MovieGenres != null)
+        {
+        @foreach (var genre in movie.MovieGenres)
+        {
+        <span>@genre.Genre.Title</span>
+        }
+        }
+        </p>
+        <button type="button" class="btn btn-primary btn-sm float-end"
+        onclick="showMovieDetails(@movie.MovieId)">
+        More
+        </button>*@
+                }
+
+                @* Зміни на закриваючий IMG *@
+            <img class="reel-svg" src="./img/reel_start.svg" alt="SVG Icon">
+        </div>
+    </ul>
+</div>
+}
+
+
+<h1>Слайдер високий рейтинг в жанрі</h1>
 <div class="slider-wrapper">
     <ul class="slider-items">
 
@@ -90,7 +169,7 @@
 
 
         <div id="moviesContainer">
-            @foreach (var movie in Model.Movies.Take(2))
+            @foreach (var movie in Model.Movies)
             {
                 <img class="reel-svg" src="~/img/reel_start.svg" alt="SVG Icon">
             <li class="slider-item movie" id="slider-item"
@@ -103,7 +182,7 @@
                         }
                 </div>
                 <div class="slider-film-year">@movie.ReleaseDate.ToLocalTime().ToString("yyyy-MM-dd")</div>
-                <input type="button" class="slider-film-button" value="Трейлер">
+                <input type="button" class="slider-film-button activate-modal" value="Трейлер">
             </li>
 
 
@@ -134,59 +213,6 @@
 </div>
 
 
-<h1>Слайдер високий рейтинг в жанрі</h1>
-<div class="slider-wrapper">
-    <ul class="slider-items">
-
-
-
-
-
-        <div id="moviesContainer">
-                    @foreach (var movie in Model.Movies)
-                    {
-                <img class="reel-svg" src="~/img/reel_start.svg" alt="SVG Icon">
-            <li class="slider-item movie" id="slider-item"
-                style="background-image: url('@("https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_.jpg")');">
-                <div class="slider-film-name">@movie.Title</div>
-                <div class="slider-film-slogan">
-                                @foreach (var genre in movie.MovieGenres)
-                                {
-                        <span>@genre.Genre.Title</span>
-                                }
-                </div>
-                <div class="slider-film-year">@movie.ReleaseDate.ToLocalTime().ToString("yyyy-MM-dd")</div>
-                <input type="button" class="slider-film-button activate-modal" value="Трейлер">
-            </li>
-
-
-                        @*                             <h2>@movie.Title</h2>
-        <p>@movie.Description</p>
-        <p>Release Date: </p>
-        <p>Duration: @movie.Duration</p>
-        <p>Rating: @movie.Rating</p>
-        <p>
-        Genres:
-        @if (movie.MovieGenres != null)
-        {
-        @foreach (var genre in movie.MovieGenres)
-        {
-        <span>@genre.Genre.Title</span>
-        }
-        }
-        </p>
-        <button type="button" class="btn btn-primary btn-sm float-end"
-        onclick="showMovieDetails(@movie.MovieId)">
-        More
-        </button>*@
-                    }
-
-                    @* Зміни на закриваючий IMG *@
-        <img class="reel-svg" src="./img/reel_start.svg" alt="SVG Icon">
-
-</div>
-
-
 
 <div id="myModal" class="modal">
     <span id="btn_watch_close" class="close">&times;</span>
@@ -196,22 +222,17 @@
     <div class="text-block container">
         <div class="modal-info-container d-flex">
             <div class="modal-film-info">
-                <div class="film-name side-elem">URI: The Cock And Balls Removal</div>
-                <div class="film-elem side-elem-1"><b>Categories: </b>Action, Drama, History</div>
-                <div class="film-elem side-elem-1"><b>Year: </b>2019</div>
-                <div class="film-elem side-elem-1"><b>Duration:</b> 2h 18m</div>
-                <div class="film-elem side-elem-1"><b>Stars:</b> Vicky Kaushal, Paresh Rawal, Mohit Raina</div>
+                <div class="film-name side-elem" id="modalTitle"></div>
+                <div class="film-elem side-elem-1"><b>Жанр: </b><span id="modalCategories"></span></div>
+                <div class="film-elem side-elem-1"><b>Дата виходу: </b><span id="modalYear"></span></div>
+                <div class="film-elem side-elem-1"><b>Тривалість: </b><span id="modalDuration"></span></div>
+                <div class="film-elem side-elem-1"><b>У головних ролях: </b><span id="modalStars"></span></div>
                 <div class="film-elem side-elem-1">
-                    <b>Description:</b>Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Ut provident, natus sunt, explicabo iure cum ea odio ex quis
-                    tenetur vero in sint earum, inventore voluptatibus aliquam hic deserunt quidem?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos dolore velit ex, rerum
-                    culpa amet. Dignissimos labore obcaecati asperiores optio est, consequatur non rem
-                    exercitationem ipsam quasi fuga voluptate iure.
+                    <b>Опис: </b><span id="modalDescription"></span>
                 </div>
             </div>
             <div class="modal-film-side">
-                <div class="film-rating">9,9</div>
+                <div class="film-rating"><span id="modalRating"></span></div>
                 <img src="~/img/poster-sm.png">
                 <div class="btn-border">
                     <input type="button" class="film-buy-tickets film-buy-tickets-modal" value="Buy tickets">
