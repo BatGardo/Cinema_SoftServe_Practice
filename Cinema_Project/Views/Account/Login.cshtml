@@ -13,18 +13,18 @@
     <div class="row">
         <div class="auth-reg-container col-lg-6">
             <form class="auth-container active" asp-action="Login" method="post">
-                <div class="auth-caption">LOG <span style="color:#DF0A0A">IN</span></div>
-                <input asp-for="Username" type="input" placeholder="Login" required>
-                <input asp-for="Password" type="password" placeholder="Password" required>
+                <div class="auth-caption">Увійти <br /><span style="color:#DF0A0A"> в систему</span></div>
+                <input asp-for="Username" type="input" placeholder="Логін" required>
+                <input asp-for="Password" type="password" placeholder="Пароль" required>
                 <div class="remember-check">
                     <input asp-for="RememberMe" type="checkbox" class="form-check-input" value="GO!" id="remember" /> @Html.DisplayNameFor(a => a.RememberMe)
-                    <label for="remember"><span></span>Remember me</label>
+                    <label for="remember"><span></span>Не виходити з кабінету</label>
                 </div>
-                <input type="submit" value="Login" class="btn btn-primary btn-sm float-end" />
-                <div class="auth-bottom">Don't have an account?  <a asp-controller="Account" asp-action="Register" class="text-decoration-none float-start mt-2" style="color: #DF0A0A">Sign up!</a></div>
+                <input type="submit" value="Увійти" class="btn btn-primary btn-sm float-end" />
+                <div class="auth-bottom">Немає облікового запису?  <a asp-controller="Account" asp-action="Register" class="text-decoration-none float-start mt-2" style="color: #DF0A0A">Реєстрація!</a></div>
             </form>
         </div>
-        <div class="col-lg-6 guest-container auth-caption ">Stay as <a asp-controller="Home" asp-action="Index"><span class="red-text-big">Guest</span></a></div>
+        <div class="col-lg-6 guest-container auth-caption ">Залишитися як <a asp-controller="Home" asp-action="Index"><span class="red-text-big">Гість</span></a></div>
     </div>
 </div>
 

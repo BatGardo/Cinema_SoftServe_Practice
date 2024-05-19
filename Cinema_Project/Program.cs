@@ -14,6 +14,7 @@ namespace Cinema_Project
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
             // Add services to the container.
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<AppDbContext>(
                 options => options.UseNpgsql(connectionString)
