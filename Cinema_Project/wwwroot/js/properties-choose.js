@@ -14,10 +14,11 @@ document.querySelectorAll('.properties-droplist').forEach(droplist => {
 });
 
 function sortMovies(sortBy) {
-    const filmsContainers = document.querySelectorAll('.FilmContainer');
+    const filmsContainer = document.querySelector('.FilmContainer');
+    const filmsRows = Array.from(filmsContainer.querySelectorAll('.films-row'));
 
-    filmsContainers.forEach(container => {
-        const films = Array.from(container.children);
+    filmsRows.forEach(row => {
+        const films = Array.from(row.querySelectorAll('.film-search-elem'));
 
         films.sort((a, b) => {
             if (sortBy === 'title') {
@@ -31,8 +32,20 @@ function sortMovies(sortBy) {
             }
         });
 
-        // Очистка контейнера и добавление отсортированных фильмов
-        container.innerHTML = '';
-        films.forEach(film => container.appendChild(film));
+        // Создаем новый контейнер для отсортированных фильмов
+        const sortedFilmsContainer = document.createElement('div');
+        sortedFilmsContainer.classList.add('films-row');
+
+        // Добавляем отсортированные фильмы в новый контейнер
+        films.forEach(film => {
+            sortedFilmsContainer.appendChild(film);
+        });
+
+        // Заменяем старый контейнер на новый
+        row.parentNode.replaceChild(sortedFilmsContainer, row);
     });
 }
+
+
+
+
