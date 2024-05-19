@@ -15,11 +15,12 @@ namespace Cinema_Project
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
             // Add services to the container.
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<AppDbContext>(
                 options => options.UseNpgsql(connectionString)
             );
-            // Вимоги до паролю
+
             builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
             {
                 options.Password.RequiredUniqueChars = 0;
@@ -29,7 +30,8 @@ namespace Cinema_Project
                 options.Password.RequireLowercase = false;
             })
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
 
 
             // Add session services.
@@ -55,11 +57,15 @@ namespace Cinema_Project
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            // Map attribute-routed controllers
+            app.MapControllers();
 
             using (var scope = app.Services.CreateScope())
             {

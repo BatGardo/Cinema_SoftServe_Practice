@@ -18,7 +18,6 @@ namespace Cinema_Project.Controllers
             this.userManager = userManager;
         }
 
-
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM model)
         {
@@ -68,8 +67,9 @@ namespace Cinema_Project.Controllers
 
                 if (result.Succeeded)
                 {
+                    await userManager.AddToRoleAsync(user, "User");
                     await signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("ProfileView", "Profile");
                 }
 
                 foreach (var error in result.Errors)
@@ -89,5 +89,4 @@ namespace Cinema_Project.Controllers
             return RedirectToAction("Index", "Home");
         }
     }
-
 }

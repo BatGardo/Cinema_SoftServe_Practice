@@ -400,7 +400,7 @@ li {
     font-family: "Archivo", sans-serif;
     font-weight: 400;
     font-size: clamp(0rem, 1vw, 2vw);
-    width: clamp(0rem, 30vw, 100vw);
+    width: clamp(0rem, 60vw, 100vw);
     height: clamp(0rem, 2vw, 10vw);
     background-color: #DF0A0A;
     border-radius: 25px;
