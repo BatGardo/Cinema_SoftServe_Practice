@@ -11,7 +11,7 @@ function updateGenres() {
     });
 
     // Limit the number of selected genres to 3
-    if (selectedGenres.length > 3) {
+    if (selectedGenres.length > 99) {
         selectedGenres = selectedGenres.slice(0, 3);
         selectedGenres.push("...");
     }

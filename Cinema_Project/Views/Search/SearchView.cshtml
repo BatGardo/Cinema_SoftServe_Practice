@@ -77,6 +77,7 @@
                         <div class="film-elem-name">
                             @{
                                 var title = Model.Movies[i].Title;
+                                var rating = Model.Movies[i].Rating;
                                 var maxTitleLength = 20;
 
                                 if (title.Length > maxTitleLength)
@@ -118,7 +119,7 @@
                             <p>Трейлер</p>
                         </div>
                         <button class="film-buy-tickets film-buy-tickets-search">
-                            <a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Купить билет</a>
+                            <a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Придбати квиток</a>
                         </button>
                     </div>
                 </div>
