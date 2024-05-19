@@ -5,10 +5,8 @@ namespace Cinema_Project.ViewModels
 {
     public class RegisterVM
     {
-        [Required(ErrorMessage = "The FirstName field is required.")]
         public string? FirstName { get; set; }
 
-        [Required(ErrorMessage = "The LastName field is required.")]
         public string? LastName { get; set; }
 
         [Required(ErrorMessage = "The Email field is required.")]
@@ -23,7 +21,6 @@ namespace Cinema_Project.ViewModels
         [DataType(DataType.Password)]
         public string? ConfirmPassword { get; set; }
 
-        [Required(ErrorMessage = "The Phone field is required.")]
         [Phone(ErrorMessage = "Invalid phone number.")]
         public string? PhoneNumber { get; set; }
 

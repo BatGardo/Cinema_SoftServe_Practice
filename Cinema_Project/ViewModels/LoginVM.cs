@@ -10,7 +10,7 @@ namespace Cinema_Project.ViewModels
         [Required(ErrorMessage = "Password is required. ")]
         [DataType(DataType.Password)]
         public string? Password { get; set; }
-        [Display(Name = "Remember Me")]
+        [Display(Name = "")]
         public bool RememberMe { get; set; }
     }
 }

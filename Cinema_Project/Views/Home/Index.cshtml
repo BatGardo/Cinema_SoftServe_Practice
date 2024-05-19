@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+
 
 <head>
     <meta charset="UTF-8">
@@ -23,8 +23,6 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
 </head>
 
-<body>
-    <main>
         <h1 class="slider-caption" style="margin-bottom: -30px;"><b>POPULAR <span
                     style="color:red; filter: drop-shadow(0px 0px 10px red);">NOW</span></b></h1>
         <div class="slider-container-2">
@@ -45,7 +43,8 @@
                         <li class="slide-invisible slide-visible">
 
                             <div class="single-slide" id="@movie.MovieId" style="background-image: url('@Url.Content("~/img/" + movie.Title + ".jpg")');">
-                                <div class="film-info-container">
+@*                     <div class="single-slide" id="@movie.MovieId" style="background-image: url('https://lh3.googleusercontent.com/proxy/mXDKyHfl4D7SEtn8DwfIgW37HrFeHq99rsr_EoY4QHKj5zxT1qPryEaEUKlHCNTT78J9ucV_DDjHa1mk3Pp6kURnTpYSDxjnF_N_gUKJVAWA27E');">
+ *@                                <div class="film-info-container">
                                     <div class="film-rating">@movie.Rating</div>
                                     <div class="film-name">@movie.Title</div>
                                     <div class="film-elem"><b>Categories: </b>
@@ -66,7 +65,7 @@
                                     <div class="film-elem"><b>Description:</b>@movie.Description</div>
                                     <div class="film-buttons">
                                         <button class="film-buy-tickets"><a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Buy tickets</a></button>
-                                        <div class="film-trailer-button">
+                                        <div id="film-trailer-button" class="film-trailer-button activate-modal">
                                             <p>Watch Trailer</p>
                                         </div>
                                     </div>
@@ -101,7 +100,7 @@
                 <div id="moviesContainer">
                     @foreach (var movie in Model.Movies.Take(2))
                     {
-                        <img class="reel-svg" src="./img/reel_start.svg" alt="SVG Icon">
+                        <img class="reel-svg" src="~/img/reel_start.svg" alt="SVG Icon">
                         <li class="slider-item movie" id="slider-item"
                             style="background-image: url('@("https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_.jpg")');">
                         <div class="slider-film-name">@movie.Title</div>
@@ -166,7 +165,7 @@
                 <div id="moviesContainer">
                     @foreach (var movie in Model.Movies)
                     {
-                        <img class="reel-svg" src="./img/reel_start.svg" alt="SVG Icon">
+                        <img class="reel-svg" src="~/img/reel_start.svg" alt="SVG Icon">
                         <li class="slider-item movie" id="slider-item"
                             style="background-image: url('@("https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_.jpg")');">
                         <div class="slider-film-name">@movie.Title</div>
@@ -177,7 +176,7 @@
                             }
                         </div>
                         <div class="slider-film-year">@movie.ReleaseDate.ToLocalTime().ToString("yyyy-MM-dd")</div>
-                            <input type="button" class="slider-film-button" value="Трейлер">
+                <input type="button" class="slider-film-button activate-modal" value="Трейлер">
                         </li>
 
 
@@ -210,34 +209,37 @@
         
 
         <div id="myModal" class="modal">
-            <span class="close">&times;</span>
+            <span id="btn_watch_close" class="close">&times;</span>
             <video id="videoPlayer" width="100%" height="65%" controls>
-                <source src="/img/trailer.mp4" type="video/mp4">
+                <source src="~/img/trailer.mp4" type="video/mp4">
             </video>
             <div class="text-block container">
                 <div class="modal-info-container d-flex">
                     <div class="modal-film-info">
                         <div class="film-name side-elem">URI: The Cock And Balls Removal</div>
-                        <div class="film-elem side-elem"><b>Categories: </b>Action, Drama, History</div>
-                        <div class="film-elem side-elem"><b>Year: </b>2019</div>
-                        <div class="film-elem side-elem"><b>Duration:</b> 2h 18m</div>
-                        <div class="film-elem side-elem"><b>Stars:</b> Vicky Kaushal, Paresh Rawal, Mohit Raina</div>
-                        <div class="film-elem side-elem"><b>Description:</b>Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Ut provident, natus sunt, explicabo iure cum ea odio ex quis
-                            tenetur vero in sint earum, inventore voluptatibus aliquam hic deserunt quidem?
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos dolore velit ex, rerum
-                            culpa amet. Dignissimos labore obcaecati asperiores optio est, consequatur non rem
-                            exercitationem ipsam quasi fuga voluptate iure.</div>
+                        <div class="film-elem side-elem-1"><b>Categories: </b>Action, Drama, History</div>
+                        <div class="film-elem side-elem-1"><b>Year: </b>2019</div>
+                        <div class="film-elem side-elem-1"><b>Duration:</b> 2h 18m</div>
+                        <div class="film-elem side-elem-1"><b>Stars:</b> Vicky Kaushal, Paresh Rawal, Mohit Raina</div>
+                        <div class="film-elem side-elem-1">
+                            <b>Description:</b>Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Ut provident, natus sunt, explicabo iure cum ea odio ex quis                           
+                                tenetur vero in sint earum, inventore voluptatibus aliquam hic deserunt quidem?                           
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos dolore velit ex, rerum
+                                culpa amet. Dignissimos labore obcaecati asperiores optio est, consequatur non rem
+                            exercitationem ipsam quasi fuga voluptate iure.
+                        </div>
                     </div>
                     <div class="modal-film-side">
                         <div class="film-rating">9,9</div>
-                        <img src="./img/poster-sm.png">
-                        <input type="button" class="film-buy-tickets" value="Buy tickets">
+                        <img src="~/img/poster-sm.png">
+                        <div class="btn-border">
+                        <input type="button" class="film-buy-tickets film-buy-tickets-modal" value="Buy tickets">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -258,73 +260,3 @@
     <script src="~/js/slider.js"></script>
     <script src="~/js/trailer-modal.js"></script>
     <script src="~/js/swiper-mutation.js"></script>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var dropdown = document.getElementById('myDropdown');
-            var dropdownMenu = dropdown.querySelector('.dropdown-menu');
-
-            dropdown.addEventListener('click', function (event) {
-                var target = event.target;
-                if (target.getAttribute('aria-haspopup')) {
-                    if (dropdownMenu.classList.contains('show')) {
-                        dropdownMenu.classList.remove('show');
-                    } else {
-                        dropdownMenu.classList.add('show');
-                    }
-                }
-            });
-
-            // Закрыть выпадающее меню при клике вне его области
-            document.addEventListener('click', function (event) {
-                if (!dropdown.contains(event.target)) {
-                    dropdownMenu.classList.remove('show');
-                }
-            });
-
-            // Функция для фильтрации фильмов
-            function filterMovies() {
-                var selectedGenres = [];
-                var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-                checkboxes.forEach(function (checkbox) {
-                    selectedGenres.push(parseInt(checkbox.id));
-                });
-
-                var movies = document.querySelectorAll('.movie');
-                movies.forEach(function (movie) {
-                    var movieGenresAttr = movie.getAttribute('data-genres');
-                    if (movieGenresAttr) {
-                        var movieGenres = movieGenresAttr.split(',').map(Number);
-                        var shouldDisplay = selectedGenres.length === 0 || movieGenres.some(genre => selectedGenres.includes(genre));
-                        movie.style.display = shouldDisplay ? 'block' : 'none';
-                    } else {
-                        movie.style.display = 'none'; // Скрыть фильм, если у него нет атрибута data-genres
-                    }
-                });
-            }
-
-            // Добавить обработчик события для чекбоксов
-            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(function (checkbox) {
-                checkbox.addEventListener('change', filterMovies);
-            });
-        });
-
-    </script>
-
-
-
-
-
-
-</body>
-
-
-
-
-</html>
-
-
-
-

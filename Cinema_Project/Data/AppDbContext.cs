@@ -18,6 +18,7 @@ namespace Cinema_Project.Data
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Trailer> Trailers { get; set; }
+        public DbSet<Screening> Screenings { get; set; }
         public DbSet<MovieGenre> Movie_Genres { get; set; }
         public DbSet<MovieActor> Movie_Actors { get; set; }
 
@@ -32,6 +33,11 @@ namespace Cinema_Project.Data
             modelBuilder.Entity<Trailer>()
                 .HasOne(t => t.Movie)
                 .WithMany(m => m.Trailers)
+                .HasForeignKey(t => t.MovieId);
+
+            modelBuilder.Entity<Screening>()
+                .HasOne(t => t.Movie)
+                .WithMany(m => m.Screenings)
                 .HasForeignKey(t => t.MovieId);
 
             modelBuilder.Entity<Ticket>()

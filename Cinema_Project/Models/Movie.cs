@@ -20,6 +20,7 @@ namespace Cinema_Project.Models
         [Column("rating")]
         public float? Rating { get; set; }
 
+        public ICollection<Screening>? Screenings { get; set; }
         public ICollection<Trailer>? Trailers { get; set; }
         public ICollection<Ticket>? Tickets { get; set; }
         public ICollection<MovieGenre>? MovieGenres { get; set; }

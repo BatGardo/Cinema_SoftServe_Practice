@@ -294,6 +294,16 @@ li {
     font-size: 15px;
     color: white;
     font-size: clamp(0rem, 0.9vw, 2vw);
+
+}
+
+.film-elem-1 {
+    margin-top: 5%;
+    font-family: "Archivo", sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    color: white;
+    font-size: 1vw
 }
 
 .film-info-container {
@@ -433,11 +443,11 @@ li {
 }
 
 .left-button {
-    transform: translateX(350%);
+    transform: translateX(160px);
 }
 
 .right-button {
-    transform: translateX(-350%)
+    transform: translateX(-160px)
 }
 
 
@@ -481,7 +491,13 @@ li {
     transform: translateY(0px);
 }
 
-
+.modal-open{
+    opacity: 1;
+    z-index: 3;
+}
+video{
+    margin-top: 50px;
+}
 .close {
     color: #ebebeb;
     float: right;
@@ -504,14 +520,37 @@ li {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    width: 245px;
+}
+
+.modal-info-container{
+    justify-content:space-evenly;
+}
+
+.film-buy-tickets-modal {
+    max-width: 50%;
+}
+
+.btn-border{
+    display:flex;
+    justify-content:center;
 }
 
 .modal-film-info {
     flex-grow: 2;
+    max-width: 50%;
+    white-space: normal;
 }
 
 .side-elem {
-    max-width: 90%;
+    max-width: 100%;
+    font-size: 1.7vw;
+}
+
+.side-elem-1 {
+    width: 100%;
+    word-wrap: break-word;
+    font-size: 1.1vw;
 }
 
 .slider-container-2 {

@@ -15,7 +15,7 @@ namespace Cinema_Project.Controllers
             int movieId = 12;
             int hallId = 3;
             string userId = "40759e95-6602-4de6-bc50-e04b468d1328";
-            ticket_booking(ticketId, price, showtime, seatId, movieId, hallId, userId);
+            /*ticket_booking(ticketId, price, showtime, seatId, movieId, hallId, userId);*/
 
             return View();
         }

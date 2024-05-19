@@ -51,11 +51,9 @@ namespace Cinema_Project.Controllers
             {
                 AppUser user = new AppUser
                 {
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
                     Email = model.Email,
                     UserName = model.UserName,
-                    PhoneNumber = model.PhoneNumber
+     
                 };
 
                 var result = await userManager.CreateAsync(user, model.Password!);
