@@ -2,6 +2,8 @@
 using Cinema_Project.Data;
 using Cinema_Project.ViewModels;
 using System.Linq;
+using Cinema_Project.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cinema_Project.Controllers
 {
@@ -45,9 +47,54 @@ namespace Cinema_Project.Controllers
             return View();
         }
 
-        public IActionResult AddWatchtime()
-        {
-            return View();
-        }
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+		public IActionResult AddWatchtime()
+		{
+			var movies = _context.Movies
+				.Include(m => m.MovieGenres)
+				.Include(m => m.MovieActors)
+				.Include(m => m.Trailers)
+				.ToList();
+			var genres = _context.Genres.ToList();
+
+			var model = new ScreeningMovieViewModel
+			{
+				Screening = new ScreeningViewModel(),
+				Movie = new CombinedMovieViewModel
+				{
+					Movies = movies,
+					Genres = genres
+				}
+			};
+
+			return View(model);
+		}
+
+
+
+		[HttpGet]
+		public IActionResult SearchMovies(string query)
+		{
+			var movies = _context.Movies
+				.Where(m => m.Title.Contains(query))
+				.ToList();
+
+			return Json(movies);
+		}
+
+
+
+	}
 }

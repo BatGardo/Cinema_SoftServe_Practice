@@ -1,3 +1,6 @@
+@model Cinema_Project.ViewModels.ScreeningMovieViewModel
+
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,84 +36,54 @@
 			<input type="text" placeholder="Введіть назву фільму...">
 		</div>
 		<div class="movie-list">
-			<div class="movie-item">
-				<img src="https://via.placeholder.com/50x75" alt="Movie Poster">
-				<div class="movie-info">
-					<div class="title">URI: The Surgical Strike</div>
-					<div class="details">Action, Drama, History</div>
-					<div class="rating">8.2 ⭐️</div>
+			@foreach (var movie in Model.Movie.Movies)
+			{
+				<div class="movie-item">
+					<li style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_SP.jpg")');"></li>
+						<div class="movie-info">
+						<div class="title">@movie.Title</div>
+						@foreach (var genre in movie.MovieGenres)
+						{
+						<div class="details">@genre.Genre.Title</div>
+						}
+						<div class="rating">@movie.Rating ⭐️</div>
+					</div>
 				</div>
-			</div>
-			<div class="movie-item">
-				<img src="https://via.placeholder.com/50x75" alt="Movie Poster">
-				<div class="movie-info">
-					<div class="title">URI: The Surgical Strike URI: The Surgical Strike</div>
-					<div class="details">Action, Drama, History</div>
-					<div class="rating">8.2 ⭐️</div>
-				</div>
-			</div>
-			<div class="movie-item">
-				<img src="https://via.placeholder.com/50x75" alt="Movie Poster">
-				<div class="movie-info">
-					<div class="title">URI: The Surgical Strike</div>
-					<div class="details">Action, Drama, History</div>
-					<div class="rating">8.2 ⭐️</div>
-				</div>
-			</div>
-			<div class="movie-item">
-				<img src="https://via.placeholder.com/50x75" alt="Movie Poster">
-				<div class="movie-info">
-					<div class="title">URI: The Surgical Strike</div>
-					<div class="details">Action, Drama, History</div>
-					<div class="rating">8.2 ⭐️</div>
-				</div>
-			</div>
+			}
 		</div>
 		<div class="hall">
 			<span>Зала</span>
 			<div>
-				<button class="green active">Green</button>
-				<button class="red">Red</button>
-				<button class="blue">Blue</button>
+				<button class="red" data-id="1">Red</button>
+				<button class="green active" data-id="2">Green</button>
+				<button class="blue" data-id="3">Blue</button>
 			</div>
 		</div>
+
 		<div class="date">
 			<span>Дата</span>
 			<div>
-				<select>
-					<option value="15">15</option>
-
-				</select>
-				<select>
-					<option value="March">March</option>
-					<option value="March">March</option>
-					<option value="March">March</option>
-					<option value="March">March</option>
-					<option value="March">March</option>
-					<option value="March">March</option>
-
-				</select>
-				<select>
-					<option value="2024">2024</option>
+				<select id="dateSelect">
+					<!-- Элементы списка будут добавлены программно -->
 				</select>
 			</div>
 		</div>
 		<div class="time">
 			<span>Час</span>
 			<div>
-				<button class="active">9:00</button>
-				<button>10:00</button>
-				<button>11:00</button>
-				<button>12:00</button>
-				<button>13:00</button>
-				<button>14:00</button>
-				<button>15:00</button>
-				<button>16:00</button>
-				<button>17:00</button>
-				<button>18:00</button>
-				<button>19:00</button>
-				<button>20:00</button>
-				<button>21:00</button>
+				<button class="active" data-id"9">9:00</button>
+				<button data-id"10">10:00</button>
+				<button data-id"11">11:00</button>
+				<button data-id"12">12:00</button>
+				<button data-id"13">13:00</button>
+				<button data-id"14">14:00</button>
+				<button data-id"15">15:00</button>
+				<button data-id"16">16:00</button>
+				<button data-id"17">17:00</button>
+				<button data-id"18">18:00</button>
+				<button data-id"19">19:00</button>
+				<button data-id"20">20:00</button>
+				<button data-id"21">21:00</button>
 			</div>
 		</div>
 		<input type="submit" class="add-watchtime-btn" value="Додати сеанс">
@@ -140,3 +113,63 @@
 
 <script src="~/js/seach-button.js"></script>
 <script src="~/js/select-button.js"></script>
+
+<script>
+	$(document).ready(function () {
+		$('input[type="text"]').on('input', function () {
+			var query = $(this).val().toLowerCase();
+
+			$('.movie-item').each(function () {
+				var title = $(this).find('.title').text().toLowerCase();
+				var genres = $(this).find('.details').map(function () {
+					return $(this).text().toLowerCase();
+				}).get().join('');
+
+				if (title.includes(query) || genres.includes(query)) {
+					$(this).show();
+				} else {
+					$(this).hide();
+				}
+			});
+		});
+	});
+
+	$(document).ready(function () {
+		// Получить текущую дату
+		var currentDate = new Date();
+		// Создать объект для хранения дат на 14 дней вперед
+		var dates = [];
+
+		// Генерация дат на 14 дней вперед
+		for (var i = 0; i < 14; i++) {
+			var date = new Date();
+			date.setDate(currentDate.getDate() + i);
+			dates.push(date);
+		}
+
+		// Получение элемента select
+		var select = document.getElementById("dateSelect");
+
+		// Добавление дат в элемент select
+		dates.forEach(function (date) {
+			var option = document.createElement("option");
+			option.text = formatDate(date);
+			option.value = formatDate(date);
+			select.add(option);
+		});
+	});
+
+	// Функция для форматирования даты в строку "DD.MM.YYYY"
+	function formatDate(date) {
+		var day = date.getDate();
+		var month = date.getMonth() + 1;
+		var year = date.getFullYear();
+
+		// Добавляем ведущий ноль, если день или месяц меньше 10
+		day = day < 10 ? '0' + day : day;
+		month = month < 10 ? '0' + month : month;
+
+		return day + '.' + month + '.' + year;
+	}
+
+</script>
