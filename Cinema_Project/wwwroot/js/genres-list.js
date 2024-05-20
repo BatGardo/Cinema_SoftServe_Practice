@@ -16,7 +16,7 @@ function updateGenres() {
         selectedGenres.push("...");
     }
 
-    genresElement.textContent = selectedGenres.length > 0 ? selectedGenres.join(', ') : 'None';
+    genresElement.textContent = selectedGenres.length > 0 ? selectedGenres.join(', ') : 'Немає';
 
     updateMovieGenres(selectedGenres);
 }
