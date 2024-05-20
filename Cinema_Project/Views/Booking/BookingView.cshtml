@@ -3,6 +3,8 @@
 @{
     var movie = ViewBag.Movie;
     var screenings = ViewBag.Screenings as List<Cinema_Project.Models.Screening>;
+    var tickets = ViewBag.Tickets as List<Cinema_Project.Models.Ticket>;
+    var occupiedSeats = tickets.Select(t => new { t.RowNumber, t.SeatNumber }).ToList();
     var halls = new List<(int HallNumber, string HallName, string HallClass)>
     {
         (1, "Red", "hall-red"),
@@ -21,12 +23,15 @@
         <div class="screen-caption">ЕКРАН</div>
         <div class="screen-img"><img src="~/img/screen.png"></div>
         <div class="seat-container">
+
             @for (int i = 0; i < 10; i++)
             {
                 <div class="seat-row">
                     @for (int j = 0; j < 15; j++)
                     {
-                        <div class="seat"></div>
+                        bool isSeatBlocked = occupiedSeats.Any(s => s.RowNumber - 1 == i && s.SeatNumber - 1 == j);
+                        string seatClass = isSeatBlocked ? "seat seat-blocked" : "seat";
+                        <div class="@seatClass"></div>
                     }
                 </div>
             }
@@ -71,10 +76,15 @@
                     <div class="row-name">ЗАЛ</div>
                 </div>
                 <div class="row-buttons">
-                    @foreach (var hall in halls)
+                    @foreach (var screening in screenings.Select(s => s.HallNumber).Distinct())
                     {
-                        <div class="row-button hall @hall.HallClass" data-hall="@hall.HallNumber">@hall.HallName</div>
+                        var hall = halls.FirstOrDefault(h => h.HallNumber == screening);
+                        if (hall != default)
+                        {
+                            <div class="row-button hall @hall.HallClass" data-hall="@screening">@hall.HallName</div>
+                        }
                     }
+
                 </div>
             </div>
         </div>

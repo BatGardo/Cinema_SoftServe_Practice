@@ -109,7 +109,7 @@
                     style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_SP.jpg")');">
                     <div class="slider-film-name">@movie.Title</div>
                     <div class="slider-film-slogan">
-                            @foreach (var genre in movie.MovieGenres)
+                            @foreach (var genre in movie.MovieGenres.Take(4))
                             {
                             <span>@genre.Genre.Title</span>
                             }
@@ -146,7 +146,7 @@
                 style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_SP.jpg")');">
                 <div class="slider-film-name">@movie.Title</div>
                 <div class="slider-film-slogan">
-                        @foreach (var genre in movie.MovieGenres)
+                        @foreach (var genre in movie.MovieGenres.Take(4))
                         {
                         <span>@genre.Genre.Title</span>
                         }

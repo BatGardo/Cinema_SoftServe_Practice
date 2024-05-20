@@ -1,4 +1,6 @@
-﻿namespace Cinema_Project.ViewModels
+﻿using System;
+
+namespace Cinema_Project.ViewModels
 {
     public class TicketVM
     {

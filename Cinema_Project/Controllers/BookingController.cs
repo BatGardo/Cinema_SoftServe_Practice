@@ -38,11 +38,17 @@ namespace Cinema_Project.Controllers
                 .Where(s => s.MovieId == movieId)
                 .ToList();
 
+            var tickets = _context.Tickets
+                .Where(t => t.MovieId == movieId)
+                .ToList();
+
             ViewBag.Movie = movie;
             ViewBag.Screenings = screenings;
+            ViewBag.Tickets = tickets;
 
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Ticket ticket)
         {
