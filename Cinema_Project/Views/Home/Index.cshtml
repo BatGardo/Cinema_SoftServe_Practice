@@ -76,7 +76,7 @@
                                 @description
                             </div>
                             <div class="film-buttons">
-                                <button class="film-buy-tickets"><a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Придбати квиток</a></button>
+                                <button class="film-buy-tickets"><a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView" asp-route-movieId="@movie.MovieId">Придбати квиток</a></button>
                                 <div id="film-trailer-button" class="film-trailer-button activate-modal" data-title="@movie.Title">
                                     <p>Трейлер</p>
                                 </div>
