@@ -25,17 +25,32 @@ namespace Cinema_Project.Controllers
         public IActionResult Index()
         {
             ProfileViewLayout();
+
+            // Get movies including related data and order by the nearest screening date
             var movies = _context.Movies
                 .Include(m => m.MovieGenres)
                 .Include(m => m.MovieActors)
                 .Include(m => m.Trailers)
+                .Include(m => m.Screenings)
+                .Where(m => m.Screenings.Any())
+                .OrderBy(m => m.Screenings.Min(s => s.ScreeningDate))
                 .ToList();
+
             var genres = _context.Genres.ToList();
             var actors = _context.Actors.ToList();
             var trailers = _context.Trailers.ToList();
-            var viewModel = new CombinedMovieViewModel { Movies = movies, Genres = genres, Actors = actors, Trailers = trailers };
+
+            var viewModel = new CombinedMovieViewModel
+            {
+                Movies = movies,
+                Genres = genres,
+                Actors = actors,
+                Trailers = trailers
+            };
+
             return View(viewModel);
         }
+
 
 
         public string ProfileViewLayout()

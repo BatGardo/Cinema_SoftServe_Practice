@@ -99,6 +99,7 @@
     </h1>
     <div class="slider-wrapper">
         <ul class="slider-items">
+
             <div id="moviesContainer">
                 @foreach (var movie in Model.Movies.Take(2))
                 {
@@ -117,28 +118,6 @@
                         <p>Трейлер</p>
                     </div>
                 </li>
-
-
-
-                    @*                             <h2>@movie.Title</h2>
-        <p>@movie.Description</p>
-        <p>Release Date: </p>
-        <p>Duration: @movie.Duration</p>
-        <p>Rating: @movie.Rating</p>
-        <p>
-        Genres:
-        @if (movie.MovieGenres != null)
-        {
-        @foreach (var genre in movie.MovieGenres)
-        {
-        <span>@genre.Genre.Title</span>
-        }
-        }
-        </p>
-        <button type="button" class="btn btn-primary btn-sm float-end"
-        onclick="showMovieDetails(@movie.MovieId)">
-        More
-        </button>*@
                 }
 
                 @* Зміни на закриваючий IMG *@
@@ -149,7 +128,7 @@
 }
 
 
-<h1>Слайдер високий рейтинг в жанрі</h1>
+<h1>Найближчі сеанси</h1>
 <div class="slider-wrapper">
     <ul class="slider-items">
 
@@ -160,6 +139,7 @@
         <div id="moviesContainer">
             @foreach (var movie in Model.Movies)
             {
+
                 <img class="reel-svg" src="~/img/reel_start.svg" alt="SVG Icon">
             <li class="slider-item movie" id="slider-item"
                 style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_SP.jpg")');">
@@ -175,27 +155,6 @@
                     <p>Трейлер</p>
                 </div>
             </li>
-
-
-                @*                             <h2>@movie.Title</h2>
-        <p>@movie.Description</p>
-        <p>Release Date: </p>
-        <p>Duration: @movie.Duration</p>
-        <p>Rating: @movie.Rating</p>
-        <p>
-        Genres:
-        @if (movie.MovieGenres != null)
-        {
-        @foreach (var genre in movie.MovieGenres)
-        {
-        <span>@genre.Genre.Title</span>
-        }
-        }
-        </p>
-        <button type="button" class="btn btn-primary btn-sm float-end"
-        onclick="showMovieDetails(@movie.MovieId)">
-        More
-        </button>*@
             }
 
             @* Зміни на закриваючий IMG *@
