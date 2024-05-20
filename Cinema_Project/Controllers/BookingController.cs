@@ -3,9 +3,11 @@ using Cinema_Project.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Cinema_Project.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cinema_Project.Controllers
 {
+    [Authorize]
     public class BookingController : Controller
     {
         private readonly AppDbContext _context;
@@ -49,6 +51,19 @@ namespace Cinema_Project.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetReservedSeats(int movieId, DateTime showtime, int hallNumber)
+        {
+            var utcShowtime = DateTime.SpecifyKind(showtime, DateTimeKind.Utc);
+            var reservedSeats = await _context.Tickets
+                .Where(t => t.MovieId == movieId && t.Showtime == utcShowtime && t.HallNumber == hallNumber)
+                .Select(t => new { t.RowNumber, t.SeatNumber })
+                .ToListAsync();
+
+            return Json(reservedSeats);
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Ticket ticket)
         {
@@ -60,7 +75,7 @@ namespace Cinema_Project.Controllers
 
                     _context.Tickets.Add(ticket);
                     await _context.SaveChangesAsync();
-                    return Json(new { success = true });
+                    return Json(new { success = true, redirectUrl = Url.Action("ProfileView", "Profile") });
                 }
                 catch (Exception ex)
                 {

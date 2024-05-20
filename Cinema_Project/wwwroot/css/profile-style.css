@@ -84,6 +84,10 @@ body {
     border: 0;
 }
 
+.profile-logout:hover {
+    background-color: darkred;
+}
+
 .tickets-caption{
     margin-bottom: 27px;
     font-family: "Arimo", sans-serif;
