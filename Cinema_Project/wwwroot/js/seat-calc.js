@@ -115,4 +115,92 @@ document.addEventListener('DOMContentLoaded', () => {
             button.classList.add('active');
         });
     });
+
+
+    document.querySelector('.buy-button').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const selectedDate = document.querySelector('.row-button.date.selected');
+        const selectedTime = document.querySelector('.row-button.time.selected');
+        const selectedHall = document.querySelector('.row-button.hall.selected');
+
+        const rowIndexes = [];
+        const seatIndexes = [];
+
+        document.querySelectorAll('.seat-info').forEach(seatInfo => {
+            const id = seatInfo.id;
+            const parts = id.split('-');
+            const rowIndex = parseInt(parts[1]);
+            const seatIndex = parseInt(parts[2]);
+            rowIndexes.push(rowIndex);
+            seatIndexes.push(seatIndex);
+        });
+
+        if (selectedDate && selectedTime && selectedHall && rowIndexes && seatIndexes) {
+            flag = false;
+            const showtime = selectedDate.dataset.date + 'T' + selectedTime.dataset.time + ':00';
+            const price = parseFloat(selectedTime.dataset.price);
+            const hallNumber = selectedHall.dataset.hall;
+
+            for (let i = 0; i < rowIndexes.length; i++) {
+                const rowNumber = rowIndexes[i] + 1;
+                const seatNumber = seatIndexes[i] + 1;
+
+                const formData = {
+                    Showtime: showtime,
+                    Price: price,
+                    HallNumber: parseInt(hallNumber),
+                    RowNumber: rowNumber,
+                    SeatNumber: seatNumber,
+                    MovieId: parseInt(document.getElementById('MovieId').value),
+                    UserId: document.getElementById('UserId').value
+                };
+
+                fetch('/Booking/Create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            flag = true;
+                        } else {
+                            console.error('Error booking ticket:', data.errors);
+                            alert('Error booking ticket.');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+            if (flag = true) {
+                alert('Квитки успішно придбано!');
+            }
+        } else {
+            alert('Не всі параметри обрані');
+        }
+    });
+
+
+    document.querySelectorAll('.row-button.date').forEach(button => {
+        button.addEventListener('click', function () {
+            document.querySelectorAll('.row-button.date').forEach(btn => btn.classList.remove('selected'));
+            this.classList.add('selected');
+        });
+    });
+
+    document.querySelectorAll('.row-button.time').forEach(button => {
+        button.addEventListener('click', function () {
+            document.querySelectorAll('.row-button.time').forEach(btn => btn.classList.remove('selected'));
+            this.classList.add('selected');
+        });
+    });
+
+    document.querySelectorAll('.row-button.hall').forEach(button => {
+        button.addEventListener('click', function () {
+            document.querySelectorAll('.row-button.hall').forEach(btn => btn.classList.remove('selected'));
+            this.classList.add('selected');
+        });
+    });
 });
