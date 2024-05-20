@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Функция для обработки изменения select
     const handleSelectChange = (event) => {
         const parentDiv = event.target.parentNode;
-
         // Найти все select внутри этого div и удалить у них класс active
         Array.from(parentDiv.children).forEach(select => {
             select.classList.remove('active');
@@ -36,7 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Найти все select внутри .date и назначить обработчик события change
-    document.querySelectorAll('.date select').forEach(select => {
+    document.querySelectorAll('.date select').forEach(select => 
+        {
         select.addEventListener('change', handleSelectChange);
     });
 });

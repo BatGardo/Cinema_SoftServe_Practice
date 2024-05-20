@@ -2,6 +2,7 @@ body {
     overflow-x: hidden;
     background: url("../img/bg_art.png");
     background-size: cover;
+    background-attachment:fixed;
 }
 
 .watchtime-container{
@@ -71,6 +72,25 @@ button{
     background-position: center;
     list-style: none;
     border-radius: 10px;
+    position:relative
+}
+.add-film-button > button {
+    bottom:-19px;
+    left:50%;
+    transform:translateX(-50%);
+    width: 120px;
+    height: 40px;
+    background-color: #DF0A0A;
+    border-radius: 25px;
+    color: white;
+    font-family: 'Arimo', sans-serif;
+    font-size: 14px;
+    border: 0;
+    position: absolute;
+}
+
+.film-chosen{
+    border: dashed white 3px;
 }
 .movie-item img {
     width: 50px;
@@ -132,7 +152,7 @@ button{
     background-color: blue;
 }
 
-span{
+.caption{
     font-size: 24px;
     font-family: "Arimo", sans-serif;
     font-weight: 600;
@@ -144,10 +164,11 @@ span{
 .date select {
     padding: 10px;
     border: none;
-    border-radius: 25px;
     background-color: rgba(0, 0, 0, 0.699);
     color: white;
     outline: 0 !important;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
 }
 
 .date select.select-active{
@@ -159,6 +180,10 @@ select > option{
     background-color: rgba(0, 0, 0, 0.699);
     color: white;
     border-radius: 25px;
+}
+
+.close{
+    margin-right:-40px;
 }
 
 
