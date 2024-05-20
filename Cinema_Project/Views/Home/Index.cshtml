@@ -30,7 +30,7 @@
                 int currentActorIndex = 0;
                 <li class="slide-invisible slide-visible">
 
-                    <div class="single-slide" style="background-image: url('@Url.Content("~/img_posters/" + movie.Title + "/" + movie.Title + "_BP.jpg")');">
+                    <div class="single-slide" style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_BP.jpg")');">
                         <div class="film-info-container">
                             <div class="film-rating">@movie.Rating</div>
                             <div class="film-name">@movie.Title</div>
@@ -104,7 +104,7 @@
                 {
                     <img class="reel-svg" src="~/img/reel_start.svg" alt="SVG Icon">
                 <li class="slider-item movie" id="slider-item"
-                    style="background-image: url('@Url.Content("~/img_posters/" + movie.Title + "/" + movie.Title + "_SP.jpg")');">
+                    style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_SP.jpg")');">
                     <div class="slider-film-name">@movie.Title</div>
                     <div class="slider-film-slogan">
                             @foreach (var genre in movie.MovieGenres)
@@ -162,7 +162,7 @@
             {
                 <img class="reel-svg" src="~/img/reel_start.svg" alt="SVG Icon">
             <li class="slider-item movie" id="slider-item"
-                style="background-image: url('@Url.Content("~/img_posters/" + movie.Title + "/" + movie.Title + "_SP.jpg")');">
+                style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_SP.jpg")');">
                 <div class="slider-film-name">@movie.Title</div>
                 <div class="slider-film-slogan">
                         @foreach (var genre in movie.MovieGenres)
