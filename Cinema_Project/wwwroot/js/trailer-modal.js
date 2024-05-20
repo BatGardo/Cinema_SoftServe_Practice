@@ -5,8 +5,14 @@ var btn_watch_close = document.getElementById("btn_watch_close");
 var overlay = document.getElementById("overlay");
 var modal = document.getElementById("myModal");
 var closeModal = document.getElementsByClassName("close")[0];
-var videoPlayer = document.getElementById("videoPlayer");
-videoPlayer.volume = 0.5;
+var player;
+
+function stopVideo() {
+    var iframe = document.getElementById('videoPlayer');
+    iframe.src = iframe.src;
+}
+
+
 
 // Додайте обробник подій до кожного елемента з класом "film-trailer-button"
 buttons.forEach(function (button) {
@@ -18,11 +24,6 @@ buttons.forEach(function (button) {
         overlay.style.pointerEvents = "auto"; // дозволяє кліки
         document.body.style.overflow = "hidden"; // блокування прокрутки
 
-        setTimeout(function () {
-            if (videoPlayer.contentWindow && videoPlayer.contentWindow.postMessage) {
-                videoPlayer.contentWindow.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*');
-            }
-        }, 1000); 
     }
 });
 
@@ -36,6 +37,7 @@ closeModal.onclick = function () {
     console.log('Overlay zIndex:', overlay.style.zIndex);
     console.log('Overlay pointerEvents:', overlay.style.pointerEvents);
     setTimeout(function () {
+        stopVideo();
         overlay.style.pointerEvents = "none"; // блокує кліки
     }, 1000);
 }
@@ -73,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     closeModal.addEventListener('click', function () {
+        stopVideo();
         modal.style.display = 'none';
     });
 
