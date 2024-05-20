@@ -17,7 +17,7 @@
 
 .close {
     position: absolute;
-    bottom: 320px;
+    bottom: 30%;
     right: 10px;
     cursor: pointer;
 }
