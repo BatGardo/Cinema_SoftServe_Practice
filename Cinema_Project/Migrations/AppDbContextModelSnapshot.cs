@@ -57,10 +57,8 @@ namespace Cinema_Project.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
-                        .HasColumnName("email");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
@@ -234,6 +232,10 @@ namespace Cinema_Project.Migrations
                     b.Property<int>("MovieId")
                         .HasColumnType("integer")
                         .HasColumnName("movie_id");
+
+                    b.Property<float?>("Price")
+                        .HasColumnType("real")
+                        .HasColumnName("price");
 
                     b.Property<DateTime>("ScreeningDate")
                         .HasColumnType("timestamp with time zone")
@@ -503,7 +505,7 @@ namespace Cinema_Project.Migrations
 
             modelBuilder.Entity("Cinema_Project.Models.Ticket", b =>
                 {
-                    b.HasOne("Cinema_Project.Models.Movie", null)
+                    b.HasOne("Cinema_Project.Models.Movie", "Movie")
                         .WithMany("Tickets")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -512,6 +514,8 @@ namespace Cinema_Project.Migrations
                     b.HasOne("Cinema_Project.Models.AppUser", "User")
                         .WithMany("Tickets")
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Movie");
 
                     b.Navigation("User");
                 });

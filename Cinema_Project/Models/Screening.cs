@@ -13,6 +13,8 @@ namespace Cinema_Project.Models
         public DateTime ScreeningDate { get; set; }
         [Column("hall_number")]
         public int? HallNumber { get; set; }
+        [Column("price")]
+        public float? Price { get; set; }
 
         [Column("movie_id")]
         public int MovieId { get; set; }

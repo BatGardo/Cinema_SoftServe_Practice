@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Cinema_Project.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240518165417_all-tables")]
+    [Migration("20240520102234_all-tables")]
     partial class alltables
     {
         /// <inheritdoc />
@@ -235,6 +235,10 @@ namespace Cinema_Project.Migrations
                     b.Property<int>("MovieId")
                         .HasColumnType("integer")
                         .HasColumnName("movie_id");
+
+                    b.Property<float?>("Price")
+                        .HasColumnType("real")
+                        .HasColumnName("price");
 
                     b.Property<DateTime>("ScreeningDate")
                         .HasColumnType("timestamp with time zone")
@@ -504,7 +508,7 @@ namespace Cinema_Project.Migrations
 
             modelBuilder.Entity("Cinema_Project.Models.Ticket", b =>
                 {
-                    b.HasOne("Cinema_Project.Models.Movie", null)
+                    b.HasOne("Cinema_Project.Models.Movie", "Movie")
                         .WithMany("Tickets")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -513,6 +517,8 @@ namespace Cinema_Project.Migrations
                     b.HasOne("Cinema_Project.Models.AppUser", "User")
                         .WithMany("Tickets")
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Movie");
 
                     b.Navigation("User");
                 });

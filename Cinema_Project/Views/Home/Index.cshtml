@@ -30,7 +30,7 @@
                 int currentActorIndex = 0;
                 <li class="slide-invisible slide-visible">
 
-                    <div class="single-slide" style="background-image: url('@Url.Content("~/img_posters/" + movie.Title + "/" + movie.Title + "_BP.jpg")');">
+                    <div class="single-slide" style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_BP.jpg")');">
                         <div class="film-info-container">
                             <div class="film-rating">@movie.Rating</div>
                             <div class="film-name">@movie.Title</div>
@@ -76,7 +76,7 @@
                                 @description
                             </div>
                             <div class="film-buttons">
-                                <button class="film-buy-tickets"><a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Придбати квиток</a></button>
+                                <button class="film-buy-tickets"><a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView" asp-route-movieId="@movie.MovieId">Придбати квиток</a></button>
                                 <div id="film-trailer-button" class="film-trailer-button activate-modal" data-title="@movie.Title">
                                     <p>Трейлер</p>
                                 </div>
