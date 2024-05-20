@@ -6,6 +6,7 @@
       crossorigin="anonymous">
 <link rel="stylesheet" href="~/css/header-style.css">
 <link rel="stylesheet" href="~/css/index-style.css">
+<link rel="stylesheet" href="~/css/modal.css">
 <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
 
 <!DOCTYPE html>
@@ -32,7 +33,7 @@
 
                     <div class="single-slide" style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_BP.jpg")');">
                         <div class="film-info-container">
-                            <div class="film-rating">@movie.Rating</div>
+                            <div class="film-rating">@movie.Rating ⭐️</div>
                             <div class="film-name">@movie.Title</div>
                             <div class="film-elem">
                                 <b>Жанр: </b>                               
@@ -77,7 +78,7 @@
                             </div>
                             <div class="film-buttons">
                                 <button class="film-buy-tickets"><a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView" asp-route-movieId="@movie.MovieId">Придбати квиток</a></button>
-                                <div id="film-trailer-button" class="film-trailer-button activate-modal" data-title="@movie.Title">
+                                <div id="film-trailer-button" class="film-trailer-button activate-modal " data-title="@movie.Title">
                                     <p>Трейлер</p>
                                 </div>
                             </div>
@@ -203,6 +204,7 @@
 
 </div>
 
+<div id="overlay"></div>
 <div id="myModal" class="modal">
     <span id="btn_watch_close" class="close">&times;</span>
     <div id="videoContainer" class="video-container">
@@ -211,7 +213,7 @@
     <div class="text-block container">
         <div class="modal-info-container d-flex">
             <div class="modal-film-info">
-                <div class="film-name side-elem" id="modalTitle"></div>
+                <div class="film-name side-elem modal-film-caption" id="modalTitle"></div>
                 <div class="film-elem side-elem"><b>Жанр: </b></div>
                 <div class="film-elem side-elem"><b>Дата виходу: </b></div>
                 <div class="film-elem side-elem"><b>Тривалість: </b></div>
@@ -222,10 +224,11 @@
                 <div class="film-rating"></div>
                 <div class="film-elem">
                     <img id="modalImageTag" src="" alt="Alternate Text" />
-                </div>                
-                
+                </div>
                 <div class="btn-border">
-                    <button class="film-buy-tickets"><a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Придбати квиток</a></button>
+                    <button class="film-buy-tickets">
+                        <a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Придбати квиток</a>
+                    </button>
                 </div>
             </div>
         </div>
