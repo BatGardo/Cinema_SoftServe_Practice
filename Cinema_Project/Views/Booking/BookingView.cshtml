@@ -1,3 +1,5 @@
+@model Cinema_Project.ViewModels.TicketVM
+@using System.Security.Claims
 @{
     var movie = ViewBag.Movie;
     var screenings = ViewBag.Screenings as List<Cinema_Project.Models.Screening>;
@@ -71,7 +73,7 @@
                 <div class="row-buttons">
                     @foreach (var hall in halls)
                     {
-                        <div class="row-button @hall.HallClass" data-hall="@hall.HallNumber">@hall.HallName</div>
+                        <div class="row-button hall @hall.HallClass" data-hall="@hall.HallNumber">@hall.HallName</div>
                     }
                 </div>
             </div>
@@ -81,9 +83,17 @@
 
         <div class="booked-seats" id="booked-seats"></div>
         <div class="total-price">Всього: 0₴</div> <!-- Загальна ціна -->
+        <form id="ticketForm">
+            <input type="hidden" name="Showtime" id="Showtime" />
+            <input type="hidden" name="Price" id="Price" />
+            <input type="hidden" name="HallNumber" id="HallNumber" />
+            <input type="hidden" name="RowNumber" id="RowNumber" />
+            <input type="hidden" name="SeatNumber" id="SeatNumber" />
+            <input type="hidden" name="MovieId" id="MovieId" value="@movie.MovieId" />
+            <input type="hidden" name="UserId" id="UserId" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" />
 
-        <input type="submit" value="BUY" class="buy-button">
-        <button class="buy-button" onclick="initializeTickets()">Придбати квиток</button>
+            <input type="submit" value="Придбати квиток" class="buy-button">
+        </form>
     </div>
 </div>
 
@@ -117,79 +127,6 @@
         </div>
     </div>
 </div>
-
-<form id="ticketForm">
-    <div>
-        <label for="Price">Price</label>
-        <input type="text" id="Price" name="Price" />
-    </div>
-    <div>
-        <label for="Showtime">Showtime</label>
-        <input type="datetime-local" id="Showtime" name="Showtime" />
-    </div>
-    <div>
-        <label for="HallNumber">Hall Number</label>
-        <input type="text" id="HallNumber" name="HallNumber" />
-    </div>
-    <div>
-        <label for="RowNumber">Row Number</label>
-        <input type="text" id="RowNumber" name="RowNumber" />
-    </div>
-    <div>
-        <label for="SeatNumber">Seat Number</label>
-        <input type="text" id="SeatNumber" name="SeatNumber" />
-    </div>
-    <div>
-        <label for="MovieId">Movie ID</label>
-        <input type="text" id="MovieId" name="MovieId" />
-    </div>
-    <div>
-        <label for="UserId">User ID</label>
-        <input type="text" id="UserId" name="UserId" />
-    </div>
-    <button type="button" onclick="createTicket()">Create Ticket</button>
-</form>
-
-<script>
-    async function createTicket() {
-        const form = document.getElementById('ticketForm');
-        const formData = new FormData(form);
-
-        const localShowtime = formData.get('Showtime');
-        const showtime = new Date(localShowtime);
-        const utcShowtime = new Date(showtime.getTime() - (showtime.getTimezoneOffset() * 60000)).toISOString();
-
-        const data = {
-            Price: parseFloat(formData.get('Price')),
-            Showtime: utcShowtime,
-            HallNumber: parseInt(formData.get('HallNumber')),
-            RowNumber: parseInt(formData.get('RowNumber')),
-            SeatNumber: parseInt(formData.get('SeatNumber')),
-            MovieId: parseInt(formData.get('MovieId')),
-            UserId: formData.get('UserId')
-        };
-
-        try {
-            const response = await fetch('/api/ticket/create', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                alert('Success: ' + result.message);
-            } else {
-                const error = await response.json();
-                alert('Error: ' + error.message + ' Details: ' + error.details);
-            }
-        } catch (error) {
-            alert('Error: ' + error);
-        }
-    }
-</script>
 
 <script src="~/js/seach-button.js"></script>
 <script src="~/js/trailer-modal.js"></script>
