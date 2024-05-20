@@ -1,8 +1,9 @@
-body{
+body {
     overflow-x: hidden;
     background: url("../img/bg_art_black.png");
     background-color: black;
     background-size: cover;
+    background-attachment: fixed;
 }
 
 .profile-info-container{
