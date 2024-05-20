@@ -16,7 +16,7 @@
         <div class="properties-elem ticket-element">
             <div class="properties-top left ticket-top">
                 <div class="property-img"><img src="~/img/title-sort.svg"></div>
-                <div class="property-text">Сортувати за: <u>Назвою</u></div>
+                <div class="property-text">Sort by: <u>Title</u></div>
                 <div class="property-svg ticket-svg"><img src="~/img/droplist-ico.svg"></div>
             </div>
             <div class="properties-droplist ticket-droplist">
@@ -47,7 +47,7 @@
         </div> *@
         <div class="properties-elem flex-grow-1 ticket-element">
             <div class="properties-top right ticket-top">
-                <div class="property-text" id="genres">Жанри: <u>Action, Drama</u></div> <!-- Список вибраних жанрів-->
+                <div class="property-text" id="genres">Genres: <u>Action, Drama</u></div> <!-- Список вибраних жанрів-->
                 <div class="property-svg ticket-svg"><img src="~/img/droplist-ico.svg"></div>
             </div>
             <div class="properties-droplist ticket-droplist">
@@ -94,7 +94,7 @@
                                 }
                             }
                             @title
-                        </div> <!-- Назва фільму -->
+                        </div> <!-- Название фильма-->
                         <div class="film-elem-description">
                             @{
                                 var description = movie.Description;
@@ -114,8 +114,8 @@
                                 }
                             }
                             @description
-                        </div> <!-- Опис фільму -->
-                        <div class="film-trailer-button film-trailer-button-search activate-modal">
+                        </div> <!-- Описание фильма-->
+                        <div class="film-trailer-button film-trailer-button-search activate-modal" data-title="@movie.Title">
                             <p>Трейлер</p>
                         </div>
                         <button class="film-buy-tickets film-buy-tickets-search">
@@ -128,37 +128,30 @@
     </div>
 </div>
 
-
-
-
-
-
 <div id="myModal" class="modal">
-    <span class="close">&times;</span>
-    <video id="videoPlayer" width="100%" height="65%" controls>
-        <source src="/img/trailer.mp4" type="video/mp4">
-    </video>
+    <span id="btn_watch_close" class="close">&times;</span>
+    <div id="videoContainer" class="video-container">
+        <iframe id="videoPlayer" width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
     <div class="text-block container">
         <div class="modal-info-container d-flex">
             <div class="modal-film-info">
-                <div class="film-name side-elem">URI: The Cock And Balls Removal</div>
-                <div class="film-elem side-elem"><b>Categories: </b>Action, Drama, History</div>
-                <div class="film-elem side-elem"><b>Year: </b>2019</div>
-                <div class="film-elem side-elem"><b>Duration:</b> 2h 18m</div>
-                <div class="film-elem side-elem"><b>Stars:</b> Vicky Kaushal, Paresh Rawal, Mohit Raina</div>
-                <div class="film-elem side-elem">
-                    <b>Description:</b>Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Ut provident, natus sunt, explicabo iure cum ea odio ex quis
-                    tenetur vero in sint earum, inventore voluptatibus aliquam hic deserunt quidem?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos dolore velit ex, rerum
-                    culpa amet. Dignissimos labore obcaecati asperiores optio est, consequatur non rem
-                    exercitationem ipsam quasi fuga voluptate iure.
-                </div>
+                <div class="film-name side-elem" id="modalTitle"></div>
+                <div class="film-elem side-elem"><b>Жанр: </b></div>
+                <div class="film-elem side-elem"><b>Дата виходу: </b></div>
+                <div class="film-elem side-elem"><b>Тривалість: </b></div>
+                <div class="film-elem side-elem"><b>У головних ролях: </b></div>
+                <div class="film-elem side-elem"><b>Опис: </b></div>
             </div>
             <div class="modal-film-side">
-                <div class="film-rating">9,9</div>
-                <img src="~/img/poster-sm.png">
-                <input type="button" class="film-buy-tickets film-buy-tickets-modal" value="Buy tickets">
+                <div class="film-rating"></div>
+                <div class="film-elem">
+                    <img id="modalImageTag" src="" alt="Alternate Text" />
+                </div>
+
+                <div class="btn-border">
+                    <button class="film-buy-tickets"><a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Придбати квиток</a></button>
+                </div>
             </div>
         </div>
     </div>
