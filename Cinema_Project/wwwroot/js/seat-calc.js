@@ -22,6 +22,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+
+    let selectedDate = null;
+    let selectedTime = null;
+    let selectedHall = null;
+
+    document.querySelectorAll('.row-button.date').forEach(button => {
+        button.addEventListener('click', () => {
+            selectedDate = button;
+            loadReservedSeats();
+        });
+    });
+
+    document.querySelectorAll('.row-button.time').forEach(button => {
+        button.addEventListener('click', () => {
+            selectedTime = button;
+            loadReservedSeats();
+        });
+    });
+
+    document.querySelectorAll('.row-button.hall').forEach(button => {
+        button.addEventListener('click', () => {
+            selectedHall = button;
+            loadReservedSeats();
+        });
+    });
+
+    function loadReservedSeats() {
+        if (selectedDate && selectedTime && selectedHall) {
+            const showtime = selectedDate.dataset.date + 'T' + selectedTime.dataset.time + ':00';
+            const hallNumber = selectedHall.dataset.hall;
+            const movieId = document.getElementById('MovieId').value;
+
+            fetch(`/Booking/GetReservedSeats?movieId=${movieId}&showtime=${showtime}&hallNumber=${hallNumber}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelectorAll('.seat').forEach(seat => {
+                        seat.classList.remove('seat-blocked');
+                    });
+                    data.forEach(seat => {
+                        const row = seat.rowNumber;
+                        const seatNum = seat.seatNumber;
+                        const seatElement = document.querySelector(`.seat-row:nth-child(${row}) .seat:nth-child(${seatNum})`);
+                        if (seatElement) {
+                            seatElement.classList.add('seat-blocked');
+                        }
+                    });
+                })
+                .catch(error => console.error('Error fetching reserved seats:', error));
+        }
+    }
+
     seatContainer.addEventListener('click', (event) => {
         const target = event.target;
         if (target.classList.contains('seat')) {
@@ -166,6 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
+                            window.location.href = data.redirectUrl;
                             flag = true;
                         } else {
                             console.error('Error booking ticket:', data.errors);
