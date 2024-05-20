@@ -4,7 +4,7 @@ var btn_watch_open = document.getElementById("film-trailer-button");
 var btn_watch_close = document.getElementById("btn_watch_close");
 var overlay = document.getElementById("overlay");
 var modal = document.getElementById("myModal");
-var span = document.getElementsByClassName("close")[0];
+var closeModal = document.getElementsByClassName("close")[0];
 var videoPlayer = document.getElementById("videoPlayer");
 videoPlayer.volume = 0.5;
 
@@ -18,26 +18,31 @@ buttons.forEach(function (button) {
         overlay.style.pointerEvents = "auto"; // дозволяє кліки
         document.body.style.overflow = "hidden"; // блокування прокрутки
 
-        /*setTimeout(function () {
-            videoPlayer.play(); // Воспроизведение видео
-        }, 1000); // задержка 3 секунды*/
+        setTimeout(function () {
+            if (videoPlayer.contentWindow && videoPlayer.contentWindow.postMessage) {
+                videoPlayer.contentWindow.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*');
+            }
+        }, 1000); 
     }
 });
 
-span.onclick = function () {
+closeModal.onclick = function () {
     modal.style.opacity = "0";
     overlay.style.opacity = "0";
     document.body.style.overflow = ""; // знову дозволяє прокрутку
-    videoPlayer.pause(); // Призупинити відтворення відео
+    modal.style.zIndex = "-1";
+    overlay.style.zIndex = "-1";
+    console.log('Modal zIndex:', modal.style.zIndex);
+    console.log('Overlay zIndex:', overlay.style.zIndex);
+    console.log('Overlay pointerEvents:', overlay.style.pointerEvents);
     setTimeout(function () {
-        modal.style.zIndex = "-1";
-        overlay.style.zIndex = "-1";
         overlay.style.pointerEvents = "none"; // блокує кліки
     }, 1000);
 }
 
+
+
 document.addEventListener('DOMContentLoaded', function () {
-    const closeModal = document.querySelector('.close');
 
     document.querySelectorAll('.activate-modal').forEach(button => {
         button.addEventListener('click', function () {
@@ -57,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.querySelector('.modal-film-info .film-elem:nth-child(4)').innerHTML = `<b>Тривалість: </b>${data.duration}`;
                     document.querySelector('.modal-film-info .film-elem:nth-child(5)').innerHTML = `<b>У головних ролях: </b>${data.stars}`;
                     document.querySelector('.modal-film-info .film-elem:nth-child(6)').innerHTML = `<b>Опис: </b>${data.description}`;
-                    document.querySelector('.modal-film-side .film-rating').textContent = data.rating;
+                    document.querySelector('.modal-film-side .film-rating').textContent = `${data.rating} ⭐️`;
                     document.querySelector('.modal-film-side img').src = data.posterUrl;
                     document.getElementById('videoPlayer').src = data.trailerUrl;
 
