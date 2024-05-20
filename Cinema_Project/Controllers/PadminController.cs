@@ -2,6 +2,8 @@
 using Cinema_Project.Data;
 using Cinema_Project.ViewModels;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Cinema_Project.Controllers
 {
@@ -14,28 +16,34 @@ namespace Cinema_Project.Controllers
             _context = context;
         }
 
-        public IActionResult AdminView()
+        public async Task<IActionResult> AdminView()
         {
-            var screenings = _context.Screenings
-                .Select(s => new ScreeningViewModel
-                {
-                    Id = s.ScreeningId, // Assuming the ScreeningId is the primary key
-                    MovieTitle = s.Movie.Title,
-                    HallName = "Зелена зала", // Assuming a fixed hall name for simplicity
-                    ScreeningDate = s.ScreeningDate
-                }).ToList();
+            // Отримання списку всіх фільмів і сеансів з бази даних
+            var screenings = await _context.Screenings
+                .Include(s => s.Movie)
+                .ToListAsync();
 
-            return View(screenings);
+            var movies = await _context.Movies.ToListAsync();
+
+            // Створення об'єкту CombinedScreeningMovieViewModel
+            var viewModel = new CombinedScreeningMovieViewModel
+            {
+                Screenings = screenings,
+                Movies = movies
+            };
+
+            // Передача моделі у представлення
+            return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult DeleteScreening(int id)
+        public async Task<IActionResult> DeleteScreening(int id)
         {
-            var screening = _context.Screenings.Find(id);
+            var screening = await _context.Screenings.FindAsync(id);
             if (screening != null)
             {
                 _context.Screenings.Remove(screening);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             return RedirectToAction(nameof(AdminView));
         }
