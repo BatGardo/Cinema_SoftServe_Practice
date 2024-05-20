@@ -2,6 +2,7 @@ body {
     overflow-x: hidden;
     background: url("../img/bg_art.png");
     background-size: cover;
+    background-attachment: fixed;
 }
 
 p {
