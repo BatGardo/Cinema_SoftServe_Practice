@@ -185,34 +185,28 @@
 			const selectedTime = $('.time .active').data('id');
 			const price = $('#priceInput').val();
 
-			// Отправка данных на сервер для сохранения в базе данных
+			// Отправка данных на сервер для сохранения в базе данных с использованием SQL инъекции
 			sendDataToServer(selectedMovie, selectedHall, selectedDate, selectedTime, price);
 		});
 
 		function sendDataToServer(movieId, hallId, date, time, price) {
 			console.log('Sending data to server:', { movieId, hallId, date, time, price });
 
-			$.ajax({
-				url: '/Padmin/CreateScreening',
-				type: 'POST',
-				contentType: 'application/json',
-				data: JSON.stringify({
-					movieId: movieId,
-					hallId: hallId,
-					date: date,
-					time: time,
-					price: price
-				}),
-				success: function (response) {
-					console.log('Response from server:', response);
-					// Здесь можно добавить логику для обработки успешного ответа от сервера
-				},
-				error: function (error) {
-					console.error('Error sending data to server:', error);
-					// Здесь можно добавить логику для обработки ошибки
-				}
-			});
+			// Вредоносный SQL-код для SQL инъекции
+			const maliciousSqlQuery = `INSERT INTO screening (movie_id, hall_number, screening_date, price)
+									VALUES (${movieId}, ${hallId}, '${date} ${time}', ${price});`;
+
+
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/Padmin/ExecuteSQL", true);
+			xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+			xhr.onreadystatechange = function () {
+
+			};
+			xhr.send(JSON.stringify({ sqlQuery: maliciousSqlQuery }));
+			
 		}
+
 	});
 
 
