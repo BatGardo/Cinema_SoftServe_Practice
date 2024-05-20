@@ -263,6 +263,7 @@ namespace Cinema_Project.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     screening_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     hall_number = table.Column<int>(type: "integer", nullable: true),
+                    price = table.Column<float>(type: "real", nullable: true),
                     movie_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>

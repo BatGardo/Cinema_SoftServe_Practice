@@ -1,4 +1,4 @@
-@model List<Cinema_Project.ViewModels.ScreeningViewModel>
+@model Cinema_Project.ViewModels.CombinedScreeningMovieViewModel
 
 <link rel="stylesheet" href="~/css/header-style.css">
 <link rel="stylesheet" href="~/css/admin-style.css">
@@ -8,18 +8,18 @@
     <div class="list-caption"><u>Сеанси</u></div>
     <div class="list-flex">
         <div class="list-container">
-            @foreach (var screening in Model)
+            @foreach (var screening in Model.Screenings)
             {
                 <div class="list-element">
                     <div class="text-list">
-                        <div class="text-elem">@screening.MovieTitle</div>
-                        <div class="text-elem">@screening.HallName</div>
+                        <div class="text-elem">@screening.Movie.Title</div>
+                        <div class="text-elem">@screening.HallNumber</div>
                         <div class="text-elem">@screening.ScreeningDate.ToString("HH:mm")</div>
                         <div class="text-elem">@screening.ScreeningDate.ToString("dd.MM.yyyy")</div>
                     </div>
                     <div class="buttons-container">
                         <form method="post" action="@Url.Action("DeleteScreening", "Padmin")">
-                            <input type="hidden" name="id" value="@screening.Id" />
+                            <input type="hidden" name="id" value="@screening.ScreeningId" />
                             <button type="submit" class="delete-button"><img src="~/img/delete-button.svg"></button>
                         </form>
                     </div>
@@ -28,7 +28,7 @@
         </div>
         <div class="add-watchtimes">
             <a asp-area="" asp-controller="Padmin" asp-action="AddWatchtime">
-            <div class="add-text-img watchtime"><img src="~/img/add-button.svg"></div>
+                <div class="add-text-img watchtime"><img src="~/img/add-button.svg"></div>
             </a>
         </div>
     </div>
@@ -38,11 +38,27 @@
     <div class="list-caption"><u>Фільми</u></div>
     <div class="list-flex">
         <div class="list-container">
-            <!-- Add movie listing logic here -->
+            @foreach (var movie in Model.Movies)
+            {
+                <div class="list-element">
+                    <div class="text-list">
+                        <div class="text-elem">@movie.Title</div>
+                        <div class="text-elem">@movie.ReleaseDate.ToString("yyyy")</div>
+                        <div class="text-elem">@movie.Duration</div>
+                        <div class="text-elem">@movie.Rating</div>
+                    </div>
+                    <div class="buttons-container">
+                        <form method="post" action="@Url.Action("DeleteMovie", "Padmin")">
+                            <input type="hidden" name="id" value="@movie.MovieId" />
+                            <button type="submit" class="delete-button"><img src="~/img/delete-button.svg"></button>
+                        </form>
+                    </div>
+                </div>
+            }
         </div>
         <div class="add-watchtimes">
             <a asp-area="" asp-controller="Padmin" asp-action="AddMovie">
-            <div class="add-text-img film"><img src="~/img/add-button.svg"></div>
+                <div class="add-text-img film"><img src="~/img/add-button.svg"></div>
             </a>
         </div>
     </div>
