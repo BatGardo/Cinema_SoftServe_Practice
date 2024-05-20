@@ -69,7 +69,7 @@
                             <div class="ticket-elem">Hall @ticket.HallNumber</div>
                             <div class="ticket-elem">@ticket.Showtime.ToString("HH:mm")</div>
                             <div class="ticket-elem">@ticket.Showtime.ToString("dd.MM.yyyy")</div>
-                            <div class="ticket-elem">@ticket.Price</div>
+                            <div class="ticket-elem">@ticket.Price ₴</div>
                             <div class="ticket-elem download">
                                 <a asp-controller="Profile" asp-action="GeneratePDF" asp-route-movieTitle="@ticket.Movie.Title" asp-route-showtime="@ticket.Showtime" asp-route-rowNumber="@ticket.RowNumber" asp-route-seatNumber="@ticket.SeatNumber" asp-route-hallNumber="@ticket.HallNumber" asp-route-price="@ticket.Price">Download</a>
                             </div>
