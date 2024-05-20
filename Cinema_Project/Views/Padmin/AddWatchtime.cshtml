@@ -33,12 +33,12 @@
 	</span>
 	<form>
 		<div class="search-bar">
-			<input type="text" placeholder="Введіть назву фільму...">
+			<input type="text" id="SearchInp" placeholder="Введіть назву фільму...">
 		</div>
 		<div class="movie-list">
 			@foreach (var movie in Model.Movie.Movies)
 			{
-				<div class="movie-item">
+				<div class="movie-item" data-id="@movie.MovieId">
 					<li class="add-film-button" style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_SP.jpg")');">
 						<button>Обрати фільм</button>
 					</li>
@@ -73,20 +73,23 @@
 		<div class="time">
 			<span>Час</span>
 			<div>
-				<button class="active" data-id"9">9:00</button>
-				<button data-id"10">10:00</button>
-				<button data-id"11">11:00</button>
-				<button data-id"12">12:00</button>
-				<button data-id"13">13:00</button>
-				<button data-id"14">14:00</button>
-				<button data-id"15">15:00</button>
-				<button data-id"16">16:00</button>
-				<button data-id"17">17:00</button>
-				<button data-id"18">18:00</button>
-				<button data-id"19">19:00</button>
-				<button data-id"20">20:00</button>
-				<button data-id"21">21:00</button>
+				<button class="active" data-id="9:00:00">9:00</button>
+				<button data-id="10:00:00">10:00</button>
+				<button data-id="11:00:00">11:00</button>
+				<button data-id="12:00:00">12:00</button>
+				<button data-id="13:00:00">13:00</button>
+				<button data-id="14:00:00">14:00</button>
+				<button data-id="15:00:00">15:00</button>
+				<button data-id="16:00:00">16:00</button>
+				<button data-id="17:00:00">17:00</button>
+				<button data-id="18:00:00">18:00</button>
+				<button data-id="19:00:00">19:00</button>
+				<button data-id="20:00:00">20:00</button>
+				<button data-id="21:00:00">21:00</button>
 			</div>
+		</div>
+		<div class="Price-bar">
+			<input type="text" id="priceInput" placeholder="Введіть ціну...">
 		</div>
 		<input type="submit" class="add-watchtime-btn" value="Додати сеанс">
 	</form>
@@ -118,21 +121,16 @@
 
 <script>
 	$(document).ready(function () {
-		$('.add-film-button > button').click(function (event) {
-			// Запобігаємо стандартній поведінці кнопки
-			event.preventDefault();
+		// Обработчик событий на непосредственно на кнопке фильма
+		$('.add-film-button').click(function (event) {
+			event.preventDefault(); // Предотвращаем перезагрузку страницы
 
-			// Видаляємо клас .film-chosen з усіх .movie-item
 			$('.movie-item').removeClass('film-chosen');
 
-			// Додаємо клас .film-chosen до батьківського елемента .movie-item поточного елемента
 			$(this).closest('.movie-item').addClass('film-chosen');
 		});
-	});
 
-
-	$(document).ready(function () {
-		$('input[type="text"]').on('input', function () {
+		$('#SearchInp').on('input', function () {
 			var query = $(this).val().toLowerCase();
 
 			$('.movie-item').each(function () {
@@ -148,44 +146,74 @@
 				}
 			});
 		});
-	});
 
-	$(document).ready(function () {
-		// Получить текущую дату
 		var currentDate = new Date();
-		// Создать объект для хранения дат на 14 дней вперед
 		var dates = [];
 
-		// Генерация дат на 14 дней вперед
 		for (var i = 0; i < 14; i++) {
 			var date = new Date();
 			date.setDate(currentDate.getDate() + i);
 			dates.push(date);
 		}
 
-		// Получение элемента select
 		var select = document.getElementById("dateSelect");
 
-		// Добавление дат в элемент select
 		dates.forEach(function (date) {
 			var option = document.createElement("option");
 			option.text = formatDate(date);
 			option.value = formatDate(date);
 			select.add(option);
 		});
+
+		function formatDate(date) {
+			var day = date.getDate();
+			var month = date.getMonth() + 1;
+			var year = date.getFullYear();
+
+			day = day < 10 ? '0' + day : day;
+			month = month < 10 ? '0' + month : month;
+
+			return day + '-' + month + '-' + year;
+		}
+
+		$('.add-watchtime-btn').click(function (event) {
+			event.preventDefault(); // Предотвращаем перезагрузку страницы
+
+			const selectedMovie = $('.film-chosen').data('id');
+			const selectedHall = $('.hall .active').data('id');
+			const selectedDate = $('#dateSelect').val();
+			const selectedTime = $('.time .active').data('id');
+			const price = $('#priceInput').val();
+
+			// Отправка данных на сервер для сохранения в базе данных
+			sendDataToServer(selectedMovie, selectedHall, selectedDate, selectedTime, price);
+		});
+
+		function sendDataToServer(movieId, hallId, date, time, price) {
+			console.log('Sending data to server:', { movieId, hallId, date, time, price });
+
+			$.ajax({
+				url: '/Padmin/CreateScreening',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify({
+					movieId: movieId,
+					hallId: hallId,
+					date: date,
+					time: time,
+					price: price
+				}),
+				success: function (response) {
+					console.log('Response from server:', response);
+					// Здесь можно добавить логику для обработки успешного ответа от сервера
+				},
+				error: function (error) {
+					console.error('Error sending data to server:', error);
+					// Здесь можно добавить логику для обработки ошибки
+				}
+			});
+		}
 	});
 
-	// Функция для форматирования даты в строку "DD.MM.YYYY"
-	function formatDate(date) {
-		var day = date.getDate();
-		var month = date.getMonth() + 1;
-		var year = date.getFullYear();
-
-		// Добавляем ведущий ноль, если день или месяц меньше 10
-		day = day < 10 ? '0' + day : day;
-		month = month < 10 ? '0' + month : month;
-
-		return day + '.' + month + '.' + year;
-	}
 
 </script>

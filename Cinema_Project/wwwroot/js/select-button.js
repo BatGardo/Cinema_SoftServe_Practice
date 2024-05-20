@@ -1,23 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Функция для обработки нажатия кнопок
+    // Функція для обробки натискання кнопок
     const handleButtonClick = (event) => {
         event.preventDefault();
         const parentDiv = event.target.parentNode;
 
-        // Найти все кнопки внутри этого div и удалить у них класс active
+        // Знайти всі кнопки всередині цього div і видалити у них клас active
         Array.from(parentDiv.children).forEach(button => {
             button.classList.remove('active');
         });
 
-        // Добавить класс active к нажатой кнопке
+        // Додати клас active до натиснутої кнопки
         event.target.classList.add('active');
-
-        // Получить ID нажатой кнопки
-        const buttonId = event.target.getAttribute('data-id');
-        console.log("ID нажатой кнопки:", buttonId);
     };
 
-    // Функция для обработки изменения select
+    document.querySelectorAll('.date select').forEach(select => {
+        select.addEventListener('focus', function() {
+            this.classList.add('select-active');
+        });
+
+        select.addEventListener('blur', function() {
+            this.classList.remove('select-active');
+        });
+    });
+
+    // Функція для обробки зміни select
     const handleSelectChange = (event) => {
         const parentDiv = event.target.parentNode;
         // Найти все select внутри этого div и удалить у них класс active
@@ -25,18 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
             select.classList.remove('active');
         });
 
-        // Добавить класс active к выбранному select
+        // Додати клас active до вибраного select
         event.target.classList.add('active');
     };
 
-    // Найти все кнопки внутри .hall и назначить обработчик события click
-    document.querySelectorAll('.hall button').forEach(button => {
+    // Знайти всі кнопки всередині .hall і .time і додати обробник події click
+    document.querySelectorAll('.hall button, .time button').forEach(button => {
         button.addEventListener('click', handleButtonClick);
     });
 
     // Найти все select внутри .date и назначить обработчик события change
-    document.querySelectorAll('.date select').forEach(select => 
-        {
+    document.querySelectorAll('.date select').forEach(select => {
         select.addEventListener('change', handleSelectChange);
     });
 });

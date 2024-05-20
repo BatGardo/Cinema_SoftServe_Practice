@@ -47,6 +47,20 @@ button{
     padding: 10px;
     border-radius: 25px;
 }
+.Price-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.Price-bar input {
+    width: 20%;
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    outline: 0;
+}
 .movie-list {
     margin-top: 13px;
     display: flex;
