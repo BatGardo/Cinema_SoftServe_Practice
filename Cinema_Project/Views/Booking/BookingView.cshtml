@@ -27,8 +27,7 @@
     </div>
     <div class="film-book-container">
         <div class="film-info-container">
-            <li
-                style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_SP.jpg")');"></li>
+            <li style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_SP.jpg")');"></li>
             <div class="film-info">
                 <div class="film-info-name">@movie.Title</div> <!-- Назва фільму -->
                 <div class="film-data"><span>@($"{movie.Duration / 60}г {movie.Duration % 60}хв")</span> | <span class="film-info-rating">@movie.Rating</span></div>
@@ -77,7 +76,10 @@
                 </div>
             </div>
         </div>
-        <div class="single-seat-price">Ціна місця: 275₴</div> <!-- Ціна 1 місця-->
+        @foreach (var screening in screenings)
+        {
+            <div class="single-seat-price">Ціна місця: @screening.Price₴</div> <!-- Ціна 1 місця-->
+        }
         <div class="line"></div>
         <!-- Заброньовані місця -->
         <div class="booked-seats" id="booked-seats">
