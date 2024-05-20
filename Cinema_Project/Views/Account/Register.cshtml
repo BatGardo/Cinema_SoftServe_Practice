@@ -21,7 +21,7 @@
                 <input asp-for="UserName" placeholder="Логін" required />
                 <input asp-for="Password" placeholder="Пароль" required />
                 <input asp-for="ConfirmPassword" placeholder="Підтвердження паролю" required />
-                <a asp-action="Login" class="text-decoration-none float-start mt-2" style="color:#DF0A0A"> Вже є акаунт? Авторизація</a>
+                <div class="auth-bottom">Вже є акаунт? <a asp-action="Login" class="text-decoration-none float-start mt-2" style="color:#DF0A0A">Авторизація</a></div>
                 <input type="submit" value="Реєстрація" class="btn btn-primary btn-sm float-end" />
             </form>
         </div>
