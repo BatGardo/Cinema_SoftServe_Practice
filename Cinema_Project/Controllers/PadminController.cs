@@ -37,6 +37,18 @@ namespace Cinema_Project.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> DeleteMovie(int id)
+        {
+            var movie = await _context.Movies.FindAsync(id);
+            if (movie != null)
+            {
+                _context.Movies.Remove(movie);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(AdminView));
+        }
+
+        [HttpPost]
         public async Task<IActionResult> DeleteScreening(int id)
         {
             var screening = await _context.Screenings.FindAsync(id);
