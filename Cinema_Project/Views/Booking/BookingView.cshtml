@@ -1,6 +1,12 @@
 @{
     var movie = ViewBag.Movie;
     var screenings = ViewBag.Screenings as List<Cinema_Project.Models.Screening>;
+    var halls = new List<(int HallNumber, string HallName, string HallClass)>
+    {
+        (1, "Red", "hall-red"),
+        (2, "Green", "hall-green"),
+        (3, "Blue", "hall-blue")
+    };
 }
 
 <link rel="stylesheet" href="~/css/header-style.css">
@@ -11,8 +17,6 @@
     <div class="screen-container">
         <div class="screen-caption">ЕКРАН</div>
         <div class="screen-img"><img src="~/img/screen.png"></div>
-        @*         <div class="seat seat-blocked"></div> <!-- seat-blocked - місце заброньовано іншим користувачем -->
-        *@
         <div class="seat-container">
             @for (int i = 0; i < 10; i++)
             {
@@ -27,7 +31,7 @@
     </div>
     <div class="film-book-container">
         <div class="film-info-container">
-            <li
+            <li class="slider-item movie" id="slider-item"
                 style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_SP.jpg")');"></li>
             <div class="film-info">
                 <div class="film-info-name">@movie.Title</div> <!-- Назва фільму -->
@@ -42,12 +46,10 @@
             <div class="params-row">
                 <div class="row-name">ДАТА</div>
                 <div class="row-buttons">
-                    <!-- Дати фільму -->
                     @foreach (var screening in screenings.GroupBy(s => s.ScreeningDate.Date).Select(g => g.First()))
                     {
-                        <div class="row-button date">@screening.ScreeningDate.ToString("dd.MM")</div>
+                        <div class="row-button date" data-date="@screening.ScreeningDate.ToString("yyyy-MM-dd")">@screening.ScreeningDate.ToString("dd.MM")</div>
                     }
-                    <!-- Дати фільму -->
                 </div>
             </div>
             <div class="params-row">
@@ -55,12 +57,10 @@
                     <div class="row-name">ЧАС</div>
                 </div>
                 <div class="row-buttons">
-                    <!-- Час фільму -->
                     @foreach (var screening in screenings)
                     {
-                        <div class="row-button time">@screening.ScreeningDate.ToString("HH:mm")</div>
+                        <div class="row-button time" data-time="@screening.ScreeningDate.ToString("HH:mm")" data-price="@screening.Price">@screening.ScreeningDate.ToString("HH:mm")</div>
                     }
-                    <!-- Час фільму -->
                 </div>
             </div>
             <div class="params-row">
@@ -68,22 +68,19 @@
                     <div class="row-name">ЗАЛ</div>
                 </div>
                 <div class="row-buttons">
-                    <!-- Зала фільму -->
-                    @foreach (var hall in screenings.Select(s => s.HallNumber).Distinct())
+                    @foreach (var hall in halls)
                     {
-                        <div class="row-button hall">@hall</div>
+                        <div class="row-button @hall.HallClass" data-hall="@hall.HallNumber">@hall.HallName</div>
                     }
-                    <!-- Зала фільму -->
                 </div>
             </div>
         </div>
-        <div class="single-seat-price">Ціна місця: 275₴</div> <!-- Ціна 1 місця-->
+        <div class="single-seat-price">Ціна місця: @screenings.First().Price ₴</div> <!-- Ціна 1 місця-->
         <div class="line"></div>
-        <!-- Заброньовані місця -->
-        <div class="booked-seats" id="booked-seats">
-        </div>
-        <!-- Заброньовані місця -->
+
+        <div class="booked-seats" id="booked-seats"></div>
         <div class="total-price">Всього: 0₴</div> <!-- Загальна ціна -->
+
         <input type="submit" value="BUY" class="buy-button">
         <button class="buy-button" onclick="initializeTickets()">Придбати квиток</button>
     </div>
