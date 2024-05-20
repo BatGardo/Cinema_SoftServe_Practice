@@ -26,7 +26,7 @@
                 </svg>
             </a>
         </span>
-            <form>
+            @* <form>
                 <div class="container-caption"><u>Add movie</u></div>
                 <div class="add-movie-flex">
                     <div class="poster-rating-container">
@@ -107,43 +107,152 @@
                             <input type="checkbox" id="drama">
                             <label for="drama"><span></span>Drama</label>
                         </div>
-                        <div class="properties-droplist-check">
-                            <input type="checkbox" id="drama">
-                            <label for="drama"><span></span>Drama</label>
-                        </div>
-                        <div class="properties-droplist-check">
-                            <input type="checkbox" id="drama">
-                            <label for="drama"><span></span>Drama</label>
-                        </div>
-                        <div class="properties-droplist-check">
-                            <input type="checkbox" id="drama">
-                            <label for="drama"><span></span>Drama</label>
-                        </div>
-                        <div class="properties-droplist-check">
-                            <input type="checkbox" id="drama">
-                            <label for="drama"><span></span>Drama</label>
-                        </div>
-                        <div class="properties-droplist-check">
-                            <input type="checkbox" id="drama">
-                            <label for="drama"><span></span>Drama</label>
-                        </div>
-                        <div class="properties-droplist-check">
-                            <input type="checkbox" id="drama">
-                            <label for="drama"><span></span>Drama</label>
-                        </div>
-                        <div class="properties-droplist-check">
-                            <input type="checkbox" id="drama">
-                            <label for="drama"><span></span>Drama</label>
-                        </div>
-                        <div class="properties-droplist-check">
-                            <input type="checkbox" id="drama">
-                            <label for="drama"><span></span>Drama</label>
-                        </div>
                     </div>
                 </div>
                 <input type="submit" class="add-button">
             </form>
+        </div> *@
+
+    @model Cinema_Project.ViewModels.MovieAddVM
+
+    <form asp-action="AddMovie" method="post" id="movieForm">
+        <div>
+            <label>Title:</label>
+            <input type="text" asp-for="Title" />
         </div>
+        <div>
+            <label>Description:</label>
+            <textarea asp-for="Description"></textarea>
+        </div>
+        <div>
+            <label>Release Date:</label>
+            <input type="date" asp-for="ReleaseDate" />
+        </div>
+        <div>
+            <label>Duration:</label>
+            <input type="number" asp-for="Duration" />
+        </div>
+        <div>
+            <label>Rating:</label>
+            <input type="number" step="0.1" asp-for="Rating" />
+        </div>
+        <div class="genres-flex d-flex">
+            <p>Genres:</p>
+            <div class="genres-container">
+                @foreach (var genre in Model.Genres)
+                {
+                    <div class="properties-droplist-check">
+                        <input type="checkbox" name="SelectedGenreIds" value="@genre.GenreId" id="genre_@genre.GenreId">
+                        <label for="genre_@genre.GenreId"><span></span>@genre.Title</label>
+                    </div>
+                }
+            </div>
+        </div>
+        <div>
+            <label>Actors:</label>
+            <div>
+                <select id="actorSelect">
+                    <option value="" disabled selected>Select Actor</option>
+                    @foreach (var actor in Model.Actors)
+                    {
+                        <option value="@actor.ActorId">@actor.FirstName @actor.LastName</option>
+                    }
+                </select>
+                <button type="button" onclick="addActor()">Add Actor</button>
+            </div>
+            <ul id="selectedActors">
+            </ul>
+        </div>
+        <button type="button" onclick="generateSQLQuery()">Submit</button>
+    </form>
+
+
+    @section Scripts {
+        <script>
+            function addActor() {
+                var actorSelect = document.getElementById("actorSelect");
+                var selectedActors = document.getElementById("selectedActors");
+
+                var selectedActorId = actorSelect.value;
+                var selectedActorText = actorSelect.options[actorSelect.selectedIndex].text;
+
+                if (selectedActorId) {
+                    var listItem = document.createElement("li");
+                    listItem.textContent = selectedActorText;
+
+                    var hiddenInput = document.createElement("input");
+                    hiddenInput.type = "hidden";
+                    hiddenInput.name = "SelectedActorIds";
+                    hiddenInput.value = selectedActorId;
+
+                    var removeButton = document.createElement("button");
+                    removeButton.type = "button";
+                    removeButton.textContent = "Remove";
+                    removeButton.onclick = function () {
+                        listItem.remove();
+                    };
+
+                    listItem.appendChild(hiddenInput);
+                    listItem.appendChild(removeButton);
+                    selectedActors.appendChild(listItem);
+
+                    actorSelect.value = "";
+                }
+            }
+
+            function generateSQLQuery() {
+                var form = document.getElementById("movieForm");
+
+                var title = form.querySelector('input[name="Title"]').value;
+                var description = form.querySelector('textarea[name="Description"]').value;
+                var releaseDate = form.querySelector('input[name="ReleaseDate"]').value;
+                var duration = form.querySelector('input[name="Duration"]').value;
+                var rating = form.querySelector('input[name="Rating"]').value;
+
+                var selectedGenres = Array.from(form.querySelectorAll('input[name="SelectedGenreIds"]:checked'))
+                    .map(checkbox => checkbox.value);
+
+                var selectedActors = Array.from(form.querySelectorAll('input[name="SelectedActorIds"]'))
+                    .map(input => input.value);
+
+                var movieQuery = `INSERT INTO movie (Title, Description, Release_Date, Duration, Rating) VALUES ('${title}', '${description}', '${releaseDate}', ${duration}, ${rating});`;
+
+                var genreQueries = selectedGenres.map(genreId => {
+                    return `INSERT INTO Movie_Genre (Movie_Id, Genre_Id)
+                        SELECT MAX(movie_id), ${genreId}
+                        FROM movie;`;
+                });
+
+                var actorQueries = selectedActors.map(actorId => {
+                    return `INSERT INTO Movie_Actor (Movie_Id, Actor_Id)
+                            SELECT MAX(movie_id), ${actorId}
+                            FROM movie;`;
+                });
+
+                var sqlQuery = movieQuery + "\n" + genreQueries.join("\n") + "\n" + actorQueries.join("\n");
+
+                // Отправка AJAX-запроса на сервер
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/Padmin/ExecuteSQL", true);
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xhr.onreadystatechange = function () {
+
+                };
+                xhr.send(JSON.stringify({ sqlQuery: sqlQuery }));
+            }
+        </script>
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
