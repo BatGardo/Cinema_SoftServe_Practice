@@ -11,6 +11,7 @@
 
 <link rel="stylesheet" href="~/css/header-style.css">
 <link rel="stylesheet" href="~/css/booking-style.css">
+<link rel="stylesheet" href="~/css/modal.css">
 <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
 
 <div class="container booking-container">
@@ -86,6 +87,7 @@
     </div>
 </div>
 
+<div id="overlay"></div>
 <div id="myModal" class="modal">
     <span id="btn_watch_close" class="close">&times;</span>
     <div id="videoContainer" class="video-container">
@@ -94,7 +96,7 @@
     <div class="text-block container">
         <div class="modal-info-container d-flex">
             <div class="modal-film-info">
-                <div class="film-name side-elem" id="modalTitle"></div>
+                <div class="film-name side-elem modal-film-caption" id="modalTitle"></div>
                 <div class="film-elem side-elem"><b>Жанр: </b></div>
                 <div class="film-elem side-elem"><b>Дата виходу: </b></div>
                 <div class="film-elem side-elem"><b>Тривалість: </b></div>
@@ -106,9 +108,10 @@
                 <div class="film-elem">
                     <img id="modalImageTag" src="" alt="Alternate Text" />
                 </div>
-
                 <div class="btn-border">
-                    <button class="film-buy-tickets"><a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Придбати квиток</a></button>
+                    <button class="film-buy-tickets">
+                        <a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Придбати квиток</a>
+                    </button>
                 </div>
             </div>
         </div>

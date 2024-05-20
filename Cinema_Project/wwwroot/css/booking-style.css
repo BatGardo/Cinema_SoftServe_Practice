@@ -2,10 +2,9 @@ body {
     overflow-x: hidden;
     background: url("../img/bg_art.png");
     background-size: cover;
-    background-attachment: fixed;
-}
-
-.film-trailer-button {
+    background-attachment:fixed;
+  }
+.film-trailer-button{
     width: 172px;
     height: 44px;
     font-size: 16px;
@@ -147,7 +146,16 @@ body {
     gap: 18px;
 }
 
-.film-info-name {
+    .film-info-container > li {
+        list-style: none;
+        width:70px;
+        height:105px;
+        background-size:cover;
+        background-position:center;
+        border-radius:10px;
+    }
+
+.film-info-name{
     font-family: "Arimo", sans-serif;
     font-weight: 600;
     color: white;
@@ -324,6 +332,23 @@ body {
         border: solid #ffffff 4px;
     }
 
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+#myModal {
+    transition: opacity 0.3s;
+}
+
 .modal {
     border-radius: 25px;
     display: block;
@@ -341,111 +366,42 @@ body {
     transform: translate(-50%, -50%);
 }
 
-    .modal::-webkit-scrollbar {
-        display: none; /* Приховує скролбар вебкітовського движка */
-    }
-
-.text-block {
-    padding: 78px;
-    color: white;
-}
-
-.modal-appear {
-    transform: translateY(0px);
-}
-
-
 .close {
     color: #ebebeb;
     float: right;
-    font-size: 28px;
+    font-size: 48px;
     font-weight: bold;
     margin-right: 10px;
     margin-bottom: 3px;
     transition: 0.5s;
 }
 
-    .close:hover,
-    .close:focus {
-        transition: 0.5s;
-        color: rgb(241, 12, 12);
-        text-decoration: none;
-        cursor: pointer;
-    }
+.video-container {
+    width: 100%;
+    height: 500px;
+}
 
-.modal-film-side {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+.text-block.container {
+    padding: 78px;
+    color: white;
+}
+
+.modal-info-container.d-flex {
+    justify-content: space-evenly;
 }
 
 .modal-film-info {
     flex-grow: 2;
+    max-width: 50%;
+    white-space: normal;
+    font-size: 24px;
 }
 
-.side-elem {
-    max-width: 90%;
+.film-name.side-elem.modal-film-caption {
+    font-size: 42px !important;
 }
 
-.film-buy-tickets {
-    font-family: "Arimo", sans-serif;
-    font-weight: 400;
+.film-elem.side-elem {
+    max-width: 100%;
     font-size: 20px;
-    width: 210px;
-    height: 50px;
-    background-color: #DF0A0A;
-    border-radius: 25px;
-    align-self: center;
-    z-index: 3;
-    color: white;
-    border: solid #BE0F0F 4px;
-    transition: 0.5s;
-    cursor: pointer;
 }
-
-    .film-buy-tickets:hover {
-        transition: 0.5s;
-        border: solid #ffffff 4px;
-        background-color: #BE0F0F;
-    }
-
-.film-name {
-    margin-top: 25px;
-    max-width: 380px;
-    font-family: "Arimo Black", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 35px;
-    color: white;
-}
-
-.film-elem {
-    margin-top: 5%;
-    max-width: 380px;
-    font-family: "Arimo", sans-serif;
-    font-weight: 400;
-    font-size: 15px;
-    color: white;
-}
-
-.film-rating {
-    display: flex;
-    position: relative;
-    margin-top: 5%;
-    max-width: 380px;
-    font-family: "Arimo", sans-serif;
-    font-weight: 400;
-    font-size: 18px;
-    color: white;
-    align-self: end;
-}
-
-    .film-rating::before {
-        content: '';
-        position: absolute;
-        background-image: url("../img/star.png");
-        height: 18px;
-        width: 18px;
-        left: 30px;
-        top: 3px;
-    }
