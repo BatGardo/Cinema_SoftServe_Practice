@@ -30,7 +30,7 @@
                 int currentActorIndex = 0;
                 <li class="slide-invisible slide-visible">
 
-                    <div class="single-slide" style="background-image: url('@Url.Content("~/img_posters/" + movie.Title + "/" + movie.Title + "_BP.jpg")');">
+                    <div class="single-slide" style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_BP.jpg")');">
                         <div class="film-info-container">
                             <div class="film-rating">@movie.Rating</div>
                             <div class="film-name">@movie.Title</div>
