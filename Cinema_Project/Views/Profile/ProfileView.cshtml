@@ -25,14 +25,14 @@
     <div class="profile-info-caption">Акаунт</div>
     <div class="profile-name-email">
         <div class="profile-container">
-            <div class="profile-container-caption">Login</div>
+            <div class="profile-container-caption">Логін</div>
             <input type="text" value="@ViewBag.UserName">
-            <input class="profile-button" type="button" value="Change login">
+            <input class="profile-button" type="button" value="Змінити Логін">
         </div>
         <div class="profile-container">
             <div class="profile-container-caption">Email</div>
             <input type="email" value="@ViewBag.Email">
-            <input class="profile-button" type="button" value="Change email">
+            <input class="profile-button" type="button" value="Змінити email">
         </div>
     </div>
     <div class="profile-container">
@@ -41,14 +41,14 @@
         <input class="profile-button" type="button" value="Змінити пароль">
     </div>
     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
-        <button type="submit" class="btn btn-primary btn-sm float-end profile-logout">Log out</button>
+        <button type="submit" class="btn btn-primary btn-sm float-end profile-logout">Вихід</button>
     </form>
 </div>
 
 
 
 <div class="active-tickets container">
-    <div class="tickets-caption">Active Tickets</div>
+    <div class="tickets-caption">Активні квитки</div>
     <div class="ticket-list">
         @foreach (var ticket in Model.Tickets)
         {
@@ -83,7 +83,7 @@
 
         </div>
 <div class="active-tickets container">
-    <div class="tickets-caption">History Tickets</div>
+    <div class="tickets-caption">Історія квитків</div>
     <div class="ticket-list">
         @foreach (var ticket in Model.Tickets)
         {

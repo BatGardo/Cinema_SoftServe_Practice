@@ -4,7 +4,7 @@ body {
     background-size: cover;
   }
 .search-caption{
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 600;
     font-style: normal;
     font-size: 45px;
@@ -32,7 +32,7 @@ body {
 
 .properties-elem{
     position: relative;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-style: normal;
     font-size: 24px;
@@ -130,7 +130,7 @@ body {
 .properties-droplist-check > input[type="checkbox"] + label{
     transform: translateX(21px);
     position: relative;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-style: normal;
     font-size: 20px;
@@ -167,17 +167,9 @@ body {
 }
 
 .films-row{
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    padding-inline: 40px;
     margin-top: 100px;
     justify-content: space-evenly;
 }
-
-    .films-row > * {
-        margin-bottom: 50px;
-    }
 
 .film-search-elem{
     height: 445px;
@@ -222,7 +214,7 @@ body {
     position: absolute;
     width: 179px;
     background-color: #D92626;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     color: white;
     font-size: 20px;
@@ -247,20 +239,18 @@ body {
     transition: 0.5s;
 }
 
-.film-elem-name {
-    font-family: "Archivo", sans-serif;
+.film-elem-name{
+    font-family: "Arimo", sans-serif;
     font-weight: 600;
     font-style: normal;
     font-size: 36px;
-    color: white;
-    text-align: center;
-    margin-top: 30px;
+    color:white;
 }
 
 .film-elem-description{
     height: 191px;
     width: 186px;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-style: normal;
     font-size: 15px;
@@ -281,7 +271,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     background-color: transparent;
     color: white;
