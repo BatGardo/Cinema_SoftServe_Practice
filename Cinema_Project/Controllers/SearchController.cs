@@ -54,6 +54,7 @@ namespace Cinema_Project.Controllers
 
                 var movieDetails = new
                 {
+                    movieId = movie.MovieId,
                     title = movie.Title,
                     genres = string.Join(", ", movie.MovieGenres
                         .Where(mg => mg.Genre != null)

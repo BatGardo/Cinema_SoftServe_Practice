@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     return response.json();
                 })
                 .then(data => {
+                    console.log(data);
                     document.querySelector('.modal-film-info .film-name').textContent = data.title;
                     document.querySelector('.modal-film-info .film-elem:nth-child(2)').innerHTML = `<b>Жанр: </b>${data.genres}`;
                     document.querySelector('.modal-film-info .film-elem:nth-child(3)').innerHTML = `<b>Дата виходу: </b>${data.releaseDate}`;
@@ -54,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.querySelector('.modal-film-side .film-rating').textContent = data.rating;
                     document.querySelector('.modal-film-side img').src = data.posterUrl;
                     document.getElementById('videoPlayer').src = data.trailerUrl;
+                    document.getElementById('linkcurrent').setAttribute('href', `/Booking/BookingView?movieId=` + data.movieId);
 
                     modal.style.display = 'block';
                 })
