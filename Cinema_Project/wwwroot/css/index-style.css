@@ -155,7 +155,7 @@ li {
     background-color: rgb(170, 13, 13);
     border-radius: 15px;
     width: 120px;
-    height: 45px;
+    height: 35px;
     border: none;
     font-size: 22px;
     cursor: pointer;
@@ -164,6 +164,7 @@ li {
     margin-left: auto;
     margin-right: auto;
     opacity: 0;
+    text-align: center;
 }
 
     .slider-film-button:hover {

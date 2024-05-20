@@ -104,7 +104,7 @@
                 {
                     <img class="reel-svg" src="~/img/reel_start.svg" alt="SVG Icon">
                 <li class="slider-item movie" id="slider-item"
-                    style="background-image: url('@("https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_.jpg")');">
+                    style="background-image: url('@Url.Content("~/img_posters/" + movie.Title + "/" + movie.Title + "_SP.jpg")');">
                     <div class="slider-film-name">@movie.Title</div>
                     <div class="slider-film-slogan">
                             @foreach (var genre in movie.MovieGenres)
@@ -113,7 +113,9 @@
                             }
                     </div>
                     <div class="slider-film-year">@movie.ReleaseDate.ToLocalTime().ToString("yyyy-MM-dd")</div>
-                    <input type="button" class="slider-film-button" value="Трейлер">
+                    <div class="slider-film-button activate-modal" data-title="@movie.Title">
+                        <p>Трейлер</p>
+                    </div>
                 </li>
 
 
@@ -160,7 +162,7 @@
             {
                 <img class="reel-svg" src="~/img/reel_start.svg" alt="SVG Icon">
             <li class="slider-item movie" id="slider-item"
-                style="background-image: url('@("https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_.jpg")');">
+                style="background-image: url('@Url.Content("~/img_posters/" + movie.Title + "/" + movie.Title + "_SP.jpg")');">
                 <div class="slider-film-name">@movie.Title</div>
                 <div class="slider-film-slogan">
                         @foreach (var genre in movie.MovieGenres)
@@ -169,7 +171,9 @@
                         }
                 </div>
                 <div class="slider-film-year">@movie.ReleaseDate.ToLocalTime().ToString("yyyy-MM-dd")</div>
-                <input type="button" class="slider-film-button activate-modal" value="Трейлер">
+                <div class="slider-film-button activate-modal" data-title="@movie.Title">
+                    <p>Трейлер</p>
+                </div>
             </li>
 
 
