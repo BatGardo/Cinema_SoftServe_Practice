@@ -99,10 +99,6 @@ namespace Cinema_Project
                     await userManager.AddToRoleAsync(user, "Admin");
                 }
             }
-
-
-
-
             app.UseSession();
             app.Run();
 
