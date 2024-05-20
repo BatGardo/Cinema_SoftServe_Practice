@@ -2,6 +2,7 @@ body {
     overflow-x: hidden;
     background: url("../img/bg_art.png");
     background-size: cover;
+    background-attachment:fixed;
   }
 .film-trailer-button{
     width: 172px;
@@ -142,6 +143,15 @@ body {
     display: flex;
     gap: 18px;
 }
+
+    .film-info-container > li {
+        list-style: none;
+        width:70px;
+        height:105px;
+        background-size:cover;
+        background-position:center;
+        border-radius:10px;
+    }
 
 .film-info-name{
     font-family: "Arimo", sans-serif;
