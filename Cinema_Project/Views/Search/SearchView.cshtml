@@ -71,7 +71,7 @@
             {
                 var movie = Model.Movies[i];
                 var genres = string.Join(",", movie.MovieGenres.Select(mg => mg.Genre.Title));
-                <div class="film-search-elem" data-genres="@genres" data-rating="@movie.Rating" style="background-image: url('@Url.Content("~/img_posters/" + movie.Title + "/" + movie.Title + "_SP.jpg")');">
+                <div class="film-search-elem" data-genres="@genres" data-rating="@movie.Rating" style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_SP.jpg")');">
                     <!-- Постер фильма-->
                     <div class="search-info-container">
                         <div class="film-elem-name">

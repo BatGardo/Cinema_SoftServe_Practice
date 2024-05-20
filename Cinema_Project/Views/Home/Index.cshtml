@@ -104,7 +104,7 @@
                 {
                     <img class="reel-svg" src="~/img/reel_start.svg" alt="SVG Icon">
                 <li class="slider-item movie" id="slider-item"
-                    style="background-image: url('@Url.Content("~/img_posters/" + movie.Title + "/" + movie.Title + "_SP.jpg")');">
+                    style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_SP.jpg")');">
                     <div class="slider-film-name">@movie.Title</div>
                     <div class="slider-film-slogan">
                             @foreach (var genre in movie.MovieGenres)
@@ -162,7 +162,7 @@
             {
                 <img class="reel-svg" src="~/img/reel_start.svg" alt="SVG Icon">
             <li class="slider-item movie" id="slider-item"
-                style="background-image: url('@Url.Content("~/img_posters/" + movie.Title + "/" + movie.Title + "_SP.jpg")');">
+                style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" +movie.Title.Replace(":","") + "_SP.jpg")');">
                 <div class="slider-film-name">@movie.Title</div>
                 <div class="slider-film-slogan">
                         @foreach (var genre in movie.MovieGenres)
@@ -202,7 +202,6 @@
         <img class="reel-svg" src="./img/reel_start.svg" alt="SVG Icon">
 
 </div>
-
 
 <div id="myModal" class="modal">
     <span id="btn_watch_close" class="close">&times;</span>
