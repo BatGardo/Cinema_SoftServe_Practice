@@ -201,7 +201,7 @@
 				if (xhr.readyState === 4 && xhr.status === 200) {
 					var response = JSON.parse(xhr.responseText);
 					if (response.success) {
-						alert("Фільм успішно створено!")
+						alert("Сеанс успішно створено!")
 						window.location.href = response.redirectUrl;
 					} else {
 						alert("Error adding movie: " + (response.errors ? response.errors.join(", ") : "Unknown error"));
