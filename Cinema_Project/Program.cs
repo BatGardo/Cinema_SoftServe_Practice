@@ -82,12 +82,12 @@ namespace Cinema_Project
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
 
                 string email = "admin@admin.com";
-                string password = "Test1234,";
+                string password = "admin123";
 
                 if (await userManager.FindByEmailAsync(email) == null)
                 {
                     var user = new AppUser();
-                    user.UserName = email;
+                    user.UserName = "admin123";
                     user.Email = email;
                     user.EmailConfirmed = true;
 
