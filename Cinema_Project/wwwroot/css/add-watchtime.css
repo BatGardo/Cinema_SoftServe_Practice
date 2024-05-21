@@ -216,3 +216,12 @@ select > option{
     cursor: pointer;
     outline: 0;
 }
+
+span {
+    font-size: 24px;
+    font-family: "Arimo", sans-serif;
+    font-weight: 600;
+    color: #fff;
+    margin-top: 25px;
+    margin-bottom: -10px;
+}
