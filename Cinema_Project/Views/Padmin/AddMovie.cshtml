@@ -53,7 +53,7 @@
         </div>
         <div class="actors-flex d-flex">
             <p>Актори:</p>
-            <div>
+            <div class="date">
                 <select id="actorSelect">
                     <option value="" disabled selected>Обрати актора</option>
                     @foreach (var actor in Model.Actors)
@@ -61,11 +61,11 @@
                         <option value="@actor.ActorId">@actor.FirstName @actor.LastName</option>
                     }
                 </select>
-                <button type="button" onclick="addActor()">Додати актора</button>
+                <button type="button" class="add-button" onclick="addActor()" style="margin-top:15px">Додати актора</button>
             </div>
             <ul id="selectedActors"></ul>
         </div>
-        <button type="button" onclick="generateSQLQuery()">Додати фільм</button>
+        <input type="submit" class="add-button" onclick="generateSQLQuery()" value="Додати фільм">
     </form>
 
 
@@ -88,6 +88,7 @@
                     hiddenInput.value = selectedActorId;
 
                     var removeButton = document.createElement("button");
+                    removeButton.className = "add-button"
                     removeButton.type = "button";
                     removeButton.textContent = "Remove";
                     removeButton.onclick = function () {

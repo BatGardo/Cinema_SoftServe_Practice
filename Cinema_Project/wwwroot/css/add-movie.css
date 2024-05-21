@@ -14,7 +14,7 @@ p {
     margin-right: 10px;
 }
 
-.d-flex>input[type="text"] {
+.d-flex > input[type="text"] {
     font-family: "Roboto Slab", serif;
     font-weight: 500;
     font-size: 18px;
@@ -50,7 +50,7 @@ textarea {
     height: 240px;
 }
 
-.file-input{
+.file-input {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -88,9 +88,9 @@ textarea::-webkit-scrollbar-thumb {
     backdrop-filter: blur(10px);
 }
 
-.admin-list-container:last-child {
-    margin-bottom: 60px;
-}
+    .admin-list-container:last-child {
+        margin-bottom: 60px;
+    }
 
 .container-caption {
     font-family: "Roboto Slab", serif;
@@ -106,7 +106,6 @@ textarea::-webkit-scrollbar-thumb {
     display: flex;
     gap: 35px;
     justify-content: space-between;
-
 }
 
 .poster-rating-container {
@@ -143,11 +142,11 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 
-.add-poster:hover>.add-text-img>img {
-    transform: scale(1.2);
-}
+    .add-poster:hover > .add-text-img > img {
+        transform: scale(1.2);
+    }
 
-.add-text-img>img {
+.add-text-img > img {
     transition: 0.5s;
 }
 
@@ -164,11 +163,11 @@ textarea::-webkit-scrollbar-thumb {
     margin-top: 68px;
 }
 
-.rating-flex>input {
-    width: 96px;
-}
+    .rating-flex > input {
+        width: 96px;
+    }
 
-.title-flex>input {
+.title-flex > input {
     width: 100%;
 }
 
@@ -177,25 +176,25 @@ textarea::-webkit-scrollbar-thumb {
     gap: 16px;
 }
 
-.actors-flex>input {
-    position: relative;
-    width: 181px;
-    text-align: center;
-}
+    .actors-flex > input {
+        position: relative;
+        width: 181px;
+        text-align: center;
+    }
 
 
 
-.actors-flex>img {
-    cursor: pointer;
-    padding-bottom: 5px;
-    transition: 0.5s;
-}
+    .actors-flex > img {
+        cursor: pointer;
+        padding-bottom: 5px;
+        transition: 0.5s;
+    }
 
-.actors-flex>img:hover {
-    transform: scale(1.2);
-}
+        .actors-flex > img:hover {
+            transform: scale(1.2);
+        }
 
-.trailer-flex>input {
+.trailer-flex > input {
     width: 676px;
 }
 
@@ -207,11 +206,11 @@ textarea::-webkit-scrollbar-thumb {
     gap: 10px
 }
 
-.duration-flex>input {
-    width: 71px;
-}
+    .duration-flex > input {
+        width: 71px;
+    }
 
-.year-flex>input {
+.year-flex > input {
     margin-right: 120px;
     width: 96;
 }
@@ -221,37 +220,37 @@ textarea::-webkit-scrollbar-thumb {
     transition: opacity 0.3s ease; /* Додати плавну анімацію для зміни прозорості */
 }
 
-.add-poster.file-selected .add-text-img,
-.add-poster.file-selected .file-input {
-    transition: 0.5s;
-    opacity: 0; /* Застосувати стиль для дочірніх елементів, коли файл вже обраний */
-}
+    .add-poster.file-selected .add-text-img,
+    .add-poster.file-selected .file-input {
+        transition: 0.5s;
+        opacity: 0; /* Застосувати стиль для дочірніх елементів, коли файл вже обраний */
+    }
 
-.add-poster.file-selected:hover .add-text-img,
-.add-poster.file-selected{
-    opacity: 1; /* Зробити блок непрозорим, коли на нього наведений курсор */
-}
+    .add-poster.file-selected:hover .add-text-img,
+    .add-poster.file-selected {
+        opacity: 1; /* Зробити блок непрозорим, коли на нього наведений курсор */
+    }
 
-.add-poster.file-selected::before{
-    transition: 0.5s;
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0) ;
-    border-radius: 25px;
-}
+        .add-poster.file-selected::before {
+            transition: 0.5s;
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0);
+            border-radius: 25px;
+        }
 
-.add-poster.file-selected:hover::before{
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7) ;
-    border-radius: 25px;
-}
+        .add-poster.file-selected:hover::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 25px;
+        }
 
-.highlight{
+.highlight {
     border: dashed rgb(255, 255, 255) 5px;
 }
 
@@ -266,7 +265,7 @@ textarea::-webkit-scrollbar-thumb {
     height: 51px;
 }
 
-.add-actor-search>input[type="text"] {
+.add-actor-search > input[type="text"] {
     margin: 12px 15px 0 40px;
     border-radius: 25px;
     color: white;
@@ -280,17 +279,17 @@ textarea::-webkit-scrollbar-thumb {
     height: 52px;
 }
 
-.selectize-input>input {
+.selectize-input > input {
     background-color: black !important;
     color: white !important;
 }
 
-.selectize-input>input::placeholder {
-    color: white !important;
-    font-family: "Roboto Slab", serif;
-    font-weight: 500;
-    font-size: 14px;
-}
+    .selectize-input > input::placeholder {
+        color: white !important;
+        font-family: "Roboto Slab", serif;
+        font-weight: 500;
+        font-size: 14px;
+    }
 
 .selectize-input {
     font-family: "Roboto Slab", serif;
@@ -309,10 +308,10 @@ textarea::-webkit-scrollbar-thumb {
     padding: 0 25px 0 25px;
 }
 
-.selectize-input.focus {
-    box-shadow: 0 !important;
-    -webkit-box-shadow: 0 !important;
-}
+    .selectize-input.focus {
+        box-shadow: 0 !important;
+        -webkit-box-shadow: 0 !important;
+    }
 
 .dropdown-active {
     border-bottom-left-radius: 0px !important;
@@ -370,13 +369,12 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 
-.option::before {
-    position: absolute;
-    content: '';
-    width: 196;
-    background-color: white;
-
-}
+    .option::before {
+        position: absolute;
+        content: '';
+        width: 196;
+        background-color: white;
+    }
 
 .active {
     background-color: transparent !important;
@@ -399,17 +397,17 @@ textarea::-webkit-scrollbar-thumb {
 }
 
 
-.add-actor-button>img {
-    height: 80%;
-    width: 80%;
-    transition: 0.5s;
-    cursor: pointer;
-}
+    .add-actor-button > img {
+        height: 80%;
+        width: 80%;
+        transition: 0.5s;
+        cursor: pointer;
+    }
 
-.add-actor-button>img:hover {
-    height: 90%;
-    width: 90%;
-}
+        .add-actor-button > img:hover {
+            height: 90%;
+            width: 90%;
+        }
 
 .genres-container {
     background-color: rgba(0, 0, 0, 0.7);
@@ -421,44 +419,44 @@ textarea::-webkit-scrollbar-thumb {
     flex-wrap: wrap;
 }
 
-.properties-droplist-check>input[type="checkbox"] {
+.properties-droplist-check > input[type="checkbox"] {
     display: none;
 }
 
-.properties-droplist-check>input[type="checkbox"]+label {
-    transform: translateX(21px);
-    position: relative;
-    font-family: "Archivo", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 20px;
-    color: white;
-    cursor: pointer;
-    user-select: none;
-}
+    .properties-droplist-check > input[type="checkbox"] + label {
+        transform: translateX(21px);
+        position: relative;
+        font-family: "Archivo", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 20px;
+        color: white;
+        cursor: pointer;
+        user-select: none;
+    }
 
-.properties-droplist-check>input[type="checkbox"]+label span {
-    margin-top: 5px;
-    position: absolute;
-    top: 0;
-    left: -25px;
-    width: 21px;
-    height: 21px;
-    border-radius: 7px;
-    border: 2px solid #ff0000;
-}
+        .properties-droplist-check > input[type="checkbox"] + label span {
+            margin-top: 5px;
+            position: absolute;
+            top: 0;
+            left: -25px;
+            width: 21px;
+            height: 21px;
+            border-radius: 7px;
+            border: 2px solid #ff0000;
+        }
 
-.properties-droplist-check>input[type="checkbox"]:checked+label span::before {
-    position: absolute;
-    content: "\2714";
-    top: 30%;
-    left: 40%;
-    transform: translate(-50%, -50%);
-    transform: scale(3.5);
-    font-size: 10px;
-    line-height: 1;
-    color: #ff0000;
-}
+    .properties-droplist-check > input[type="checkbox"]:checked + label span::before {
+        position: absolute;
+        content: "\2714";
+        top: 30%;
+        left: 40%;
+        transform: translate(-50%, -50%);
+        transform: scale(3.5);
+        font-size: 10px;
+        line-height: 1;
+        color: #ff0000;
+    }
 
 .add-button {
     width: 100%;
@@ -478,4 +476,19 @@ textarea::-webkit-scrollbar-thumb {
     right: 3%;
     top: 3%;
     position: absolute;
+}
+
+.date select {
+    padding: 10px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.699);
+    color: white;
+    outline: 0 !important;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+
+li {
+    list-style: none;
 }
