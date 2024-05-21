@@ -98,9 +98,7 @@
                         <div class="film-trailer-button film-trailer-button-search activate-modal" data-title="@movie.Title">
                             <p>Трейлер</p>
                         </div>
-                        <button class="film-buy-tickets film-buy-tickets-search">
-                            <a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Придбати квиток</a>
-                        </button>
+                        <button class="film-buy-tickets film-buy-tickets-search"><a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView" asp-route-movieId="@movie.MovieId">Придбати квиток</a></button>
                     </div>
                 </div>
             }
