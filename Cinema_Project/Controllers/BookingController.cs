@@ -33,12 +33,19 @@ namespace Cinema_Project.Controllers
 
             if (movie == null)
             {
-                return NotFound();
+                _logger.LogWarning("Movie with ID {MovieId} not found.", movieId);
+                return NotFound("Фільм не знайдено!");
             }
 
             var screenings = _context.Screenings
                 .Where(s => s.MovieId == movieId)
                 .ToList();
+
+            if (!screenings.Any())
+            {
+                _logger.LogWarning("No screenings found for movie with ID {MovieId}.", movieId);
+                return NotFound("Наразі немає сеансів для цього фільму!");
+            }
 
             var tickets = _context.Tickets
                 .Where(t => t.MovieId == movieId)
