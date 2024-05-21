@@ -1,0 +1,189 @@
+
+<link rel="stylesheet" href="~/css/header-style.css">
+<link rel="stylesheet" href="~/css/add-movie.css">
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap"
+      rel="stylesheet">
+
+<div class="admin-list-container container">
+    <a asp-area="" asp-controller="Padmin" asp-action="AdminView">
+        <span class="close">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+                <line x1="0" y1="0" x2="24" y2="24" stroke="white" stroke-width="5" />
+                <line x1="24" y1="0" x2="0" y2="24" stroke="white" stroke-width="5" />
+            </svg>
+    </a>
+    </span>
+    @model Cinema_Project.ViewModels.MovieAddVM
+
+    <form asp-action="AddMovie" method="post" id="movieForm">
+        <div class="title-flex d-flex">
+            <p>Назва фільму:</p>
+            <input type="text" asp-for="Title" />
+        </div>
+        <div class="description-flex d-flex">
+            <p>Опис:</p>
+            <textarea asp-for="Description"></textarea>
+        </div>
+        <div class="year-flex d-flex">
+            <p>Дата виходу:</p>
+            <input type="date" min="2000-01-01" max="2030-01-01" value="2020-01-01" asp-for="ReleaseDate" />
+        </div>
+        <div class="duration-flex d-flex">
+            <p>Тривалість:</p>
+            <input type="text" asp-for="Duration" />
+        </div>
+        <div class="rating-flex d-flex">
+            <p>Рейтинг:</p>
+            <input type="text" step="0.1" asp-for="Rating" />
+        </div>
+        <div class="genres-flex d-flex">
+            <p>Жанри:</p>
+            <div class="genres-container">
+                @foreach (var genre in Model.Genres)
+                {
+                    <div class="properties-droplist-check">
+                        <input type="checkbox" name="SelectedGenreIds" value="@genre.GenreId" id="genre_@genre.GenreId">
+                        <label for="genre_@genre.GenreId"><span></span>@genre.Title</label>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="actors-flex d-flex">
+            <p>Актори:</p>
+            <div>
+                <select id="actorSelect">
+                    <option value="" disabled selected>Обрати актора</option>
+                    @foreach (var actor in Model.Actors)
+                    {
+                        <option value="@actor.ActorId">@actor.FirstName @actor.LastName</option>
+                    }
+                </select>
+                <button type="button" onclick="addActor()">Додати актора</button>
+            </div>
+            <ul id="selectedActors"></ul>
+        </div>
+        <button type="button" onclick="generateSQLQuery()">Додати фільм</button>
+    </form>
+
+
+    @section Scripts {
+        <script>
+            function addActor() {
+                var actorSelect = document.getElementById("actorSelect");
+                var selectedActors = document.getElementById("selectedActors");
+
+                var selectedActorId = actorSelect.value;
+                var selectedActorText = actorSelect.options[actorSelect.selectedIndex].text;
+
+                if (selectedActorId) {
+                    var listItem = document.createElement("li");
+                    listItem.textContent = selectedActorText;
+
+                    var hiddenInput = document.createElement("input");
+                    hiddenInput.type = "hidden";
+                    hiddenInput.name = "SelectedActorIds";
+                    hiddenInput.value = selectedActorId;
+
+                    var removeButton = document.createElement("button");
+                    removeButton.type = "button";
+                    removeButton.textContent = "Remove";
+                    removeButton.onclick = function () {
+                        listItem.remove();
+                    };
+
+                    listItem.appendChild(hiddenInput);
+                    listItem.appendChild(removeButton);
+                    selectedActors.appendChild(listItem);
+
+                    actorSelect.value = "";
+                }
+            }
+
+            function generateSQLQuery() {
+                var form = document.getElementById("movieForm");
+
+                var title = form.querySelector('input[name="Title"]').value;
+                var description = form.querySelector('textarea[name="Description"]').value;
+                var releaseDate = form.querySelector('input[name="ReleaseDate"]').value;
+                var duration = form.querySelector('input[name="Duration"]').value;
+                var rating = form.querySelector('input[name="Rating"]').value;
+
+                var selectedGenres = Array.from(form.querySelectorAll('input[name="SelectedGenreIds"]:checked'))
+                    .map(checkbox => checkbox.value);
+
+                var selectedActors = Array.from(form.querySelectorAll('input[name="SelectedActorIds"]'))
+                    .map(input => input.value);
+
+                var movieQuery = `INSERT INTO movie (Title, Description, Release_Date, Duration, Rating) VALUES ('${title}', '${description}', '${releaseDate}', ${duration}, ${rating});`;
+
+                var genreQueries = selectedGenres.map(genreId => {
+                    return `INSERT INTO Movie_Genre (Movie_Id, Genre_Id)
+                                    SELECT MAX(movie_id), ${genreId}
+                                    FROM movie;`;
+                });
+
+                var actorQueries = selectedActors.map(actorId => {
+                    return `INSERT INTO Movie_Actor (Movie_Id, Actor_Id)
+                                        SELECT MAX(movie_id), ${actorId}
+                                        FROM movie;`;
+                });
+
+                var sqlQuery = movieQuery + "\n" + genreQueries.join("\n") + "\n" + actorQueries.join("\n");
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/Padmin/ExecuteSQL", true);
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xhr.onreadystatechange = function () {
+
+                };
+                xhr.send(JSON.stringify({ sqlQuery: sqlQuery }));
+                alert("Фільм успішно створено!")
+            }
+        </script>
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
+            integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css"
+          integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+
+    <script src="~/js/seach-button.js"></script>
+    <script src="~/js/no-actor-dulicate.js"></script>
+    <script src="~/js/drop-area.js"></script>
+    <script src="~/js/remove-actor.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('select').selectize({
+                sortField: 'text'
+            });
+        });
+    </script>

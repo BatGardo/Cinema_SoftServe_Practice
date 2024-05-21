@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const sliders = document.querySelectorAll('.slider-items'); // Знайти всі слайдери на сторінці
+    const sliders = document.querySelectorAll('.slider-items');
 
     sliders.forEach(slider => {
         let isDown = false;

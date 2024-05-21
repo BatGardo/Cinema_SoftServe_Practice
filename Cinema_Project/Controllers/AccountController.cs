@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Cinema_Project.Models;
 using Cinema_Project.ViewModels;
 using System.Numerics;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Cinema_Project.Controllers
 {
@@ -17,22 +18,28 @@ namespace Cinema_Project.Controllers
             this.userManager = userManager;
         }
 
-
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM model)
         {
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
-                //login
-                var result = await signInManager.PasswordSignInAsync(model.Username!, model.Password!, model.RememberMe, false);
-                if (result.Succeeded) { 
-                return RedirectToAction("Index", "Home");
+                var user = await userManager.FindByNameAsync(model.Username);
+                if (user != null)
+                {
+                    var result = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+                    if (result.Succeeded)
+                    {
+                        HttpContext.Session.SetString("UserId", user.Id);
+                        HttpContext.Session.SetString("UserName", user.UserName);
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 ModelState.AddModelError("", "Invalid login attempt");
-                return View(model);
             }
             return View(model);
         }
+
+
 
         public IActionResult Register()
         {
@@ -53,15 +60,15 @@ namespace Cinema_Project.Controllers
                 {
                     Email = model.Email,
                     UserName = model.UserName,
-     
                 };
 
                 var result = await userManager.CreateAsync(user, model.Password!);
 
                 if (result.Succeeded)
                 {
+                    await userManager.AddToRoleAsync(user, "User");
                     await signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("ProfileView", "Profile");
                 }
 
                 foreach (var error in result.Errors)
@@ -75,9 +82,10 @@ namespace Cinema_Project.Controllers
 
         public async Task<IActionResult> Logout()
         {
+            HttpContext.Session.Clear();
+            HttpContext.SignOutAsync();
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
     }
-
 }

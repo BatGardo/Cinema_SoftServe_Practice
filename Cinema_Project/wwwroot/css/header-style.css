@@ -1,3 +1,23 @@
+body::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+body::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius:10px;
+}
+
+    /* Handle on hover */
+    body::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
 header {
   height: 80px;
   background-color: black;
@@ -20,7 +40,7 @@ header {
 
 .navbar-element {
   position: relative;
-  font-family: "Archivo", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
   color: white;
@@ -34,6 +54,7 @@ header {
 }
 
 ul > li > a:hover {
+    text-decoration: none;
     color: white !important;
 }
 
@@ -153,7 +174,7 @@ ul > li > a:hover {
   border-radius: 25px;
 }
 .user-name{
-  font-family: "Archivo", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
   font-size: 22px;
@@ -195,7 +216,7 @@ ul > li > a:hover {
   background-color: black;
   border-bottom-right-radius: 25px;
   border-bottom-left-radius: 25px;
-  font-family: "Archivo", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
   font-size: 22px;

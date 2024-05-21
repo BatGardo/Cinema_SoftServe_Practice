@@ -21,7 +21,7 @@ namespace Cinema_Project.Data
         public DbSet<Screening> Screenings { get; set; }
         public DbSet<MovieGenre> Movie_Genres { get; set; }
         public DbSet<MovieActor> Movie_Actors { get; set; }
-
+        public DbSet<MovieActor> MovieActors { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

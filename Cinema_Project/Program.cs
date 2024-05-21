@@ -2,6 +2,7 @@ using Cinema_Project.Data;
 using Microsoft.EntityFrameworkCore;
 using Cinema_Project.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Cinema_Project
 {
@@ -13,12 +14,12 @@ namespace Cinema_Project
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-            // Add services to the container.
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<AppDbContext>(
                 options => options.UseNpgsql(connectionString)
             );
-            // Вимоги до паролю
+
             builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
             {
                 options.Password.RequiredUniqueChars = 0;
@@ -28,11 +29,21 @@ namespace Cinema_Project
                 options.Password.RequireLowercase = false;
             })
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+
+
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -44,11 +55,14 @@ namespace Cinema_Project
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapControllers();
 
             using (var scope = app.Services.CreateScope())
             {
@@ -68,12 +82,12 @@ namespace Cinema_Project
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
 
                 string email = "admin@admin.com";
-                string password = "Test1234,";
+                string password = "admin123";
 
                 if (await userManager.FindByEmailAsync(email) == null)
                 {
                     var user = new AppUser();
-                    user.UserName = email;
+                    user.UserName = "admin123";
                     user.Email = email;
                     user.EmailConfirmed = true;
 
@@ -82,7 +96,10 @@ namespace Cinema_Project
                     await userManager.AddToRoleAsync(user, "Admin");
                 }
             }
+            app.UseSession();
             app.Run();
+
+
         }
     }
 }

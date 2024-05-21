@@ -4,6 +4,8 @@ body {
     overflow-x: hidden;
     background: url("../img/bg_art.png");
     background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 ul {
@@ -54,7 +56,7 @@ li {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    transform: translateY(-81px);
+    transform: translateY(-94px);
     transition: 0.7s;
     box-sizing: initial;
 }
@@ -109,11 +111,13 @@ li {
     height: 50px;
     text-wrap: wrap;
     margin-top: 30px;
-    font-size: 33px;
+    font-size: 26px;
+    font-weight:600;
     text-align: center;
     color: aliceblue;
     opacity: 0;
     transition: 0.7s;
+    line-height:1;
 }
 
 .slider-item:hover > .slider-film-name {
@@ -122,7 +126,7 @@ li {
 }
 
 .slider-film-slogan {
-    margin-top: 35px;
+    margin-top: 65px;
     font-style: italic;
     font-size: 14px;
     text-align: center;
@@ -138,7 +142,7 @@ li {
 }
 
 .slider-film-year {
-    margin-top: 45px;
+    margin-top: 15px;
     font-size: 22px;
     text-align: center;
     color: aliceblue;
@@ -155,7 +159,7 @@ li {
     background-color: rgb(170, 13, 13);
     border-radius: 15px;
     width: 120px;
-    height: 45px;
+    height: 35px;
     border: none;
     font-size: 22px;
     cursor: pointer;
@@ -164,6 +168,7 @@ li {
     margin-left: auto;
     margin-right: auto;
     opacity: 0;
+    text-align: center;
 }
 
     .slider-film-button:hover {
@@ -188,7 +193,7 @@ li {
     text-align: center;
     margin-top: 40px;
     font-size: 45px;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
 }
 
@@ -279,21 +284,31 @@ li {
 
 .film-name {
     margin-top: 25px;
-    font-family: "Archivo Black", sans-serif;
-    font-weight: 400;
+    font-family: "Arimo Black", sans-serif;
+    font-weight: 900;
     font-style: normal;
-    font-size: 35px;
     color: white;
-    font-size: clamp(0rem, 1vw, 2vw);
+    line-height:1.2;
+    font-size: clamp(0rem, 1.9vw, 5vw);
 }
 
 .film-elem {
     margin-top: 5%;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-size: 15px;
     color: white;
     font-size: clamp(0rem, 0.9vw, 2vw);
+
+}
+
+.film-elem-1 {
+    margin-top: 5%;
+    font-family: "Arimo", sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    color: white;
+    font-size: 1vw
 }
 
 .film-info-container {
@@ -314,7 +329,7 @@ li {
     position: relative;
     margin-top: 5%;
     width: clamp(0rem, 0.5vw, 1vw);
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-size: 18px;
     color: white;
@@ -322,17 +337,10 @@ li {
     font-size: clamp(0rem, 1vw, 2vw);
     margin-right: 2vw;
     padding-right: 2vw;
+    text-wrap:nowrap;
 }
 
-    .film-rating::before {
-        content: '';
-        position: absolute;
-        background-image: url("../img/star.png");
-        height: clamp(0rem, 18px, 2rem);
-        width: clamp(0rem, 18px, 2rem);
-        top: clamp(0rem, 3px, 0.5rem);
-        margin-left: 3vw;
-    }
+    
 
 .film-trailer-button {
     font-size: clamp(0rem, 1vw, 2vw);
@@ -341,7 +349,7 @@ li {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     background-color: transparent;
     color: white;
@@ -349,13 +357,18 @@ li {
     border: solid white 2px;
     align-self: center;
     cursor: pointer;
-    margin-left: 5vw;
+    margin-left: 3vw;
 }
 
-    .film-trailer-button:hover > p {
-        transform: translate(15px);
-        transition: 0.5s;
-    }
+.film-trailer-button-search {
+    margin-left: 0vw;
+    width: clamp(0rem, 10vw, 10vw);
+}
+
+.film-trailer-button:hover > p {
+    transform: translate(15px);
+    transition: 0.5s;
+}
 
         .film-trailer-button:hover > p::before {
             opacity: 1;
@@ -386,42 +399,7 @@ li {
             border-radius: 25px;
         }
 
-.film-buy-tickets {
-    font-family: "Archivo", sans-serif;
-    font-weight: 400;
-    font-size: clamp(0rem, 1vw, 2vw);
-    width: clamp(0rem, 30vw, 100vw);
-    height: clamp(0rem, 2vw, 10vw);
-    background-color: #DF0A0A;
-    border-radius: 25px;
-    align-self: center;
-    z-index: 3;
-    color: white;
-    border: solid #BE0F0F 4px;
-    transition: 0.5s;
-    cursor: pointer;
-    
-}
-    .a-buy-tickets {
-        text-decoration: none;
-        color: white !important;
-        
-    }
 
-        .a-buy-tickets:hover {
-            text-decoration: none;
-            color: white !important;
-        }
-
-    .film-buy-tickets:hover {
-        transition: 0.5s;
-        border: solid #ffffff 4px;
-        background-color: #BE0F0F;
-    }
-
-    .film-buy-tickets > a{
-        height:3%;
-    }
 
 .film-buttons {
     margin-top: 5%;
@@ -433,11 +411,11 @@ li {
 }
 
 .left-button {
-    transform: translateX(350%);
+    transform: translateX(160px);
 }
 
 .right-button {
-    transform: translateX(-350%)
+    transform: translateX(-160px)
 }
 
 
@@ -445,75 +423,4 @@ li {
     opacity: 1;
     transition: 2s;
     transition-delay: 1s;
-}
-
-
-
-
-
-.modal {
-    border-radius: 25px;
-    display: block;
-    position: fixed;
-    z-index: -1;
-    top: 50%;
-    left: 50%;
-    height: 95%;
-    opacity: 0;
-    width: 1080px;
-    background-color: rgb(0, 0, 0);
-    overflow: auto;
-    transition: 0.7s;
-    transition-property: opacity;
-    transform: translate(-50%, -50%);
-}
-
-    .modal::-webkit-scrollbar {
-        display: none; /* Приховує скролбар вебкітовського движка */
-    }
-
-.text-block {
-    padding: 78px;
-    color: white;
-}
-
-.modal-appear {
-    transform: translateY(0px);
-}
-
-
-.close {
-    color: #ebebeb;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    margin-right: 10px;
-    margin-bottom: 3px;
-    transition: 0.5s;
-}
-
-    .close:hover,
-    .close:focus {
-        transition: 0.5s;
-        color: rgb(241, 12, 12);
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-.modal-film-side {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.modal-film-info {
-    flex-grow: 2;
-}
-
-.side-elem {
-    max-width: 90%;
-}
-
-.slider-container-2 {
-    margin-top: 50px;
 }

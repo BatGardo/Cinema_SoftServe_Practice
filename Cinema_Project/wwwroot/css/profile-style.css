@@ -1,8 +1,9 @@
-body{
+body {
     overflow-x: hidden;
     background: url("../img/bg_art_black.png");
     background-color: black;
     background-size: cover;
+    background-attachment: fixed;
 }
 
 .profile-info-container{
@@ -18,7 +19,7 @@ body{
     padding: 12px 0 42px 0;
 }
 .profile-info-container{
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
     font-weight: 500;
@@ -31,7 +32,7 @@ body{
     gap:85px;
 }
 .profile-container-caption{
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-size:40px;
     margin-bottom: 5px;
@@ -47,7 +48,7 @@ body{
 .profile-container > input[type="text"],input[type="email"],input[type="password"]{
     width: 296px;
     height: 52px;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-size:22px;
     outline: 0;
@@ -61,7 +62,7 @@ body{
 .profile-button{
     width: 296px;
     height: 52px;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-size:24px;
     color: white;
@@ -75,7 +76,7 @@ body{
     width: 680px;
     height: 55px;
     background-color: #AC1B1B;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 700;
     font-size:24px;
     color: white;
@@ -83,9 +84,13 @@ body{
     border: 0;
 }
 
+.profile-logout:hover {
+    background-color: darkred;
+}
+
 .tickets-caption{
     margin-bottom: 27px;
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 500;
     font-size:44px;
     color: white;
@@ -123,14 +128,14 @@ body{
 }
 
 .ticket-name{
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-size:20px;
     color: white;
 }
 
 .ticket-date{
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-size:20px;
     color: white;
@@ -189,7 +194,7 @@ body{
 
 
 .ticket-elem{
-    font-family: "Archivo", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-size:20px;
     color: white;

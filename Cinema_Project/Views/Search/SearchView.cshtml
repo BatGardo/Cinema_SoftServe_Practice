@@ -1,0 +1,158 @@
+@model Cinema_Project.ViewModels.CombinedMovieViewModel
+@{
+    ViewData["Title"] = "Скоро в кіно";
+    int movieCount = 0;
+    var movies = Model.Movies.Take(10).ToList();
+}
+
+<link rel="stylesheet" href="~/css/header-style.css">
+<link rel="stylesheet" href="~/css/search-style.css">
+<link rel="stylesheet" href="~/css/index-style.css">
+<link rel="stylesheet" href="~/css/modal.css">
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+
+<div class="search-caption">НАЙБЛИЖЧІ <span style="color:red; filter: drop-shadow(0px 0px 10px red);">ПРЕМ'ЄРИ</span></div>
+<div class="search-container container">
+    <div class="properties-container">
+        <div class="properties-elem ticket-element">
+            <div class="properties-top left ticket-top">
+                <div class="property-img"><img src="~/img/title-sort.svg"></div>
+                <div class="property-text">Сортувати за: <u</u></div>
+                <div class="property-svg ticket-svg"><img src="~/img/droplist-ico.svg"></div>
+            </div>
+            <div class="properties-droplist ticket-droplist">
+                <div class="properties-droplist-elem elem-active" data-sort="title">Назвою</div>
+                <div class="line"></div>
+                <div class="properties-droplist-elem" data-sort="popularity">Популярністю</div>
+
+            </div>
+        </div>
+        <div class="line-v"></div>
+        <div class="properties-elem flex-grow-1 ticket-element">
+            <div class="properties-top right ticket-top">
+                <div class="property-text" id="genres">Жанри: <u></u></div>
+                <div class="property-svg ticket-svg"><img src="~/img/droplist-ico.svg"></div>
+            </div>
+            <div class="properties-droplist ticket-droplist">
+                <div class="properties-check-container">
+                    @foreach (var genre in Model.Genres)
+                    {
+                        <div class="properties-droplist-check">
+                            <input type="checkbox" id="@genre.Title">
+                            <label for="@genre.Title"><span></span>@genre.Title</label>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="FilmContainer">
+        <div class="films-row">
+            @for (int i = 0; i < Model.Movies.Count; i++)
+            {
+                var movie = Model.Movies[i];
+                var genres = string.Join(",", movie.MovieGenres.Select(mg => mg.Genre.Title));
+                <div class="film-search-elem" data-genres="@genres" data-rating="@movie.Rating" style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_SP.jpg")');">
+                    <div class="search-info-container">
+                        <div class="film-elem-name">
+                            @{
+                                var title = Model.Movies[i].Title;
+                                var rating = Model.Movies[i].Rating;
+                                var maxTitleLength = 20;
+
+                                if (title.Length > maxTitleLength)
+                                {
+                                    var lastSpaceIndex = title.LastIndexOf(" ", maxTitleLength);
+                                    if (lastSpaceIndex != -1)
+                                    {
+                                        title = title.Substring(0, lastSpaceIndex) + "...";
+                                    }
+                                    else
+                                    {
+                                        title = title.Substring(0, maxTitleLength) + "...";
+                                    }
+                                }
+                            }
+                            @title
+                        </div>
+                        <div class="film-elem-description">
+                            @{
+                                var description = movie.Description;
+                                var maxLength = 150;
+
+                                if (description.Length > maxLength)
+                                {
+                                    var lastSpaceIndex = description.LastIndexOf(" ", maxLength);
+                                    if (lastSpaceIndex != -1)
+                                    {
+                                        description = description.Substring(0, lastSpaceIndex) + "...";
+                                    }
+                                    else
+                                    {
+                                        description = description.Substring(0, maxLength) + "...";
+                                    }
+                                }
+                            }
+                            @description
+                        </div>
+                        <div class="film-trailer-button film-trailer-button-search activate-modal" data-title="@movie.Title">
+                            <p>Трейлер</p>
+                        </div>
+                        <button class="film-buy-tickets film-buy-tickets-search"><a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView" asp-route-movieId="@movie.MovieId">Придбати квиток</a></button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div id="overlay"></div>
+<div id="myModal" class="modal">
+    <span id="btn_watch_close" class="close">&times;</span>
+    <div id="videoContainer" class="video-container">
+        <iframe id="videoPlayer" width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="text-block container">
+        <div class="modal-info-container d-flex">
+            <div class="modal-film-info">
+                <div class="film-name side-elem modal-film-caption" id="modalTitle"></div>
+                <div class="film-elem side-elem"><b>Жанр: </b></div>
+                <div class="film-elem side-elem"><b>Дата виходу: </b></div>
+                <div class="film-elem side-elem"><b>Тривалість: </b></div>
+                <div class="film-elem side-elem"><b>У головних ролях: </b></div>
+                <div class="film-elem side-elem"><b>Опис: </b></div>
+            </div>
+            <div class="modal-film-side">
+                <div class="film-rating"></div>
+                <div class="film-elem">
+                    <img id="modalImageTag" src="" alt="Alternate Text" />
+                </div>
+                <div class="btn-border">
+                    <button class="film-buy-tickets">
+                        <a class="a-buy-tickets" asp-area="" asp-controller="Booking" asp-action="BookingView">Придбати квиток</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+
+<script src="~/js/seach-button.js"></script>
+<script src="~/js/trailer-modal.js"></script>
+<script src="~/js/ticket-dropdown.js"></script>
+<script src="~/js/properties-choose.js"></script>
+<script src="~/js/genres-list.js"></script>

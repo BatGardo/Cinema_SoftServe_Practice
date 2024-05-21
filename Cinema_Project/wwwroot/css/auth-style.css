@@ -29,12 +29,13 @@ main {
 }
 
 .auth-caption {
-    font-family: "Archivo Black", sans-serif;
-    font-weight: 400;
+    font-family: "Arimo", serif;
+    font-weight: 600;
     font-style: normal;
     color: #ffffff;
     font-size: 80px;
     margin-bottom: 34px;
+    text-align: center;
 }
 
 .auth-container > input {
@@ -71,8 +72,8 @@ main {
 
     .auth-container > input[type="submit"] {
         background-color: #df0a0a;
-        font-family: "Archivo Black", sans-serif;
-        font-weight: 400;
+        font-family: "Arimo", serif;
+        font-weight: 600;
         font-style: normal;
         font-size: 30px;
         color: #ffffff;
@@ -93,8 +94,8 @@ main {
     .remember-check > input[type="checkbox"] + label {
         transform: translateX(21px);
         position: relative;
-        font-family: "Archivo", sans-serif;
-        font-weight: 400;
+        font-family: "Arimo", serif;
+        font-weight: 600;
         font-style: normal;
         font-size: 20px;
         color: white;
@@ -162,8 +163,8 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: "Archivo Black", sans-serif;
-    font-weight: 400;
+    font-family: "Arimo", serif;
+    font-weight: 600;
     font-style: normal;
     color: #ffffff;
     font-size: 80px;

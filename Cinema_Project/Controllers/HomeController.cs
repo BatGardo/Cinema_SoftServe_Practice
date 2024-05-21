@@ -24,17 +24,47 @@ namespace Cinema_Project.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+            ProfileViewLayout();
+
             var movies = _context.Movies
                 .Include(m => m.MovieGenres)
                 .Include(m => m.MovieActors)
+                .Include(m => m.Trailers)
+                .Include(m => m.Screenings)
+                .Where(m => m.Screenings.Any())
+                .OrderBy(m => m.Screenings.Min(s => s.ScreeningDate))
                 .ToList();
+
             var genres = _context.Genres.ToList();
             var actors = _context.Actors.ToList();
-            var viewModel = new CombinedMovieViewModel { Movies = movies, Genres = genres, Actors = actors };
+            var trailers = _context.Trailers.ToList();
+
+            var viewModel = new CombinedMovieViewModel
+            {
+                Movies = movies,
+                Genres = genres,
+                Actors = actors,
+                Trailers = trailers
+            };
+
             return View(viewModel);
         }
 
-        
+
+
+        public string ProfileViewLayout()
+        {
+            string userName = HttpContext.Session.GetString("UserName"); 
+            if (string.IsNullOrEmpty(userName))
+            {
+                userName = "Guest";
+            }
+            ViewBag.UserName = userName;
+            return userName;
+        }
+
+
+
 
         public IActionResult Privacy()
         {

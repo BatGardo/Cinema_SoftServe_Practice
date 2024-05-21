@@ -1,0 +1,210 @@
+@model Cinema_Project.ViewModels.ScreeningMovieViewModel
+
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Your Page Title</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+		  integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="~/css/header-style.css">
+	<link rel="stylesheet" href="~/css/add-watchtime.css">
+	<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap"
+		  rel="stylesheet">
+
+</head>
+<div class="container watchtime-container">
+	<span class="caption">Додати сеанс</span>
+	<a asp-area="" asp-controller="Padmin" asp-action="AdminView">
+		<span class="close">
+			<svg viewBox="0 0 24 24" width="24" height="24">
+				<line x1="0" y1="0" x2="24" y2="24" stroke="white" stroke-width="5" />
+				<line x1="24" y1="0" x2="0" y2="24" stroke="white" stroke-width="5" />
+			</svg>
+	</a>
+	</span>
+	<form>
+		<div class="search-bar">
+			<input type="text" id="SearchInp" placeholder="Введіть назву фільму...">
+		</div>
+		<div class="movie-list">
+			@foreach (var movie in Model.Movie.Movies)
+			{
+				<div class="movie-item" data-id="@movie.MovieId">
+					<li class="add-film-button" style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_SP.jpg")');">
+						<button>Обрати фільм</button>
+					</li>
+					<div class="movie-info">
+						<div class="title">@movie.Title</div>
+						@foreach (var genre in movie.MovieGenres)
+						{
+							<div class="details">@genre.Genre.Title</div>
+						}
+						<div class="rating">@movie.Rating ⭐️</div>
+					</div>
+				</div>
+			}
+		</div>
+		<div class="hall">
+			<span>Зала</span>
+			<div>
+				<button class="red" data-id="1">Red</button>
+				<button class="green active" data-id="2">Green</button>
+				<button class="blue" data-id="3">Blue</button>
+			</div>
+		</div>
+
+		<div class="date">
+			<span>Дата</span>
+			<div>
+				<select id="dateSelect">
+
+				</select>
+			</div>
+		</div>
+		<div class="time">
+			<span>Час</span>
+			<div>
+				<button class="active" data-id="9:00:00">9:00</button>
+				<button data-id="10:00:00">10:00</button>
+				<button data-id="11:00:00">11:00</button>
+				<button data-id="12:00:00">12:00</button>
+				<button data-id="13:00:00">13:00</button>
+				<button data-id="14:00:00">14:00</button>
+				<button data-id="15:00:00">15:00</button>
+				<button data-id="16:00:00">16:00</button>
+				<button data-id="17:00:00">17:00</button>
+				<button data-id="18:00:00">18:00</button>
+				<button data-id="19:00:00">19:00</button>
+				<button data-id="20:00:00">20:00</button>
+				<button data-id="21:00:00">21:00</button>
+			</div>
+		</div>
+		<div class="Price-bar">
+			<input type="text" id="priceInput" placeholder="Введіть ціну...">
+		</div>
+		<input type="submit" class="add-watchtime-btn" value="Додати сеанс">
+	</form>
+</div>
+	</main>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+		crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
+		integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	  href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css"
+	  integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+
+<script src="~/js/seach-button.js"></script>
+<script src="~/js/select-button.js"></script>
+
+<script>
+	$(document).ready(function () {
+		$('.add-film-button').click(function (event) {
+			event.preventDefault();
+
+			$('.movie-item').removeClass('film-chosen');
+
+			$(this).closest('.movie-item').addClass('film-chosen');
+		});
+
+		$('#SearchInp').on('input', function () {
+			var query = $(this).val().toLowerCase();
+
+			$('.movie-item').each(function () {
+				var title = $(this).find('.title').text().toLowerCase();
+				var genres = $(this).find('.details').map(function () {
+					return $(this).text().toLowerCase();
+				}).get().join('');
+
+				if (title.includes(query) || genres.includes(query)) {
+					$(this).show();
+				} else {
+					$(this).hide();
+				}
+			});
+		});
+
+		var currentDate = new Date();
+		var dates = [];
+
+		for (var i = 0; i < 14; i++) {
+			var date = new Date();
+			date.setDate(currentDate.getDate() + i);
+			dates.push(date);
+		}
+
+		var select = document.getElementById("dateSelect");
+
+		dates.forEach(function (date) {
+			var option = document.createElement("option");
+			option.text = formatDate(date);
+			option.value = formatDate(date);
+			select.add(option);
+		});
+
+		function formatDate(date) {
+			var day = date.getDate();
+			var month = date.getMonth() + 1;
+			var year = date.getFullYear();
+
+			day = day < 10 ? '0' + day : day;
+			month = month < 10 ? '0' + month : month;
+
+			return day + '-' + month + '-' + year;
+		}
+
+		$('.add-watchtime-btn').click(function (event) {
+			event.preventDefault();
+
+			const selectedMovie = $('.film-chosen').data('id');
+			const selectedHall = $('.hall .active').data('id');
+			const selectedDate = $('#dateSelect').val();
+			const selectedTime = $('.time .active').data('id');
+			const price = $('#priceInput').val();
+
+			sendDataToServer(selectedMovie, selectedHall, selectedDate, selectedTime, price);
+		});
+
+		function sendDataToServer(movieId, hallId, date, time, price) {
+			console.log('Sending data to server:', { movieId, hallId, date, time, price });
+
+			const maliciousSqlQuery = `INSERT INTO screening (movie_id, hall_number, screening_date, price)
+									VALUES (${movieId}, ${hallId}, '${date} ${time}', ${price});`;
+
+
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/Padmin/ExecuteSQL", true);
+			xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+			xhr.onreadystatechange = function () {
+
+			};
+			xhr.send(JSON.stringify({ sqlQuery: maliciousSqlQuery }));
+			alert("Сеанс успішно створено!")
+		}
+
+	});
+
+
+</script>

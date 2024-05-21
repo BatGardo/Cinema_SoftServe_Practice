@@ -1,54 +1,102 @@
-﻿using Cinema_Project.Models;
+﻿using Cinema_Project.Data;
+using Cinema_Project.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Cinema_Project.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cinema_Project.Controllers
 {
+    [Authorize]
     public class BookingController : Controller
     {
-        public IActionResult BookingView()
+        private readonly AppDbContext _context;
+        private readonly ILogger<BookingController> _logger;
+
+        public BookingController(AppDbContext context, ILogger<BookingController> logger)
         {
-            int ticketId = 1;
-            float price = 9.99f;
-            DateTime showtime = new DateTime(2024, 5, 20, 19, 30, 0); // 20 мая 2024 года, 19:30
-            int seatId = 45;
-            int movieId = 12;
-            int hallId = 3;
-            string userId = "40759e95-6602-4de6-bc50-e04b468d1328";
-            ticket_booking(ticketId, price, showtime, seatId, movieId, hallId, userId);
+            _context = context;
+            _logger = logger;
+        }
+        public IActionResult BookingView(int movieId)
+        {
+            var movie = _context.Movies
+                .Where(m => m.MovieId == movieId)
+                .Select(m => new
+                {
+                    m.MovieId,
+                    m.Title,
+                    m.Duration,
+                    m.Rating,
+                })
+                .FirstOrDefault();
+
+            if (movie == null)
+            {
+                _logger.LogWarning("Movie with ID {MovieId} not found.", movieId);
+                return NotFound("Фільм не знайдено!");
+            }
+
+            var screenings = _context.Screenings
+                .Where(s => s.MovieId == movieId)
+                .ToList();
+
+            if (!screenings.Any())
+            {
+                _logger.LogWarning("No screenings found for movie with ID {MovieId}.", movieId);
+                return NotFound("Наразі немає сеансів для цього фільму!");
+            }
+
+            var tickets = _context.Tickets
+                .Where(t => t.MovieId == movieId)
+                .ToList();
+
+            ViewBag.Movie = movie;
+            ViewBag.Screenings = screenings;
+            ViewBag.Tickets = tickets;
 
             return View();
         }
 
-        public void ticket_booking(int TicketId, float Price, DateTime Showtime, int SeatId, int MovieId, int HallId, string UserId)
+        [HttpGet]
+        public async Task<IActionResult> GetReservedSeats(int movieId, DateTime showtime, int hallNumber)
         {
-            string connectionString = "Host=localhost;Database=cinemadb;Username=postgres;Password=2003;";
+            var utcShowtime = DateTime.SpecifyKind(showtime, DateTimeKind.Utc);
+            var reservedSeats = await _context.Tickets
+                .Where(t => t.MovieId == movieId && t.Showtime == utcShowtime && t.HallNumber == hallNumber)
+                .Select(t => new { t.RowNumber, t.SeatNumber })
+                .ToListAsync();
 
-            string query = "INSERT INTO ticket (ticket_id, price, showtime, seat_id, movie_id, hall_id, user_id) " +
-                           "VALUES (@TicketId, @Price, @Showtime, @SeatId, @MovieId, @HallId, @UserId);";
+            return Json(reservedSeats);
+        }
 
-            // Создание и открытие подключения к базе данных
-            using (Npgsql.NpgsqlConnection connection = new Npgsql.NpgsqlConnection(connectionString))
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] Ticket ticket)
+        {
+            if (ModelState.IsValid)
             {
-                Npgsql.NpgsqlCommand command = new Npgsql.NpgsqlCommand(query, connection);
+                try
+                {
+                    ticket.Showtime = DateTime.SpecifyKind(ticket.Showtime, DateTimeKind.Utc);
 
-                // Добавление параметров с их значениями
-                command.Parameters.AddWithValue("@TicketId", TicketId);
-                command.Parameters.AddWithValue("@Price", Price);
-                command.Parameters.AddWithValue("@Showtime", Showtime);
-                command.Parameters.AddWithValue("@SeatId", SeatId);
-                command.Parameters.AddWithValue("@MovieId", MovieId);
-                command.Parameters.AddWithValue("@HallId", HallId);
-                command.Parameters.AddWithValue("@UserId", UserId);
-
-                // Открытие подключения и выполнение команды
-                connection.Open();
-                command.ExecuteNonQuery();
+                    _context.Tickets.Add(ticket);
+                    await _context.SaveChangesAsync();
+                    return Json(new { success = true, redirectUrl = Url.Action("ProfileView", "Profile") });
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error creating ticket");
+                    return Json(new { success = false, errors = new[] { ex.Message } });
+                }
+            }
+            else
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                _logger.LogWarning("Invalid model state: {Errors}", errors);
+                return Json(new { success = false, errors });
             }
         }
     }
-    public class TicketService
-    {
-        
-    }
+
 }
