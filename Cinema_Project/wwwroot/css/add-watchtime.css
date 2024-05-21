@@ -53,6 +53,7 @@ button{
     gap: 10px;
 }
 .Price-bar input {
+    margin-top: 15px;
     width: 20%;
     padding: 15px;
     border: none;
@@ -61,12 +62,15 @@ button{
     color: #fff;
     outline: 0;
 }
-.movie-list {
-    margin-top: 13px;
-    display: flex;
-    gap: 5%;
-    flex-wrap: wrap;
-}
+    .Price-bar input::placeholder{
+        color:white;
+    }
+    .movie-list {
+        margin-top: 13px;
+        display: flex;
+        gap: 5%;
+        flex-wrap: wrap;
+    }
 .movie-item {
     display: flex;
     align-items: center;

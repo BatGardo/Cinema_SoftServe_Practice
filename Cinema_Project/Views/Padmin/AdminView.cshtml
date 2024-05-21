@@ -12,7 +12,7 @@
             {
                 <div class="list-element">
                     <div class="text-list">
-                        <div class="text-elem">@screening.Movie.Title</div>
+                        <div class="text-elem">@TruncateTitle(@screening.Movie.Title, 20)</div>
                         <div class="text-elem">@screening.HallNumber</div>
                         <div class="text-elem">@screening.ScreeningDate.ToString("HH:mm")</div>
                         <div class="text-elem">@screening.ScreeningDate.ToString("dd.MM.yyyy")</div>
@@ -42,7 +42,7 @@
             {
                 <div class="list-element">
                     <div class="text-list">
-                        <div class="text-elem">@movie.Title</div>
+                        <div class="text-elem">@TruncateTitle(@movie.Title,20)</div>
                         <div class="text-elem">@movie.ReleaseDate.ToString("yyyy")</div>
                         <div class="text-elem">@movie.Duration</div>
                         <div class="text-elem">@movie.Rating</div>
@@ -63,6 +63,23 @@
         </div>
     </div>
 </div>
+
+@functions {
+    private string TruncateTitle(string title, int maxLength)
+    {
+        if (string.IsNullOrEmpty(title) || title.Length <= maxLength)
+        {
+            return title;
+        }
+
+        int lastSpaceIndex = title.LastIndexOf(' ', maxLength);
+        if (lastSpaceIndex == -1)
+        {
+            return title.Substring(0, maxLength) + "...";
+        }
+        return title.Substring(0, lastSpaceIndex) + "...";
+    }
+}
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
