@@ -3,8 +3,6 @@
 @{
     var movie = ViewBag.Movie;
     var screenings = ViewBag.Screenings as List<Cinema_Project.Models.Screening>;
-    var tickets = ViewBag.Tickets as List<Cinema_Project.Models.Ticket>;
-    var occupiedSeats = tickets.Select(t => new { t.RowNumber, t.SeatNumber }).ToList();
     var halls = new List<(int HallNumber, string HallName, string HallClass)>
     {
         (1, "Red", "hall-red"),
@@ -23,15 +21,12 @@
         <div class="screen-caption">ЕКРАН</div>
         <div class="screen-img"><img src="~/img/screen.png"></div>
         <div class="seat-container">
-
             @for (int i = 0; i < 10; i++)
             {
                 <div class="seat-row">
                     @for (int j = 0; j < 15; j++)
                     {
-                        bool isSeatBlocked = occupiedSeats.Any(s => s.RowNumber - 1 == i && s.SeatNumber - 1 == j);
-                        string seatClass = isSeatBlocked ? "seat seat-blocked" : "seat";
-                        <div class="@seatClass"></div>
+                        <div class="seat"></div>
                     }
                 </div>
             }
@@ -42,7 +37,7 @@
             <li class="slider-item movie" id="slider-item"
                 style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_SP.jpg")');"></li>
             <div class="film-info">
-                <div class="film-info-name">@movie.Title</div> 
+                <div class="film-info-name">@movie.Title</div> <!-- Назва фільму -->
                 <div class="film-data"><span>@($"{movie.Duration / 60}г {movie.Duration % 60}хв")</span> | <span class="film-info-rating">@movie.Rating</span></div>
                 <div class="film-trailer-button activate-modal" data-title="@movie.Title">
                     <p>Трейлер</p>
@@ -76,23 +71,18 @@
                     <div class="row-name">ЗАЛ</div>
                 </div>
                 <div class="row-buttons">
-                    @foreach (var screening in screenings.Select(s => s.HallNumber).Distinct())
+                    @foreach (var hall in halls)
                     {
-                        var hall = halls.FirstOrDefault(h => h.HallNumber == screening);
-                        if (hall != default)
-                        {
-                            <div class="row-button hall @hall.HallClass" data-hall="@screening">@hall.HallName</div>
-                        }
+                        <div class="row-button hall @hall.HallClass" data-hall="@hall.HallNumber">@hall.HallName</div>
                     }
-
                 </div>
             </div>
         </div>
-        <div class="single-seat-price">Ціна місця: @screenings.First().Price ₴</div>
+        <div class="single-seat-price">Ціна місця: @screenings.First().Price ₴</div> <!-- Ціна 1 місця-->
         <div class="line"></div>
 
         <div class="booked-seats" id="booked-seats"></div>
-        <div class="total-price">Всього: 0₴</div>
+        <div class="total-price">Всього: 0₴</div> <!-- Загальна ціна -->
         <form id="ticketForm">
             <input type="hidden" name="Showtime" id="Showtime" />
             <input type="hidden" name="Price" id="Price" />
