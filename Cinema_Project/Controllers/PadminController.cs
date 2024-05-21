@@ -107,7 +107,7 @@ namespace Cinema_Project.Controllers
 
                 _context.Movies.Add(movie);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(AdminView));
+                return Json(new { success = true, redirectUrl = Url.Action("AdminView", "Padmin") });
             }
 
             model.Genres = await _context.Genres.ToListAsync();
@@ -134,7 +134,7 @@ namespace Cinema_Project.Controllers
                         await command.ExecuteNonQueryAsync();
                     }
                 }
-                return Ok("SQL query executed successfully");
+                return Json(new { success = true, redirectUrl = Url.Action("AdminView", "Padmin") });
             }
             catch (Exception ex)
             {
@@ -160,9 +160,8 @@ namespace Cinema_Project.Controllers
 					Genres = genres
 				}
 			};
-
-			return View(model);
-		}
+            return View(model);
+        }
 
 		[HttpGet]
 		public IActionResult SearchMovies(string query)

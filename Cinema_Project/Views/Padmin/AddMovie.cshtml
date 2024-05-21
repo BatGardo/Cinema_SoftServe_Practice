@@ -27,17 +27,19 @@
             <p>Опис:</p>
             <textarea asp-for="Description"></textarea>
         </div>
-        <div class="year-flex d-flex">
-            <p>Дата виходу:</p>
-            <input type="date" min="2000-01-01" max="2030-01-01" value="2020-01-01" asp-for="ReleaseDate" />
-        </div>
-        <div class="duration-flex d-flex">
-            <p>Тривалість:</p>
-            <input type="text" asp-for="Duration" />
-        </div>
-        <div class="rating-flex d-flex">
-            <p>Рейтинг:</p>
-            <input type="text" step="0.1" asp-for="Rating" />
+        <div class="container-date-year">
+            <div class="year-flex d-flex">
+                <p>Дата виходу:</p>
+                <input type="date" min="2000-01-01" max="2030-01-01" value="2020-01-01" asp-for="ReleaseDate" />
+            </div>
+            <div class="duration-flex d-flex">
+                <p>Тривалість:</p>
+                <input type="text" asp-for="Duration" />
+            </div>
+            <div class="rating-flex d-flex" style="margin-top:0px">
+                <p>Рейтинг:</p>
+                <input type="text" step="0.1" asp-for="Rating" />
+            </div>
         </div>
         <div class="genres-flex d-flex">
             <p>Жанри:</p>
@@ -63,7 +65,7 @@
                 </select>
                 <button type="button" class="add-button" onclick="addActor()" style="margin-top:15px">Додати актора</button>
             </div>
-            <ul id="selectedActors"></ul>
+            <ul id="selectedActors" style="display: flex; gap: 10px; flex-wrap: wrap; list-style-type: none;"></ul>
         </div>
         <input type="submit" class="add-button" onclick="generateSQLQuery()" value="Додати фільм">
     </form>
@@ -80,20 +82,22 @@
 
                 if (selectedActorId) {
                     var listItem = document.createElement("li");
-                    listItem.textContent = selectedActorText;
 
                     var hiddenInput = document.createElement("input");
                     hiddenInput.type = "hidden";
                     hiddenInput.name = "SelectedActorIds";
                     hiddenInput.value = selectedActorId;
 
+
                     var removeButton = document.createElement("button");
                     removeButton.className = "add-button"
                     removeButton.type = "button";
-                    removeButton.textContent = "Remove";
+                    removeButton.textContent = selectedActorText;
+                    removeButton.style = 'padding: 0 5px; margin: 3px;'
                     removeButton.onclick = function () {
                         listItem.remove();
                     };
+
 
                     listItem.appendChild(hiddenInput);
                     listItem.appendChild(removeButton);
@@ -138,10 +142,17 @@
                 xhr.open("POST", "/Padmin/ExecuteSQL", true);
                 xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
                 xhr.onreadystatechange = function () {
-
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.success) {
+                            alert("Фільм успішно створено!")
+                            window.location.href = response.redirectUrl;
+                        } else {
+                            alert("Error adding movie: " + (response.errors ? response.errors.join(", ") : "Unknown error"));
+                        }
+                    }
                 };
                 xhr.send(JSON.stringify({ sqlQuery: sqlQuery }));
-                alert("Фільм успішно створено!")
             }
         </script>
     }
