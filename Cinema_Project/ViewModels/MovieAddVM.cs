@@ -16,7 +16,7 @@ namespace Cinema_Project.ViewModels
         public List<int>? SelectedGenreIds { get; set; }
         public List<int>? SelectedActorIds { get; set; }
 
-        [Required] // Убедитесь, что они обязательны только если это действительно так
+        [Required] 
         public List<Genre> Genres { get; set; }
         [Required]
         public List<Actor> Actors { get; set; }

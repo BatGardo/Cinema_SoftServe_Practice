@@ -21,39 +21,20 @@
                 <div class="property-svg ticket-svg"><img src="~/img/droplist-ico.svg"></div>
             </div>
             <div class="properties-droplist ticket-droplist">
-                <div class="properties-droplist-elem elem-active" data-sort="title">Назвою</div> <!-- Сортировка по названию фильма -->
+                <div class="properties-droplist-elem elem-active" data-sort="title">Назвою</div>
                 <div class="line"></div>
-                <div class="properties-droplist-elem" data-sort="popularity">Популярністю</div> <!-- Сортировка по рейтингу фильма -->
+                <div class="properties-droplist-elem" data-sort="popularity">Популярністю</div>
 
             </div>
         </div>
         <div class="line-v"></div>
-        @* <div class="properties-elem ticket-element">
-        <div class="properties-top side-border ticket-top">
-        <div class="property-img"><img src="~/img/order-sort.svg"></div>
-        <div class="property-text">Order: <u>Descending</u></div>
-        <div class="property-svg ticket-svg"><img src="~/img/droplist-ico.svg"></div>
-        </div>
-        <div class="properties-droplist ticket-droplist">
-        <div class="properties-droplist-elem d-flex">
-        <img src="~/img/order-sort.svg" style="transform: rotate(180deg);">
-        Ascending <!-- Сортування за зростанням-->
-        </div>
-        <div class="line"></div>
-        <div class="properties-droplist-elem d-flex elem-active">
-        <img src="~/img/order-sort.svg">
-        Descending <!-- Сортування за спаданням-->
-        </div>
-        </div>
-        </div> *@
         <div class="properties-elem flex-grow-1 ticket-element">
             <div class="properties-top right ticket-top">
-                <div class="property-text" id="genres">Жанри: <u></u></div> <!-- Список вибраних жанрів-->
+                <div class="property-text" id="genres">Жанри: <u></u></div>
                 <div class="property-svg ticket-svg"><img src="~/img/droplist-ico.svg"></div>
             </div>
             <div class="properties-droplist ticket-droplist">
                 <div class="properties-check-container">
-                    <!-- Список жанрів-->
                     @foreach (var genre in Model.Genres)
                     {
                         <div class="properties-droplist-check">
@@ -61,7 +42,6 @@
                             <label for="@genre.Title"><span></span>@genre.Title</label>
                         </div>
                     }
-                    <!-- Список жанрів-->
                 </div>
             </div>
         </div>
@@ -73,7 +53,6 @@
                 var movie = Model.Movies[i];
                 var genres = string.Join(",", movie.MovieGenres.Select(mg => mg.Genre.Title));
                 <div class="film-search-elem" data-genres="@genres" data-rating="@movie.Rating" style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_SP.jpg")');">
-                    <!-- Постер фильма-->
                     <div class="search-info-container">
                         <div class="film-elem-name">
                             @{
@@ -95,7 +74,7 @@
                                 }
                             }
                             @title
-                        </div> <!-- Название фильма-->
+                        </div>
                         <div class="film-elem-description">
                             @{
                                 var description = movie.Description;
@@ -115,7 +94,7 @@
                                 }
                             }
                             @description
-                        </div> <!-- Описание фильма-->
+                        </div>
                         <div class="film-trailer-button film-trailer-button-search activate-modal" data-title="@movie.Title">
                             <p>Трейлер</p>
                         </div>

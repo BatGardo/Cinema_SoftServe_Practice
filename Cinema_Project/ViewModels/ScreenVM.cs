@@ -2,7 +2,7 @@
 {
 	public class ScreenVM
 	{
-		public int Id { get; set; } // Add the Id property
+		public int Id { get; set; }
 		public string MovieTitle { get; set; }
 		public int HallName { get; set; }
 		public string Date { get; set; }

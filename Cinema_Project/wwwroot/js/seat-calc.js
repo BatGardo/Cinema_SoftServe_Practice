@@ -136,7 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const selectedDate = button.getAttribute('data-date');
 
-            // Filter time buttons based on selected date and update their visibility or data attributes
             timeButtons.forEach(timeButton => {
                 const screeningDateTime = new Date(`${selectedDate}T${timeButton.getAttribute('data-time')}`);
                 const matchingScreening = screenings.find(screening => new Date(screening.ScreeningDate).getTime() === screeningDateTime.getTime());
@@ -149,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Optionally, update the single seat price based on the first visible time button
             const firstVisibleTimeButton = Array.from(timeButtons).find(button => button.style.display !== 'none');
             if (firstVisibleTimeButton) {
                 seatPrice = parseFloat(button.getAttribute('data-price'));

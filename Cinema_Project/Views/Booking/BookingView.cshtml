@@ -42,7 +42,7 @@
             <li class="slider-item movie" id="slider-item"
                 style="background-image: url('@Url.Content("~/img_posters/" + movie.Title.Replace(":","") + "/" + movie.Title.Replace(":","") + "_SP.jpg")');"></li>
             <div class="film-info">
-                <div class="film-info-name">@movie.Title</div> <!-- Назва фільму -->
+                <div class="film-info-name">@movie.Title</div> 
                 <div class="film-data"><span>@($"{movie.Duration / 60}г {movie.Duration % 60}хв")</span> | <span class="film-info-rating">@movie.Rating</span></div>
                 <div class="film-trailer-button activate-modal" data-title="@movie.Title">
                     <p>Трейлер</p>
@@ -88,11 +88,11 @@
                 </div>
             </div>
         </div>
-        <div class="single-seat-price">Ціна місця: @screenings.First().Price ₴</div> <!-- Ціна 1 місця-->
+        <div class="single-seat-price">Ціна місця: @screenings.First().Price ₴</div>
         <div class="line"></div>
 
         <div class="booked-seats" id="booked-seats"></div>
-        <div class="total-price">Всього: 0₴</div> <!-- Загальна ціна -->
+        <div class="total-price">Всього: 0₴</div>
         <form id="ticketForm">
             <input type="hidden" name="Showtime" id="Showtime" />
             <input type="hidden" name="Price" id="Price" />

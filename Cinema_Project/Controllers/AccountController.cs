@@ -29,7 +29,6 @@ namespace Cinema_Project.Controllers
                     var result = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                     if (result.Succeeded)
                     {
-                        // Сохраняем только необходимые данные о пользователе в сессию
                         HttpContext.Session.SetString("UserId", user.Id);
                         HttpContext.Session.SetString("UserName", user.UserName);
                         return RedirectToAction("Index", "Home");

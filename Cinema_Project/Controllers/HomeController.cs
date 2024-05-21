@@ -26,7 +26,6 @@ namespace Cinema_Project.Controllers
         {
             ProfileViewLayout();
 
-            // Get movies including related data and order by the nearest screening date
             var movies = _context.Movies
                 .Include(m => m.MovieGenres)
                 .Include(m => m.MovieActors)
@@ -55,7 +54,7 @@ namespace Cinema_Project.Controllers
 
         public string ProfileViewLayout()
         {
-            string userName = HttpContext.Session.GetString("UserName"); // Получите имя пользователя из вашей системы аутентификации
+            string userName = HttpContext.Session.GetString("UserName"); 
             if (string.IsNullOrEmpty(userName))
             {
                 userName = "Guest";

@@ -28,20 +28,17 @@ function sortMovies(sortBy) {
             } else if (sortBy === 'popularity') {
                 const ratingA = parseFloat(a.getAttribute('data-rating'));
                 const ratingB = parseFloat(b.getAttribute('data-rating'));
-                return ratingB - ratingA; // Сортировка по убыванию рейтинга (популярности)
+                return ratingB - ratingA; 
             }
         });
 
-        // Создаем новый контейнер для отсортированных фильмов
         const sortedFilmsContainer = document.createElement('div');
         sortedFilmsContainer.classList.add('films-row');
 
-        // Добавляем отсортированные фильмы в новый контейнер
         films.forEach(film => {
             sortedFilmsContainer.appendChild(film);
         });
 
-        // Заменяем старый контейнер на новый
         row.parentNode.replaceChild(sortedFilmsContainer, row);
     });
 }

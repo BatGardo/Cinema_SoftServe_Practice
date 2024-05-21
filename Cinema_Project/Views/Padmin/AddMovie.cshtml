@@ -26,93 +26,6 @@
                 </svg>
             </a>
         </span>
-            @* <form>
-                <div class="container-caption"><u>Add movie</u></div>
-                <div class="add-movie-flex">
-                    <div class="poster-rating-container">
-                        <div id="drop-area" class="add-poster">
-                            <div class="add-text-img watchtime"><img src="~/img/add-button.svg"></div>
-                            <input type="file" class="file-input" accept="image/jpeg, image/png, image/gif">
-                        </div>
-                        <input type="file" accept="image/jpeg, image/png, image/gif">
-                        <div class="rating-flex d-flex">
-                            <p>Rating:</p>
-                            <input type="text" value="">
-                        </div>
-                    </div>
-                    <div class="info-container">
-                        <div class="title-flex d-flex">
-                            <p>Title:</p>
-                            <input type="text" value="">
-                        </div>
-                        <div class="description-flex d-flex">
-                            <p>Description:</p>
-                            <textarea value=""></textarea>
-                        </div>
-                        <div class="actors-flex d-flex">
-                            <p id="actors-list">Actors:</p>
-                            <input id="active-actor" type="text" readonly>
-                            <div class="select-container">
-                                <div class="add-actor-button">
-                                    <img id="add-actor" src="~/img/add-button.svg">
-                                </div>
-                                <select class="actor-select" id="select-actor" placeholder="Оберіть актора...">
-                                    <option>Уїлл Смітт</option>
-                                    <option>Улїл Смітт</option>
-                                    <option>Уїлл См</option>
-                                    <option>Уїл Смітт</option>
-                                    <option>Улл Смітт</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="trailer-flex d-flex">
-                            <p>Trailer link:</p>
-                            <input type="text" value="">
-                        </div>
-                        <div class="year-duration-flex d-flex">
-                            <div class="duration-flex d-flex">
-                                <p>Duration:</p>
-                                <input type="text" value="">
-                                <span class="text-sm">h</span>
-                                <input type="text" value="">
-                                <span class="text-sm">m</span>
-                            </div>
-                            <div class="year-flex d-flex">
-                                <p>Year:</p>
-                                <input type="text" value="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="genres-flex d-flex">
-                    <p>Genres:</p>
-                    <div class="genres-container">
-                        <div class="properties-droplist-check">
-                            <input type="checkbox" id="drama">
-                            <label for="drama"><span></span>Drama</label>
-                        </div>
-                        <div class="properties-droplist-check">
-                            <input type="checkbox" id="drama">
-                            <label for="drama"><span></span>Drama</label>
-                        </div>
-                        <div class="properties-droplist-check">
-                            <input type="checkbox" id="drama">
-                            <label for="drama"><span></span>Drama</label>
-                        </div>
-                        <div class="properties-droplist-check">
-                            <input type="checkbox" id="drama">
-                            <label for="drama"><span></span>Drama</label>
-                        </div>
-                        <div class="properties-droplist-check">
-                            <input type="checkbox" id="drama">
-                            <label for="drama"><span></span>Drama</label>
-                        </div>
-                    </div>
-                </div>
-                <input type="submit" class="add-button">
-            </form>
-        </div> *@
-
     @model Cinema_Project.ViewModels.MovieAddVM
 
     <form asp-action="AddMovie" method="post" id="movieForm">
@@ -231,7 +144,6 @@
 
                 var sqlQuery = movieQuery + "\n" + genreQueries.join("\n") + "\n" + actorQueries.join("\n");
 
-                // Отправка AJAX-запроса на сервер
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "/Padmin/ExecuteSQL", true);
                 xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");

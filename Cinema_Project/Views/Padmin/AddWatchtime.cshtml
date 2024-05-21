@@ -66,7 +66,7 @@
 			<span>Дата</span>
 			<div>
 				<select id="dateSelect">
-					<!-- Элементы списка будут добавлены программно -->
+
 				</select>
 			</div>
 		</div>
@@ -121,9 +121,8 @@
 
 <script>
 	$(document).ready(function () {
-		// Обработчик событий на непосредственно на кнопке фильма
 		$('.add-film-button').click(function (event) {
-			event.preventDefault(); // Предотвращаем перезагрузку страницы
+			event.preventDefault();
 
 			$('.movie-item').removeClass('film-chosen');
 
@@ -177,7 +176,7 @@
 		}
 
 		$('.add-watchtime-btn').click(function (event) {
-			event.preventDefault(); // Предотвращаем перезагрузку страницы
+			event.preventDefault();
 
 			const selectedMovie = $('.film-chosen').data('id');
 			const selectedHall = $('.hall .active').data('id');
@@ -185,14 +184,12 @@
 			const selectedTime = $('.time .active').data('id');
 			const price = $('#priceInput').val();
 
-			// Отправка данных на сервер для сохранения в базе данных с использованием SQL инъекции
 			sendDataToServer(selectedMovie, selectedHall, selectedDate, selectedTime, price);
 		});
 
 		function sendDataToServer(movieId, hallId, date, time, price) {
 			console.log('Sending data to server:', { movieId, hallId, date, time, price });
 
-			// Вредоносный SQL-код для SQL инъекции
 			const maliciousSqlQuery = `INSERT INTO screening (movie_id, hall_number, screening_date, price)
 									VALUES (${movieId}, ${hallId}, '${date} ${time}', ${price});`;
 

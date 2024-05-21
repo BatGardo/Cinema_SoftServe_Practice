@@ -1,4 +1,4 @@
-var buttons = document.querySelectorAll(".activate-modal"); // Виберіть всі елементи з класом "film-trailer-button"
+var buttons = document.querySelectorAll(".activate-modal"); 
 
 var btn_watch_open = document.getElementById("film-trailer-button");
 var btn_watch_close = document.getElementById("btn_watch_close");
@@ -14,15 +14,14 @@ function stopVideo() {
 
 
 
-// Додайте обробник подій до кожного елемента з класом "film-trailer-button"
 buttons.forEach(function (button) {
     button.onclick = function () {
         modal.style.opacity = "1";
         modal.style.zIndex = "4";
         overlay.style.opacity = "1";
         overlay.style.zIndex = "3";
-        overlay.style.pointerEvents = "auto"; // дозволяє кліки
-        document.body.style.overflow = "hidden"; // блокування прокрутки
+        overlay.style.pointerEvents = "auto";
+        document.body.style.overflow = "hidden"; 
 
     }
 });
@@ -30,7 +29,7 @@ buttons.forEach(function (button) {
 closeModal.onclick = function () {
     modal.style.opacity = "0";
     overlay.style.opacity = "0";
-    document.body.style.overflow = ""; // знову дозволяє прокрутку
+    document.body.style.overflow = "";
     modal.style.zIndex = "-1";
     overlay.style.zIndex = "-1";
     console.log('Modal zIndex:', modal.style.zIndex);
@@ -38,7 +37,7 @@ closeModal.onclick = function () {
     console.log('Overlay pointerEvents:', overlay.style.pointerEvents);
     setTimeout(function () {
         stopVideo();
-        overlay.style.pointerEvents = "none"; // блокує кліки
+        overlay.style.pointerEvents = "none";
     }, 1000);
 }
 

@@ -10,7 +10,6 @@ function updateGenres() {
         }
     });
 
-    // Limit the number of selected genres to 3
     if (selectedGenres.length > 99) {
         selectedGenres = selectedGenres.slice(0, 3);
         selectedGenres.push("...");
@@ -28,7 +27,6 @@ function updateMovieGenres(selectedGenres) {
         const movieGenres = movie.getAttribute('data-genres').split(',').map(g => g.trim());
         const match = selectedGenres.length === 0 || selectedGenres.some(genre => movieGenres.includes(genre));
 
-        // Debugging: Log each movie's genres and whether it matches the selected genres
         console.log("Movie Genres:", movieGenres, "Selected Genres:", selectedGenres, "Match:", match);
 
         if (match) {
@@ -39,10 +37,8 @@ function updateMovieGenres(selectedGenres) {
     });
 }
 
-// Assuming this is called when a checkbox is clicked
 document.querySelectorAll('.properties-droplist-check input[type="checkbox"]').forEach(checkbox => {
     checkbox.addEventListener('change', updateGenres);
 });
 
-// Ініціалізація початкового стану
 updateGenres();

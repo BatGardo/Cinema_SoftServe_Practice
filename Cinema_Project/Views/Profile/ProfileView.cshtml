@@ -44,7 +44,6 @@
     <div class="ticket-list">
         @foreach (var ticket in Model.Tickets)
         {
-            // Сравниваем дату и время билета с текущей локальной датой и временем
             if (ticket.Showtime > localDateTime)
             {
                 <div class="ticket-element">
@@ -83,7 +82,6 @@
     <div class="ticket-list">
         @foreach (var ticket in Model.Tickets)
         {
-            // Сравниваем дату и время билета с текущей локальной датой и временем
             if (ticket.Showtime < localDateTime)
             {
                 <div class="ticket-element">
